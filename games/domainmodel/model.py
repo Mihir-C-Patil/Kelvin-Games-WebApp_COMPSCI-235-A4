@@ -726,10 +726,24 @@ class User:
         else:
             return None
 
-    def remove_review(self, review):
-        if not isinstance(review, Review) or review not in self.__reviews:
-            return
-        self.__reviews.remove(review)
+    def remove_review(self, review_to_remove) -> None:
+        """
+        Remove a review from the user's list of reviews.
+
+        Parameters
+        ----------
+        review_to_remove: Review
+            This is the Review object to remove
+
+        :param review_to_remove: Review
+        :return: None
+        """
+
+        if isinstance(review_to_remove, Review) and review_to_remove \
+                in self.__reviews:
+            self.__reviews.remove(review_to_remove)
+        else:
+            return None
 
 
 class Review:
