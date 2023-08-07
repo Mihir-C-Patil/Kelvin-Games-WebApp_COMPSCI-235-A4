@@ -937,6 +937,38 @@ class Wishlist:
         else:
             raise StopIteration
 
+    def add_game(self, game_to_add: Game) -> None:
+        """
+        Append a Game object to the wishlist.
+
+        Parameters
+        ----------
+        game_to_add: Game
+            The game object that will be appended to the wishlist
+        :param game_to_add:
+        :return: None
+        """
+
+        if (isinstance(game_to_add, Game) and game_to_add
+                not in self.__list_of_games):
+            self.__list_of_games.append(game_to_add)
+
+    def remove_game(self, game_to_remove: Game) -> None:
+        """
+        Remove a Game object from the wishlist if present.
+
+        Parameters
+        ----------
+        game_to_remove: Game
+            The game object that will be appended to the wishlist
+        :param game_to_remove:
+        :return: None
+        """
+
+        if (isinstance(game_to_remove, Game) and game_to_remove
+                in self.__list_of_games):
+            self.__list_of_games.remove(game_to_remove)
+
     def list_of_games(self):
         return self.__list_of_games
 
@@ -945,19 +977,11 @@ class Wishlist:
         if size_wishlist > 0:
             return size_wishlist
 
-    def add_game(self, game: Game):
-        if isinstance(game, Game) and game not in self.__list_of_games:
-            self.__list_of_games.append(game)
-
     def first_game_in_list(self):
         if len(self.__list_of_games) > 0:
             return self.__list_of_games[0]
         else:
             return None
-
-    def remove_game(self, game):
-        if isinstance(game, Game) and game in self.__list_of_games:
-            self.__list_of_games.remove(game)
 
     def select_game(self, index):
         if 0 <= index < len(self.__list_of_games):
