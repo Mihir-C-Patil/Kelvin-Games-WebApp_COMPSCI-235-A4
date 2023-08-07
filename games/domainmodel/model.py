@@ -921,6 +921,22 @@ class Wishlist:
         self.__iterator_index = 0
         return self
 
+    def __next__(self) -> Game:
+        """
+        Return the next Game object from the wishlist.
+
+        :return: Game
+        :raise: StopIteration
+            When there are no more games to return.
+        """
+
+        if self.__iterator_index < len(self.__list_of_games):
+            game = self.__list_of_games[self.__iterator_index]
+            self.__iterator_index += 1
+            return game
+        else:
+            raise StopIteration
+
     def list_of_games(self):
         return self.__list_of_games
 
@@ -948,11 +964,3 @@ class Wishlist:
             return self.__list_of_games[index]
         else:
             return None
-
-
-    def __next__(self):
-        if self.__current >= len(self.__list_of_games):
-            raise StopIteration
-        else:
-            self.__current += 1
-            return self.__list_of_games[self.__current - 1]
