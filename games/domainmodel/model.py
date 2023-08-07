@@ -911,6 +911,16 @@ class Wishlist:
 
         self.__list_of_games = []
 
+    def __iter__(self):
+        """
+        Initialise the iterator and return the Wishlist object.
+
+        :return: Wishlist
+        """
+
+        self.__iterator_index = 0
+        return self
+
     def list_of_games(self):
         return self.__list_of_games
 
@@ -939,9 +949,6 @@ class Wishlist:
         else:
             return None
 
-    def __iter__(self):
-        self.__current = 0
-        return self
 
     def __next__(self):
         if self.__current >= len(self.__list_of_games):
