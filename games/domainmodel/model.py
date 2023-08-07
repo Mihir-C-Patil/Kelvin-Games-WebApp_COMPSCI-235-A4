@@ -791,6 +791,35 @@ class Review:
         else:
             raise ValueError('Comment must be non-empty string.')
 
+    def __repr__(self) -> str:
+        """
+        Returns the string representation of the Review object.
+        :return: str
+        """
+
+        return (f'Review(User: {self.__user}, Game: {self.__game}, ' +
+                f'Rating: {self.__rating}, Comment: {self.__comment})')
+
+    def __eq__(self, other) -> bool:
+        """
+        Returns True if the other Review object matches this object.
+        Comparison based on user, game, rating and comment.
+
+        Parameters
+        ----------
+        other: Review
+            The other Review object to compare with
+        :param other: Review
+        :return: bool
+        """
+
+        if not isinstance(other, Review):
+            return False
+
+        return self.__user == other.user \
+            and self.__game == other.game \
+            and self.__comment == other.comment
+
     @property
     def game(self) -> Game:
         return self.__game
@@ -820,15 +849,6 @@ class Review:
             self.__rating = new_rating
         else:
             raise ValueError("Rating must be an integer between 0 and 5")
-
-    def __repr__(self):
-        return f"Review(User: {self.__user}, Game: {self.__game}, " \
-               f"Rating: {self.__rating}, Comment: {self.__comment})"
-
-    def __eq__(self, other):
-        if not isinstance(other, self.__class__):
-            return False
-        return other.user == self.__user and other.game == self.__game and other.comment == self.__comment
 
 
 class Wishlist:
