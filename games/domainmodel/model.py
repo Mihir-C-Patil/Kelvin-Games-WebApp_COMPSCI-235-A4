@@ -552,19 +552,34 @@ class Game:
 
 
 class User:
-    def __init__(self, username: str, password: str):
-        if not isinstance(username, str) or username.strip() == "":
-            raise ValueError('Username cannot be empty or non-string!')
-        else:
-            self.__username = username.lower().strip()
+    def __init__(self, username: str, password: str) -> None:
+        """
+        Initialise a User object.
 
-        if isinstance(password, str) and len(password) >= 7:
+        Parameters
+        ----------
+        username: str
+            A non-empty string for the username, stored in lowercase.
+        password: str
+            A string for the password, must be at least 7 characters.
+        :param username: str
+
+        :param password: str
+        :return None
+        :raise ValueError
+        """
+
+        if isinstance(username, str) and username.strip():
+            self.__username = username.lower().strip()
+        else:
+            raise ValueError("Username must be a non-empty string.")
+        if isinstance(password, str) and len(password.strip()) > 6:
             self.__password = password
         else:
-            raise ValueError('Password not valid!')
+            raise ValueError("Password must be string with min length of 7.")
 
-        self.__reviews: list[Review] = []
-        self.__favourite_games: list[Game] = []
+        self.__favourite_games: list[Game] = list()
+        self.__reviews: list[Review] = list()
 
     @property
     def username(self):
