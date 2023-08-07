@@ -984,13 +984,18 @@ class Wishlist:
         if isinstance(index, int) and (0 <= index < len(self.__list_of_games)):
             return self.__list_of_games[index]
 
+    def size(self) -> int:
+        """
+        Return the number of games in the wishlist.
+        :return: int
+        """
+
+        wishlist_size = len(self.__list_of_games)
+        if wishlist_size > 0:
+            return wishlist_size
+
     def list_of_games(self):
         return self.__list_of_games
-
-    def size(self):
-        size_wishlist = len(self.__list_of_games)
-        if size_wishlist > 0:
-            return size_wishlist
 
     def first_game_in_list(self):
         if len(self.__list_of_games) > 0:
