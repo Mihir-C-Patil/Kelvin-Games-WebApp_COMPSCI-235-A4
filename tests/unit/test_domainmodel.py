@@ -1,6 +1,7 @@
 import pytest
 import os
-from games.domainmodel.model import Publisher, Genre, Game, Review, User, Wishlist
+from games.domainmodel.model import Publisher, Genre, Game, Review, User, \
+    Wishlist
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 
 
@@ -52,10 +53,12 @@ def test_publisher_hash():
     publishers.add(publisher2)
     publishers.add(publisher3)
     assert len(publishers) == 3
-    assert repr(sorted(publishers)) == "[<Publisher Big Fish Games>, <Publisher Century Game>, <Publisher Wild " \
-                                       "Rooster>]"
+    assert repr(sorted(
+        publishers)) == "[<Publisher Big Fish Games>, <Publisher Century Game>, <Publisher Wild " \
+                        "Rooster>]"
     publishers.discard(publisher1)
-    assert repr(sorted(publishers)) == "[<Publisher Big Fish Games>, <Publisher Century Game>]"
+    assert repr(sorted(
+        publishers)) == "[<Publisher Big Fish Games>, <Publisher Century Game>]"
 
 
 def test_publisher_name_setter():
@@ -299,7 +302,8 @@ def test_user_add_remove_favourite_games():
     user1.add_favourite_game(game1)
     user1.add_favourite_game(game2)
     user1.add_favourite_game(game3)
-    assert repr(user1.favourite_games) == "[<Game 1, Domino Game>, <Game 2, Deer Journey>, <Game 3, Fat City>]"
+    assert repr(
+        user1.favourite_games) == "[<Game 1, Domino Game>, <Game 2, Deer Journey>, <Game 3, Fat City>]"
     assert len(user1.favourite_games) == 3
     game4 = Game(1, "Domino Game")
     user1.add_favourite_game(game4)
@@ -417,7 +421,8 @@ def test_wishlist_iter(wishlist, game):
 
 # Unit tests for CSVReader
 def create_csv_reader():
-    dir_name = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    dir_name = os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
     games_file_name = os.path.join(dir_name, "games/adapters/data/games.csv")
     reader = GameFileCSVReader(games_file_name)
     reader.read_csv_file()
@@ -463,3 +468,7 @@ def test_genres_dataset():
     sorted_genres = sorted(genres_set)
     sorted_genre_sample = str(sorted_genres[:3])
     assert sorted_genre_sample == "[<Genre Action>, <Genre Adventure>, <Genre Animation & Modeling>]"
+
+
+if __name__ == "__main__":
+    pytest.main()
