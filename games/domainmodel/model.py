@@ -186,24 +186,42 @@ class Genre:
 
 
 class Game:
-    def __init__(self, game_id: int, game_title: str):
-        if type(game_id) is not int or game_id < 0:
-            raise ValueError("Game ID should be a positive integer!")
+    def __init__(self, game_id: int, game_title: str) -> None:
+        """
+        Initialise a Game object
+
+        Parameters
+        ----------
+        game_id: int
+            The unique id of a game, must be a non-negative integer
+
+        game_title: str
+            The title of the game, must be a non-empty string
+
+
+        :param game_id: int
+        :param game_title: str
+        :return None
+        :raise ValueError
+        """
+
+        if not isinstance(game_id, int) or game_id < 0:
+            raise ValueError("Game ID must be a non-negative integer.")
         self.__game_id = game_id
 
-        if type(game_title) is str and game_title.strip() != "":
-            self.__game_title = game_title.strip()
-        else:
+        if not isinstance(game_title, str) or not game_title.strip():
             self.__game_title = None
+        else:
+            self.__game_title = game_title.strip()
 
+        self.__genres = list()
+        self.__reviews = list()
         self.__price = None
         self.__release_date = None
         self.__description = None
+        self.__publisher = None
         self.__image_url = None
         self.__website_url = None
-        self.__genres: list = []
-        self.__reviews: list = []
-        self.__publisher = None
 
     @property
     def publisher(self) -> Publisher:
