@@ -996,7 +996,7 @@ class Wishlist:
 
     def first_game_in_list(self) -> Game | None:
         """
-        Returns the first game in the Wishlist.
+        Return the first game in the Wishlist.
         :return: Game | None
         """
 
@@ -1005,5 +1005,9 @@ class Wishlist:
         else:
             return None
 
-    def list_of_games(self):
+    def list_of_games(self) -> list[Game]:
+        """
+        Return the list of game objects.
+        :return: list[Game]
+        """
         return self.__list_of_games
