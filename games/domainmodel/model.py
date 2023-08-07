@@ -148,14 +148,27 @@ class Genre:
             return False
         return self.__genre_name == other.genre_name
 
-    @property
-    def genre_name(self) -> str:
-        return self.__genre_name
-
     def __lt__(self, other):
+        """
+        Return True if the Genre object is less than the other
+        Genre object. The comparison is based on the publisher name.
+
+        Parameters
+        ----------
+        other: Genre
+            The other Genre object to compare with.
+
+        :param other: Genre
+        :return: bool
+        """
+
         if not isinstance(other, self.__class__):
             return False
         return self.__genre_name < other.genre_name
+
+    @property
+    def genre_name(self) -> str:
+        return self.__genre_name
 
     def __hash__(self):
         return hash(self.__genre_name)
