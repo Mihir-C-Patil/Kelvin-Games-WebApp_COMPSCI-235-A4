@@ -177,6 +177,11 @@ class Genre:
 
     @property
     def genre_name(self) -> str:
+        """
+        Return the name of the publisher.
+
+        :return: str
+        """
         return self.__genre_name
 
 
