@@ -269,6 +269,15 @@ class Game:
             return False
         return self.__game_id < other.game_id
 
+    def __hash__(self) -> int:
+        """
+        Returns the hash value of a Game object based on the game ID.
+
+        :return: int
+        """
+
+        return hash(self.__game_id)
+
     @property
     def publisher(self) -> Publisher:
         return self.__publisher
@@ -376,9 +385,6 @@ class Game:
         except ValueError:
             print(f"Could not find {genre} in list of genres.")
             pass
-
-    def __hash__(self):
-        return hash(self.__game_id)
 
 
 class User:
