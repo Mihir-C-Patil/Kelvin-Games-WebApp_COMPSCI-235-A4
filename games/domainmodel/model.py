@@ -581,6 +581,57 @@ class User:
         self.__favourite_games: list[Game] = list()
         self.__reviews: list[Review] = list()
 
+    def __repr__(self) -> str:
+        """
+        Return the string representation of a User object.
+
+        :return: str
+        """
+
+        return f'<User {self.__username}>'
+
+    def __eq__(self, other) -> bool:
+        """
+        Returns True if one User is equal to the other.
+
+        Parameters
+        ----------
+        other: User
+            This is the other User object ot compare with.
+        :param other: User
+        :return: bool
+        """
+
+        if isinstance(other, self.__class__):
+            return self.__username == other.__username
+        else:
+            return False
+
+    def __lt__(self, other) -> bool:
+        """
+        Returns True if this User object is less than the other User.
+        Comparison is based on the username.
+
+        Parameters
+        ----------
+        other: User
+        This is the other User object to compare with.
+        :param other: User
+        :return: bool
+        """
+
+        if isinstance(other, self.__class__):
+            return self.__username < other.__username
+
+    def __hash__(self) -> int:
+        """
+        Returns the hash value of a User object.
+        Hash value based on username.
+        :return: int
+        """
+
+        return hash(self.__username)
+
     @property
     def username(self):
         return self.__username
@@ -616,22 +667,6 @@ class User:
         if not isinstance(game, Game) or game not in self.__favourite_games:
             return
         self.__favourite_games.remove(game)
-
-    def __repr__(self):
-        return f"<User {self.__username}>"
-
-    def __eq__(self, other):
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__username == other.username
-
-    def __hash__(self):
-        return hash(self.__username)
-
-    def __lt__(self, other):
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__username < other.username
 
 
 class Review:
