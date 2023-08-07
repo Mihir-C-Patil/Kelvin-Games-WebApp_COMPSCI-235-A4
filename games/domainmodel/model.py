@@ -166,12 +166,18 @@ class Genre:
             return False
         return self.__genre_name < other.genre_name
 
+    def __hash__(self) -> int:
+        """
+        Returns the hash value of the Genre object based on the
+        genre name.
+
+        :return: int
+        """
+        return hash(self.__genre_name)
+
     @property
     def genre_name(self) -> str:
         return self.__genre_name
-
-    def __hash__(self):
-        return hash(self.__genre_name)
 
 
 class Game:
