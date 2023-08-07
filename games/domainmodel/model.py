@@ -46,6 +46,24 @@ class Publisher:
             return False
         return self.__publisher_name == other.publisher_name
 
+    def __lt__(self, other) -> bool:
+        """
+        Return True if the Publisher object is less than the other
+        Publisher object. The comparison is based on the publisher name.
+
+        Parameters
+        ----------
+        other: Publisher
+            The other Publisher object to compare with.
+
+        :param other: Publisher
+        :return: bool
+        """
+
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__publisher_name < other.__publisher_name
+
     @property
     def publisher_name(self) -> str:
         """
@@ -74,11 +92,6 @@ class Publisher:
             self.__publisher_name = new_publisher_name.strip()
         else:
             self.__publisher_name = None
-
-    def __lt__(self, other):
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__publisher_name < other.publisher_name
 
     def __hash__(self):
         return hash(self.__publisher_name)
