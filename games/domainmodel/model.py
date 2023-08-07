@@ -223,6 +223,15 @@ class Game:
         self.__image_url = None
         self.__website_url = None
 
+    def __repr__(self) -> str:
+        """
+        Return a string representation of a Game object
+
+        :return: str
+        """
+
+        return f'<Game {self.__game_id}, {self.__game_title}>'
+
     @property
     def publisher(self) -> Publisher:
         return self.__publisher
@@ -330,9 +339,6 @@ class Game:
         except ValueError:
             print(f"Could not find {genre} in list of genres.")
             pass
-
-    def __repr__(self):
-        return f"<Game {self.__game_id}, {self.__game_title}>"
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
