@@ -397,20 +397,32 @@ class Game:
         else:
             self.__game_title = None
 
+    @price.setter
+    def price(self, new_price: (int, float)) -> None:
+        """
+        Sets the new price of the game. Raises ValueError if invalid.
+
+        Parameters
+        ----------
+        new_price: (int, float)
+            The new price of the game (must be non-negative number)
+
+        :param new_price:
+        :return: None
+        :raise ValueError
+        """
+
+        if isinstance(new_price, (int, float)) and new_price >= 0:
+            self.__price = new_price
+        else:
+            raise ValueError("Price must be a non-negative value.")
+
     @publisher.setter
     def publisher(self, publisher: Publisher):
         if isinstance(publisher, Publisher):
             self.__publisher = publisher
         else:
             self.__publisher = None
-
-
-    @price.setter
-    def price(self, price: float):
-        if isinstance(price, (int, float)) and price >= 0:
-            self.__price = price
-        else:
-            raise ValueError("Price must be a positive number!")
 
 
     @release_date.setter
