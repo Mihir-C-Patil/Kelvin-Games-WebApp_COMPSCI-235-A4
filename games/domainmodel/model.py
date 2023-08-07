@@ -64,6 +64,15 @@ class Publisher:
             return False
         return self.__publisher_name < other.__publisher_name
 
+    def __hash__(self) -> int:
+        """
+        Returns the hash value of the Publisher object based on the
+        publisher name.
+
+        :return: int
+        """
+        return hash(self.__publisher_name)
+
     @property
     def publisher_name(self) -> str:
         """
@@ -92,9 +101,6 @@ class Publisher:
             self.__publisher_name = new_publisher_name.strip()
         else:
             self.__publisher_name = None
-
-    def __hash__(self):
-        return hash(self.__publisher_name)
 
 
 class Genre:
