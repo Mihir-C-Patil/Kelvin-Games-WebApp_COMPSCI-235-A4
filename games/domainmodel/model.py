@@ -994,11 +994,16 @@ class Wishlist:
         if wishlist_size > 0:
             return wishlist_size
 
-    def list_of_games(self):
-        return self.__list_of_games
+    def first_game_in_list(self) -> Game | None:
+        """
+        Returns the first game in the Wishlist.
+        :return: Game | None
+        """
 
-    def first_game_in_list(self):
-        if len(self.__list_of_games) > 0:
+        if self.__list_of_games:
             return self.__list_of_games[0]
         else:
             return None
+
+    def list_of_games(self):
+        return self.__list_of_games
