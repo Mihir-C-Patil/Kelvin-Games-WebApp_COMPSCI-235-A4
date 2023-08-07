@@ -417,6 +417,31 @@ class Game:
         else:
             raise ValueError("Price must be a non-negative value.")
 
+    @release_date.setter
+    def release_date(self, new_date: str) -> None:
+        """
+        Set the release date of the game. Raises ValueError if invalid.
+
+        Parameters
+        ----------
+        new_date: str
+            The new release date of the game, must be in '%b %d, %Y'
+            format.
+        :param new_date: str
+        :return: None
+        :raise ValueError
+        """
+
+        if isinstance(new_date, str) and new_date.strip():
+            try:
+                datetime.strptime(new_date, "%b %d, %Y")
+                self.__release_date = new_date
+            except ValueError:
+                raise ValueError("Invalid release date format. "
+                                 "Use '%b %d, %Y'")
+        else:
+            raise ValueError("Date must be in format: %b %d, %Y")
+
     @publisher.setter
     def publisher(self, publisher: Publisher):
         if isinstance(publisher, Publisher):
@@ -425,17 +450,6 @@ class Game:
             self.__publisher = None
 
 
-    @release_date.setter
-    def release_date(self, release_date: str):
-        if isinstance(release_date, str):
-            try:
-                # Check if the release_date string is in the correct date format (e.g., "Oct 21, 2008")
-                datetime.strptime(release_date, "%b %d, %Y")
-                self.__release_date = release_date
-            except ValueError:
-                raise ValueError("Release date must be in 'Oct 21, 2008' format!")
-        else:
-            raise ValueError("Release date must be a string in 'Oct 21, 2008' format!")
 
 
     @description.setter
