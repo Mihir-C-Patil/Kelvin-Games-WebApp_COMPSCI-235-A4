@@ -28,6 +28,24 @@ class Publisher:
 
         return f"<Publisher {self.__publisher_name}>"
 
+    def __eq__(self, other) -> bool:
+        """
+        Return True if the Publisher object is equal to the other
+        Publisher object.
+
+        Parameters
+        ----------
+        other: Publisher
+            The other Publisher object to check for equality with.
+
+        :param other: Publisher
+        :return: bool
+        """
+
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__publisher_name == other.publisher_name
+
     @property
     def publisher_name(self) -> str:
         """
@@ -56,11 +74,6 @@ class Publisher:
             self.__publisher_name = new_publisher_name.strip()
         else:
             self.__publisher_name = None
-
-    def __eq__(self, other):
-        if not isinstance(other, self.__class__):
-            return False
-        return other.publisher_name == self.__publisher_name
 
     def __lt__(self, other):
         if not isinstance(other, self.__class__):
