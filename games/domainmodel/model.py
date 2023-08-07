@@ -478,13 +478,21 @@ class Game:
         else:
             self.__publisher = None
 
-
-
-
     @image_url.setter
-    def image_url(self, image_url: str):
-        if isinstance(image_url, str) and image_url.strip() != "":
-            self.__image_url = image_url
+    def image_url(self, new_image_url: str) -> None:
+        """
+        Sets the image URL of the game's cover image.
+
+        Parameters
+        ----------
+        new_image_url: str
+            The full URL of the game's cover image
+        :param new_image_url: str
+        :return: None
+        """
+
+        if isinstance(new_image_url, str) and new_image_url.strip():
+            self.__image_url = new_image_url.strip()
         else:
             self.__image_url = None
 
