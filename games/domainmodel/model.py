@@ -21,6 +21,12 @@ class Publisher:
 
     @property
     def publisher_name(self) -> str:
+        """
+        Return the name of the publisher.
+
+        :return: str
+        """
+
         return self.__publisher_name
 
     @publisher_name.setter
