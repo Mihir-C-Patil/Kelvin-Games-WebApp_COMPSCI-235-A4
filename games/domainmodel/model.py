@@ -531,14 +531,24 @@ class Game:
             self.__genres.append(new_genre)
         return None
 
-    def remove_genre(self, genre: Genre):
-        if not isinstance(genre, Genre):
-            return
-        try:
-            self.__genres.remove(genre)
-        except ValueError:
-            print(f"Could not find {genre} in list of genres.")
-            pass
+    def remove_genre(self, genre_to_remove: Genre) -> None:
+        """
+        Removes a Genre object from the game's list of genres.
+        Does nothing if Genre is invalid or doesn't exist.
+
+        Parameters
+        ----------
+        genre_to_remove: Genre
+            This is a Genre object to be removed.
+        :param genre_to_remove: Genre
+        :return: None
+        """
+
+        if isinstance(genre_to_remove, Genre) and genre_to_remove \
+                in self.__genres:
+            self.__genres.remove(genre_to_remove)
+        else:
+            print(f'Could not find {genre_to_remove} in list of genres.')
 
 
 class User:
