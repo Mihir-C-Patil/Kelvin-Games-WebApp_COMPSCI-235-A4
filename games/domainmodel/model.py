@@ -747,23 +747,49 @@ class User:
 
 
 class Review:
-    def __init__(self, user: User, game: Game, rating: int, comment: str):
+    def __init__(self, user: User, game: Game,
+                 rating: int, comment: str) -> None:
+        """
+        Initialise a Review Object.
+        Raise ValueError if parameters invalid.
 
-        if not isinstance(user, User):
-            raise ValueError("User must be an instance of User class")
-        self.__user = user
+        Parameters
+        ----------
+        user: Game
+            The user that the review is associated with.
+        game: Game
+            The game the review is associated with.
+        rating: int
+            The rating of the review (0 to 5 inclusive).
+        comment: str
+            The review text.
 
-        if not isinstance(game, Game):
-            raise ValueError("Game must be an instance of Game class")
-        self.__game = game
+        :param user: User
+        :param game: Game
+        :param rating: int
+        :param comment: str
+        :return None
+        :raise ValueError
+        """
+        if isinstance(user, User):
+            self.__user = user
+        else:
+            raise ValueError('User must be instance of User class.')
 
-        if not isinstance(rating, int) or not 0 <= rating <= 5:
-            raise ValueError("Rating must be an integer between 0 and 5")
-        self.__rating = rating
+        if isinstance(game, Game):
+            self.__game = game
+        else:
+            raise ValueError('Game must be instance of Game class.')
 
-        if not isinstance(comment, str):
-            raise ValueError("Comment must be a string")
-        self.__comment = comment.strip()
+        if isinstance(rating, int) and (0 <= rating <= 5):
+            self.__rating = rating
+        else:
+            raise ValueError('Rating must be integer from 0 to 5 inclusive.')
+
+        if isinstance(comment, str) and comment.strip():
+            self.__comment = comment.strip()
+        else:
+            raise ValueError('Comment must be non-empty string.')
 
     @property
     def game(self) -> Game:
