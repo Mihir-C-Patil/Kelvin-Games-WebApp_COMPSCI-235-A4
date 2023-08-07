@@ -19,6 +19,15 @@ class Publisher:
         else:
             self.__publisher_name = publisher_name.strip()
 
+    def __repr__(self) -> str:
+        """
+        Return the representation of the Publisher object.
+
+        :return: str
+        """
+
+        return f"<Publisher {self.__publisher_name}>"
+
     @property
     def publisher_name(self) -> str:
         """
@@ -47,9 +56,6 @@ class Publisher:
             self.__publisher_name = new_publisher_name.strip()
         else:
             self.__publisher_name = None
-
-    def __repr__(self):
-        return f'<Publisher {self.__publisher_name}>'
 
     def __eq__(self, other):
         if not isinstance(other, self.__class__):
