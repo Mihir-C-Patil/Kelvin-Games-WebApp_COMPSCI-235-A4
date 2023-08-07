@@ -442,6 +442,24 @@ class Game:
         else:
             raise ValueError("Date must be in format: %b %d, %Y")
 
+    @description.setter
+    def description(self, new_description: str) -> None:
+        """
+        Sets the new description of the game. Sets to None if invalid
+
+        Parameters
+        ----------
+        new_description: str
+            The new description of the game, must be a non-empty string.
+        :param new_description: str
+        :return: None
+        """
+
+        if isinstance(new_description, str) and new_description.strip():
+            self.__description = new_description.strip()
+        else:
+            self.__description = None
+
     @publisher.setter
     def publisher(self, publisher: Publisher):
         if isinstance(publisher, Publisher):
@@ -450,14 +468,6 @@ class Game:
             self.__publisher = None
 
 
-
-
-    @description.setter
-    def description(self, description: str):
-        if isinstance(description, str) and description.strip() != "":
-            self.__description = description
-        else:
-            self.__description = None
 
 
     @image_url.setter
