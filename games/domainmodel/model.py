@@ -232,6 +232,25 @@ class Game:
 
         return f'<Game {self.__game_id}, {self.__game_title}>'
 
+    def __eq__(self, other) -> bool:
+        """
+        Return a boolean value which is True if two game IDs are equal.
+        Comparison is based on the Game ID.
+
+        Parameters
+        ----------
+        other: Game
+            The other Game object to compare with
+
+        :param other: Game
+        :return: bool
+        """
+
+        if not isinstance(other, self.__class__):
+            return False
+        else:
+            return self.__game_id == other.game_id
+
     @property
     def publisher(self) -> Publisher:
         return self.__publisher
@@ -339,11 +358,6 @@ class Game:
         except ValueError:
             print(f"Could not find {genre} in list of genres.")
             pass
-
-    def __eq__(self, other):
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__game_id == other.__game_id
 
     def __hash__(self):
         return hash(self.__game_id)
