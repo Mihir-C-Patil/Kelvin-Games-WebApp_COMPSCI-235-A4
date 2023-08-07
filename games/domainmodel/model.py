@@ -633,15 +633,41 @@ class User:
         return hash(self.__username)
 
     @property
-    def username(self):
+    def username(self) -> str:
+        """
+        Return the username.
+        :return: str
+        """
+
         return self.__username
 
     @property
     def password(self) -> str:
+        """
+        Return the user's password.
+        :return: str
+        """
+
         return self.__password
 
     @property
+    def favourite_games(self) -> list:
+        """
+        Return a list of the User's favourite games.
+
+        :return: list
+        """
+
+        return self.__favourite_games
+
+    @property
     def reviews(self) -> list:
+        """
+        Return a list of the User's reviews.
+
+        :return: list
+        """
+
         return self.__reviews
 
     def add_review(self, new_review):
@@ -653,10 +679,6 @@ class User:
         if not isinstance(review, Review) or review not in self.__reviews:
             return
         self.__reviews.remove(review)
-
-    @property
-    def favourite_games(self) -> list:
-        return self.__favourite_games
 
     def add_favourite_game(self, game):
         if not isinstance(game, Game) or game in self.__favourite_games:
