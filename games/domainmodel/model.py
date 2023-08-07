@@ -689,6 +689,24 @@ class User:
         else:
             return None
 
+    def remove_favourite_game(self, game_to_remove: Game) -> None:
+        """
+        Removes a Game object from the User's list of favourite games.
+
+        Parameters
+        ----------
+        game_to_remove: Game
+            This is the Game object to delete
+        :param game_to_remove: Game
+        :return: None
+        """
+
+        if isinstance(game_to_remove, Game) and game_to_remove \
+                in self.__favourite_games:
+            self.__favourite_games.remove(game_to_remove)
+        else:
+            return None
+
     def add_review(self, new_review):
         if not isinstance(new_review, Review) or new_review in self.__reviews:
             return
@@ -698,11 +716,6 @@ class User:
         if not isinstance(review, Review) or review not in self.__reviews:
             return
         self.__reviews.remove(review)
-
-    def remove_favourite_game(self, game):
-        if not isinstance(game, Game) or game not in self.__favourite_games:
-            return
-        self.__favourite_games.remove(game)
 
 
 class Review:
