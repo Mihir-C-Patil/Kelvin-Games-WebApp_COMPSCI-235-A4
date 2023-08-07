@@ -279,8 +279,104 @@ class Game:
         return hash(self.__game_id)
 
     @property
+    def game_id(self) -> int:
+        """
+        Return the id number of the game.
+
+        :return: int
+        """
+
+        return self.__game_id
+
+    @property
+    def title(self) -> str:
+        """
+        Return the title of the game.
+
+        :return: str
+        """
+
+        return self.__game_title
+
+    @property
+    def genres(self) -> list:
+        """
+        Return the list of genres of a game object
+
+        :return: list
+        """
+
+        return self.__genres
+
+    @property
+    def reviews(self) -> list:
+        """
+        Return the list of reviews of a game object
+
+        :return: list
+        """
+
+        return self.__reviews
+
+    @property
+    def price(self) -> (int, float):
+        """
+        Return the price of the game
+
+        :return: (int, float)
+        """
+
+        return self.__price
+
+    @property
+    def release_date(self) -> datetime:
+        """
+        Return the release date of the game.
+
+        :return: datetime
+        """
+
+        return self.__release_date
+
+    @property
+    def description(self) -> str:
+        """
+        Return the description of the game.
+
+        :return: str
+        """
+
+        return self.__description
+
+    @property
     def publisher(self) -> Publisher:
+        """
+        Return the publisher of the game, as a Publisher object
+
+        :return: Publisher
+        """
+
         return self.__publisher
+
+    @property
+    def image_url(self) -> str:
+        """
+        Return the image URL of the game.
+
+        :return: str
+        """
+
+        return self.__image_url
+
+    @property
+    def website_url(self) -> str:
+        """
+        Return the website URL of the game.
+
+        :return: str
+        """
+
+        return self.__website_url
 
     @publisher.setter
     def publisher(self, publisher: Publisher):
@@ -289,13 +385,6 @@ class Game:
         else:
             self.__publisher = None
 
-    @property
-    def game_id(self):
-        return self.__game_id
-
-    @property
-    def title(self):
-        return self.__game_title
 
     @title.setter
     def title(self, new_title):
@@ -304,9 +393,6 @@ class Game:
         else:
             self.__game_title = None
 
-    @property
-    def price(self):
-        return self.__price
 
     @price.setter
     def price(self, price: float):
@@ -315,9 +401,6 @@ class Game:
         else:
             raise ValueError("Price must be a positive number!")
 
-    @property
-    def release_date(self):
-        return self.__release_date
 
     @release_date.setter
     def release_date(self, release_date: str):
@@ -331,9 +414,6 @@ class Game:
         else:
             raise ValueError("Release date must be a string in 'Oct 21, 2008' format!")
 
-    @property
-    def description(self):
-        return self.__description
 
     @description.setter
     def description(self, description: str):
@@ -342,9 +422,6 @@ class Game:
         else:
             self.__description = None
 
-    @property
-    def image_url(self):
-        return self.__image_url
 
     @image_url.setter
     def image_url(self, image_url: str):
@@ -353,9 +430,6 @@ class Game:
         else:
             self.__image_url = None
 
-    @property
-    def website_url(self):
-        return self.__website_url
 
     @website_url.setter
     def website_url(self, website_url: str):
@@ -363,14 +437,6 @@ class Game:
             self.__website_url = website_url
         else:
             self.__website_url = None
-
-    @property
-    def reviews(self) -> list:
-        return self.__reviews
-
-    @property
-    def genres(self) -> list:
-        return self.__genres
 
     def add_genre(self, genre: Genre):
         if not isinstance(genre, Genre) or genre in self.__genres:
