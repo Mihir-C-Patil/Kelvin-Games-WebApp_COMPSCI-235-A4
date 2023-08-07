@@ -496,11 +496,21 @@ class Game:
         else:
             self.__image_url = None
 
-
     @website_url.setter
-    def website_url(self, website_url: str):
-        if isinstance(website_url, str) and website_url.strip() != "":
-            self.__website_url = website_url
+    def website_url(self, new_website_url: str) -> None:
+        """
+        Sets the URL of the game's website.
+
+        Parameters
+        ----------
+        new_website_url: str
+            This is the full URL of the game's website
+        :param new_website_url:
+        :return: None
+        """
+
+        if isinstance(new_website_url, str) and new_website_url.strip():
+            self.__website_url = new_website_url.strip()
         else:
             self.__website_url = None
 
