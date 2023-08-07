@@ -130,14 +130,27 @@ class Genre:
 
         return f"<Genre {self.__genre_name}>"
 
+    def __eq__(self, other) -> bool:
+        """
+        Return True if the Genre object is equal to the other
+        Genre object.
+
+        Parameters
+        ----------
+        other: Genre
+            The other Genre object to check for equality with.
+
+        :param other: Genre
+        :return: bool
+        """
+
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__genre_name == other.genre_name
+
     @property
     def genre_name(self) -> str:
         return self.__genre_name
-
-    def __eq__(self, other) -> bool:
-        if not isinstance(other, self.__class__):
-            return False
-        return other.genre_name == self.__genre_name
 
     def __lt__(self, other):
         if not isinstance(other, self.__class__):
