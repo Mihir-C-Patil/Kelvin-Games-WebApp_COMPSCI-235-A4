@@ -104,8 +104,19 @@ class Publisher:
 
 
 class Genre:
-    def __init__(self, genre_name: str):
-        if genre_name == "" or type(genre_name) is not str:
+    def __init__(self, genre_name: str) -> None:
+        """
+        Initialise the Genre object.
+
+        Parameters
+        ----------
+        genre_name: str
+            The name of the genre. (set to None if invalid)
+
+        :param genre_name: str
+        """
+
+        if not isinstance(genre_name, str) or not genre_name.strip():
             self.__genre_name = None
         else:
             self.__genre_name = genre_name.strip()
