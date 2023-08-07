@@ -898,7 +898,13 @@ class Review:
 
 
 class Wishlist:
-    def __init__(self, user: User):
+    def __init__(self, user: User) -> None:
+        """
+        Initialises the Wishlist object.
+
+        :return: None
+        """
+
         if not isinstance(user, User):
             raise ValueError("User must be an instance of User class")
         self.__user = user
