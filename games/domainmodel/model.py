@@ -121,12 +121,18 @@ class Genre:
         else:
             self.__genre_name = genre_name.strip()
 
+    def __repr__(self) -> str:
+        """
+        Return the representation of the Genre object.
+
+        :return: str
+        """
+
+        return f"<Genre {self.__genre_name}>"
+
     @property
     def genre_name(self) -> str:
         return self.__genre_name
-
-    def __repr__(self) -> str:
-        return f'<Genre {self.__genre_name}>'
 
     def __eq__(self, other) -> bool:
         if not isinstance(other, self.__class__):
