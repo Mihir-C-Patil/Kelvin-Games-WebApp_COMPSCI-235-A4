@@ -461,9 +461,20 @@ class Game:
             self.__description = None
 
     @publisher.setter
-    def publisher(self, publisher: Publisher):
-        if isinstance(publisher, Publisher):
-            self.__publisher = publisher
+    def publisher(self, new_publisher: Publisher) -> None:
+        """
+        Sets the new publisher of a game.
+
+        Parameters
+        ----------
+        new_publisher: Publisher
+            This is a Publisher object
+        :param new_publisher:
+        :return: None
+        """
+
+        if isinstance(new_publisher, Publisher):
+            self.__publisher = new_publisher
         else:
             self.__publisher = None
 
