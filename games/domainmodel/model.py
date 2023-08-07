@@ -707,10 +707,24 @@ class User:
         else:
             return None
 
-    def add_review(self, new_review):
-        if not isinstance(new_review, Review) or new_review in self.__reviews:
-            return
-        self.__reviews.append(new_review)
+    def add_review(self, review_to_add) -> None:
+        """
+        Add a review to the user's list of reviews.
+
+        Parameters
+        ----------
+        review_to_add: Review
+            This is the Review object to add.
+
+        :param review_to_add:
+        :return: None
+        """
+
+        if isinstance(review_to_add, Review) and review_to_add \
+                not in self.__reviews:
+            self.__reviews.append(review_to_add)
+        else:
+            return None
 
     def remove_review(self, review):
         if not isinstance(review, Review) or review not in self.__reviews:
