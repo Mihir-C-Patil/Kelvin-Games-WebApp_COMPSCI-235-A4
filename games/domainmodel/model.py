@@ -514,10 +514,22 @@ class Game:
         else:
             self.__website_url = None
 
-    def add_genre(self, genre: Genre):
-        if not isinstance(genre, Genre) or genre in self.__genres:
-            return
-        self.__genres.append(genre)
+    def add_genre(self, new_genre: Genre) -> None:
+        """
+        Adds a new Genre object to the game's list of genres.
+        Does nothing if genre is invalid or duplicate.
+
+        Parameters
+        ----------
+        new_genre: Genre
+            This is a Genre object to be added.
+        :param new_genre: Genre
+        :return: None
+        """
+
+        if isinstance(new_genre, Genre) and new_genre not in self.__genres:
+            self.__genres.append(new_genre)
+        return None
 
     def remove_genre(self, genre: Genre):
         if not isinstance(genre, Genre):
