@@ -299,7 +299,7 @@ class Game:
         return self.__game_title
 
     @property
-    def genres(self) -> list:
+    def genres(self) -> list[Genre]:
         """
         Return the list of genres of a game object
 
@@ -651,7 +651,7 @@ class User:
         return self.__password
 
     @property
-    def favourite_games(self) -> list:
+    def favourite_games(self) -> list[Game]:
         """
         Return a list of the User's favourite games.
 
