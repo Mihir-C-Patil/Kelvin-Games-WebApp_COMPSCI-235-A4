@@ -30,11 +30,23 @@ class Publisher:
         return self.__publisher_name
 
     @publisher_name.setter
-    def publisher_name(self, new_publisher_name: str):
-        if new_publisher_name == "" or type(new_publisher_name) is not str:
-            self.__publisher_name = None
-        else:
+    def publisher_name(self, new_publisher_name: str) -> None:
+        """
+        Change the name of the publisher to the specified publisher.
+
+        Parameters
+        ----------
+        new_publisher_name: str
+            The new name of the publisher.
+
+        :param new_publisher_name:
+        :return: None
+        """
+
+        if isinstance(new_publisher_name, str) and new_publisher_name.strip():
             self.__publisher_name = new_publisher_name.strip()
+        else:
+            self.__publisher_name = None
 
     def __repr__(self):
         return f'<Publisher {self.__publisher_name}>'
