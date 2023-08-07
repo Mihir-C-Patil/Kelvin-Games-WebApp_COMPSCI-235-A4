@@ -857,11 +857,24 @@ class Review:
         return self.__rating
 
     @comment.setter
-    def comment(self, new_text):
-        if isinstance(new_text, str):
-            self.__comment = new_text.strip()
+    def comment(self, new_comment: str) -> None:
+        """
+        Sets the new comment associated with the review.
+        Comment must be a non-empty string.
+
+        Parameters
+        ----------
+        new_comment: str
+            This is the new comment to be set.
+        :param new_comment: str
+        :return: None
+        :raise ValueError
+        """
+
+        if isinstance(new_comment, str) and new_comment.strip():
+            self.__comment = new_comment.strip()
         else:
-            raise ValueError("New comment must be a string")
+            raise ValueError("Comment must be non-empty string.")
 
     @rating.setter
     def rating(self, new_rating: int):
