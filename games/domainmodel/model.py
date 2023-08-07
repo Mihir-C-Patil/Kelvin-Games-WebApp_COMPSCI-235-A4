@@ -969,6 +969,21 @@ class Wishlist:
                 in self.__list_of_games):
             self.__list_of_games.remove(game_to_remove)
 
+    def select_game(self, index: int) -> Game:
+        """
+        Return a game object from the wishlist from the specified index.
+
+        Parameters
+        ----------
+        index: int
+            The index of the wishlist to access.
+        :param index: int
+        :return: Game
+        """
+
+        if isinstance(index, int) and (0 <= index < len(self.__list_of_games)):
+            return self.__list_of_games[index]
+
     def list_of_games(self):
         return self.__list_of_games
 
@@ -980,11 +995,5 @@ class Wishlist:
     def first_game_in_list(self):
         if len(self.__list_of_games) > 0:
             return self.__list_of_games[0]
-        else:
-            return None
-
-    def select_game(self, index):
-        if 0 <= index < len(self.__list_of_games):
-            return self.__list_of_games[index]
         else:
             return None
