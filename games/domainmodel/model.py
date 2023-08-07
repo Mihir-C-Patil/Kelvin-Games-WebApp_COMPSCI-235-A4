@@ -378,20 +378,31 @@ class Game:
 
         return self.__website_url
 
+    @title.setter
+    def title(self, new_title: str) -> None:
+        """
+        Sets the new title of the game. Sets to None if invalid.
+
+        Parameters
+        ----------
+        new_title: str
+            This is the new title of the game.
+
+        :param new_title: str
+        :return: None
+        """
+
+        if isinstance(new_title, str) and new_title.strip():
+            self.__game_title = new_title.strip()
+        else:
+            self.__game_title = None
+
     @publisher.setter
     def publisher(self, publisher: Publisher):
         if isinstance(publisher, Publisher):
             self.__publisher = publisher
         else:
             self.__publisher = None
-
-
-    @title.setter
-    def title(self, new_title):
-        if type(new_title) is str and new_title.strip() != "":
-            self.__game_title = new_title.strip()
-        else:
-            self.__game_title = None
 
 
     @price.setter
