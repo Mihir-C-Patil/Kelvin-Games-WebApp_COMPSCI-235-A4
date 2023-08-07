@@ -821,20 +821,40 @@ class Review:
             and self.__comment == other.comment
 
     @property
+    def user(self) -> User:
+        """
+        Return the user associated with the review.
+        :return: User
+        """
+
+        return self.__user
+
+    @property
     def game(self) -> Game:
+        """
+        Return the game associated with the review.
+        :return: Game
+        """
+
         return self.__game
 
     @property
     def comment(self) -> str:
+        """
+        Return the comment associated with the review.
+        :return: str
+        """
+
         return self.__comment
 
     @property
     def rating(self) -> int:
-        return self.__rating
+        """
+        Return the rating associated with the review.
+        :return: int
+        """
 
-    @property
-    def user(self) -> User:
-        return self.__user
+        return self.__rating
 
     @comment.setter
     def comment(self, new_text):
