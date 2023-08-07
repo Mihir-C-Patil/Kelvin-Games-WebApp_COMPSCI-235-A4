@@ -877,11 +877,24 @@ class Review:
             raise ValueError("Comment must be non-empty string.")
 
     @rating.setter
-    def rating(self, new_rating: int):
-        if isinstance(new_rating, int) and 0 <= new_rating <= 5:
+    def rating(self, new_rating: int) -> None:
+        """
+        Sets the new rating associated with the review.
+        Rating must be an integer between 0 and 5 inclusive.
+
+        Parameters
+        ----------
+        new_rating: int
+            This is the new rating to be set
+        :param new_rating: int
+        :return: None
+        :raise ValueError
+        """
+
+        if isinstance(new_rating, int) and (0 <= new_rating <= 5):
             self.__rating = new_rating
         else:
-            raise ValueError("Rating must be an integer between 0 and 5")
+            raise ValueError('Rating must be integer from 0 to 5 inclusive')
 
 
 class Wishlist:
