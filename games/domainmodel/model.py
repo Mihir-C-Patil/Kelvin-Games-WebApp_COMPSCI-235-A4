@@ -251,6 +251,24 @@ class Game:
         else:
             return self.__game_id == other.game_id
 
+    def __lt__(self, other) -> bool:
+        """
+        Return True if the Game object is less than the other game
+        object. Comparison is based on the Game ID.
+
+        Parameters
+        ----------
+        other: Game
+            The other Game object to compare with
+
+        :param other: Game
+        :return: bool
+        """
+
+        if not isinstance(other, self.__class__):
+            return False
+        return self.__game_id < other.game_id
+
     @property
     def publisher(self) -> Publisher:
         return self.__publisher
@@ -361,11 +379,6 @@ class Game:
 
     def __hash__(self):
         return hash(self.__game_id)
-
-    def __lt__(self, other):
-        if not isinstance(other, self.__class__):
-            return False
-        return self.__game_id < other.game_id
 
 
 class User:
