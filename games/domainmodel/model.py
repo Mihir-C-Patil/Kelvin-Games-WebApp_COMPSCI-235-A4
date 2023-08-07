@@ -2,8 +2,19 @@ from datetime import datetime
 
 
 class Publisher:
-    def __init__(self, publisher_name: str):
-        if publisher_name == "" or type(publisher_name) is not str:
+    def __init__(self, publisher_name: str) -> None:
+        """
+        Initialise the Publisher object.
+
+        Parameters
+        ----------
+        publisher_name: str
+            The name of the publisher. (set to None if invalid)
+
+        :param publisher_name: str
+        """
+
+        if not isinstance(publisher_name, str) or not publisher_name.strip():
             self.__publisher_name = None
         else:
             self.__publisher_name = publisher_name.strip()
