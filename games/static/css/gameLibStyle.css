@@ -1,6 +1,52 @@
+body{
+    background-color: white;
+}
+.bg-img {
+    background: url("../img/CR7_BGimg.jpeg") no-repeat center;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -9;
+    /*margin: auto;*/
+    max-height: 550px;
+    overflow: hidden;
+    /*background-size: 30px 100px;*/
+}
+
 .main{
+    /*max-width: 850px;*/
+    margin: auto;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -10;
+}
+.slideshow{
+    height: 500px;
+    overflow: hidden;
+}
+
+.blur {
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  height: 75%;
+  max-width: 850px;
+    margin: auto;
+}
+.main .slideContent{
+    z-index: 5;
+    color: white;
+}
+
+.page{
+    max-width: 100%;
+    margin: initial;
+    background: greenyellow;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.page .content{
+    background: cadetblue;
     max-width: 850px;
     margin: auto;
-    background: cadetblue;
-    padding: 10px;
+    top: 0; left: 0; right: 0; bottom: 0;
+
 }
