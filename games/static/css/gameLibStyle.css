@@ -24,11 +24,13 @@ body{
 }
 
 .blur {
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
-  height: 75%;
-  max-width: 850px;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    height: 75%;
+    max-width: 850px;
     margin: auto;
+    border-radius: 20px;
+    padding: 20px;
 }
 .main .slideContent{
     z-index: 5;
@@ -45,8 +47,17 @@ body{
 
 .page .content{
     background: cadetblue;
+    border-radius: 20px;
     max-width: 850px;
     margin: auto;
+    padding: 20px;
     top: 0; left: 0; right: 0; bottom: 0;
 
+}
+
+.pageHeading{
+    font-weight: bold;
+    font-size: 35px;
+    margin: auto;
+    max-width: 850px;
 }
