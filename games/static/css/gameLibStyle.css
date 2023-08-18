@@ -138,3 +138,37 @@ body{
     background-color: #555;
     transform: translateY(-5px);
 }
+.gameContainer{
+    display: flex;
+    /*flex-direction: column;*/
+    padding: 10px;
+    flex: 1;
+    flex-wrap: wrap;
+}
+
+.game-box-2 {
+  width: calc(355px);
+  background-color: #397598;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
+.game-box-3 {
+  width: calc(216px);
+  background-color: #397598;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  padding: 10px;
+  margin-bottom: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease;
+}
