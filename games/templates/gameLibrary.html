@@ -51,6 +51,7 @@
     </main>
     <script>
         let slideIndex = 1;
+        let intervalId;
         showSlides(slideIndex);
 
         function plusSlides(n) {
@@ -73,10 +74,18 @@
             }
             slides[slideIndex-1].style.display = "block";
             bgSlides[slideIndex-1].style.display = "block";
-            setInterval(function() {
+            }
+        function startSlideshow() {
+            // Clear any existing interval
+            clearInterval(intervalId);
+            // Start a new interval to change slides every 2 seconds
+            intervalId = setInterval(function() {
                 plusSlides(1);
             }, 5000);
-            }
+        }
+
+        // Start the slideshow initially
+        startSlideshow();
     </script>
 
 </body>
