@@ -147,7 +147,7 @@ body{
 }
 
 .game-box-2 {
-  width: calc(355px);
+  width: calc(354px);
   background-color: #397598;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
@@ -158,6 +158,10 @@ body{
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
+}
+.game-box-2:hover{
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
 }
 .game-box-3 {
   width: calc(216px);
@@ -171,4 +175,8 @@ body{
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease;
+}
+.game-box-3:hover{
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+    border: 1px solid rgba(81, 203, 238, 1);
 }
