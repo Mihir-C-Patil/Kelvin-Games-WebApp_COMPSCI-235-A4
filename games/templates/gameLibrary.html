@@ -11,21 +11,24 @@
     </header>
     <main class="main">
         <div class="slideshow">
-            <div class="bg-img">
-            </div>
+            <img src="../static/img/CR7_BGimg.jpeg" class="bg-img bgSlides fade" alt="">
+            <img src="../static/img/COD.jpg" class="bg-img bgSlides fade" alt="">
+            <img src="../static/img/CrashBandicoot.jpg" class="bg-img bgSlides fade" alt="">
             <p class="pageHeading"> Featured Games</p>
             <a class="prev" onclick="plusSlides(-1)">❮</a>
             <div class="slideContent blur">
-                <p>Check center margin.</p>
-                <p>Check center margin.</p>
-                <p>Check center margin.</p>
-                <p>Check center margin.</p>
-                <p>Check center margin.</p>
-                <p>Check center margin.</p>
-                <p>Check center margin.</p>
-                <p>Check center margin.</p>
-                <p>Check center margin.</p>
-                <p>Check center margin.</p>
+                <div class="slides fade">
+                  <img src="../static/img/CR7_BGimg.jpeg" style="width:50%; height:100%" alt="GameImg">
+                  <div class="text">Caption Text</div>
+                </div>
+                <div class="slides fade">
+                  <img src="../static/img/COD.jpg" style="width:50%; height:100%" alt="GameImg">
+                  <div class="text">Caption Text</div>
+                </div>
+                <div class="slides fade">
+                  <img src="../static/img/CrashBandicoot.jpg" style="width:50%; height:100%" alt="GameImg">
+                  <div class="text">Caption Text</div>
+                </div>
             </div>
             <a class="next" onclick="plusSlides(1)">❯</a>
         </div>
@@ -46,6 +49,32 @@
             </div>
         </div>
     </main>
+    <script>
+        let slideIndex = 1;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slides");
+            let bgSlides = document.getElementsByClassName("bgSlides")
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                bgSlides[i].style.display = "none";
+            }
+            slides[slideIndex-1].style.display = "block";
+            bgSlides[slideIndex-1].style.display = "block";
+            }
+    </script>
 
 </body>
 </html>

@@ -1,13 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
 body{
+    font-family: 'Roboto', sans-serif;
     background-color: white;
 }
 .bg-img {
-    background: url("../img/CR7_BGimg.jpeg") no-repeat center;
+    /*background: url("../img/CR7_BGimg.jpeg") no-repeat center;*/
     position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
+    top: 0; left: 12%; right: 0; bottom: 0;
     z-index: -9;
     /*margin: auto;*/
-    max-height: 550px;
+    max-width: 1300px;
+    min-width: 1300px;
     overflow: hidden;
     /*background-size: 30px 100px;*/
 }
@@ -22,6 +26,28 @@ body{
     height: 500px;
     overflow: hidden;
 }
+.bgSlides{
+    /*display: none;*/
+}
+.slides{
+    display: none;
+}
+.slides img {
+    horiz-align: left;
+    max-width: 300px;
+    max-height: 350px;
+    overflow: hidden;
+    /*display: inline;*/
+    border-radius: 20px;
+}
+.fade {
+  animation-name: fade;
+  animation-duration: 1.5s;
+}
+@keyframes fade {
+  from {opacity: .4}
+  to {opacity: 1}
+}
 
 .blur {
     background: rgba(0, 0, 0, 0.4);
@@ -30,7 +56,7 @@ body{
     max-width: 850px;
     margin: auto;
     border-radius: 20px;
-    padding: 20px;
+    padding: 15px;
 }
 .main .slideContent{
     z-index: 5;
@@ -60,6 +86,7 @@ body{
     font-size: 35px;
     margin: auto;
     max-width: 850px;
+    color: white;
 }
 
 /* Next & previous buttons */
@@ -89,5 +116,5 @@ body{
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-  background-color: rgba(0,0,0,0.4);
+  background-color: rgba(255,255,255,0.4);
 }
