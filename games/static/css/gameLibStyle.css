@@ -2,7 +2,7 @@
 
 body{
     font-family: 'Roboto', sans-serif;
-    background-color: white;
+    background-color: rgb(24, 25, 26);
 }
 .bg-img {
     /*background: url("../img/CR7_BGimg.jpeg") no-repeat center;*/
@@ -24,7 +24,10 @@ body{
 }
 .slideshow{
     height: 500px;
+    /*width: 100vw;*/
     overflow: hidden;
+    margin-top: -10px;
+    box-shadow: inset 250px 10px 50px rgba(24, 25, 26, 1.2), inset -250px -10px 50px rgba(24, 25, 26, 1.2);
 }
 .bgSlides{
     /*display: none;*/
@@ -66,13 +69,13 @@ body{
 .page{
     max-width: 100%;
     margin: initial;
-    background: greenyellow;
+    background: rgb(24, 25, 26);
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
 .page .content{
-    background: cadetblue;
+    background: rgb(24, 25, 26);
     border-radius: 20px;
     max-width: 850px;
     margin: auto;
