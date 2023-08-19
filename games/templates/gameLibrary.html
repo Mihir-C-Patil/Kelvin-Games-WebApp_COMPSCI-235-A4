@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Games</title>
+    <link rel="stylesheet" href="../static/css/gameLibStyle.css"/>
+</head>
+<body>
+    <header>
+
+    </header>
+    <main class="main">
+        <div class="slideshow">
+            <img src="../static/img/CR7_BGimg.jpeg" class="bg-img bgSlides fade" alt="">
+            <img src="../static/img/COD.jpg" class="bg-img bgSlides fade" alt="">
+            <img src="../static/img/CrashBandicoot.jpg" class="bg-img bgSlides fade" alt="">
+            <p class="pageHeading"> Featured Games</p>
+            <a class="prev" onclick="plusSlides(-1)">❮</a>
+            <div class="slideContent blur">
+                <div class="slides fade">
+                  <img src="../static/img/CR7_BGimg.jpeg" style="width:50%; height:100%" alt="GameImg">
+                  <div class="text">Caption Text</div>
+                </div>
+                <div class="slides fade">
+                  <img src="../static/img/COD.jpg" style="width:50%; height:100%" alt="GameImg">
+                  <div class="text">Caption Text</div>
+                </div>
+                <div class="slides fade">
+                  <img src="../static/img/CrashBandicoot.jpg" style="width:50%; height:100%" alt="GameImg">
+                  <div class="text">Caption Text</div>
+                </div>
+            </div>
+            <a class="next" onclick="plusSlides(1)">❯</a>
+        </div>
+        <div class="page">
+            <div class="content">
+                <div class="tab-container">
+                    <div class="tab">Featured</div>
+                    <div class="tab">Latest</div>
+                    <div class="tab">Paid Games</div>
+                    <div class="tab">Free Games</div>
+                    <div class="tab">Total Games - {{ num_games}}</div>
+                </div>
+                <div class="gameContainer">
+                    <div class="game-box-2">
+                        <img src="../static/img/CR7_BGimg.jpeg" alt="Game 1">
+                        <h3>Game 1</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="gameDescription.html">Learn More</a>
+                    </div>
+                    <div class="game-box-2">
+                        <img src="../static/img/CR7_BGimg.jpeg" alt="Game 1">
+                        <h3>Game 1</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="gameDescription.html">Learn More</a>
+                    </div>
+                </div>
+                <div class="gameContainer">
+                    <div class="game-box-3">
+                        <img src="../static/img/CR7_BGimg.jpeg" alt="Game 1">
+                        <h3>Game 1</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="gameDescription.html">Learn More</a>
+                    </div>
+                    <div class="game-box-3">
+                        <img src="../static/img/CR7_BGimg.jpeg" alt="Game 1">
+                        <h3>Game 1</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="gameDescription.html">Learn More</a>
+                    </div>
+                    <div class="game-box-3">
+                        <img src="../static/img/CR7_BGimg.jpeg" alt="Game 1">
+                        <h3>Game 1</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="gameDescription.html">Learn More</a>
+                    </div>
+                </div>
+                <div class="gameContainer">
+                    <div class="game-box-2">
+                        <img src="../static/img/CR7_BGimg.jpeg" alt="Game 1">
+                        <h3>Game 1</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="gameDescription.html">Learn More</a>
+                    </div>
+                    <div class="game-box-2">
+                        <img src="../static/img/CR7_BGimg.jpeg" alt="Game 1">
+                        <h3>Game 1</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="gameDescription.html">Learn More</a>
+                    </div>
+                </div>
+                <div class="gameContainer">
+                    <div class="game-box-3">
+                        <img src="../static/img/CR7_BGimg.jpeg" alt="Game 1">
+                        <h3>Game 1</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="gameDescription.html">Learn More</a>
+                    </div>
+                    <div class="game-box-3">
+                        <img src="../static/img/CR7_BGimg.jpeg" alt="Game 1">
+                        <h3>Game 1</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="gameDescription.html">Learn More</a>
+                    </div>
+                    <div class="game-box-3">
+                        <img src="../static/img/CR7_BGimg.jpeg" alt="Game 1">
+                        <h3>Game 1</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="gameDescription.html">Learn More</a>
+                    </div>
+                    {% for game in games %}
+                    <div class="game-box-3">
+                        <img src="{{ game.image_url }}" alt="Game 1">
+                        <h3>{{ game.title }}</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="{{ game.website_url }}l">Learn More</a>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        let slideIndex = 1;
+        let intervalId;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slides");
+            let bgSlides = document.getElementsByClassName("bgSlides")
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                bgSlides[i].style.display = "none";
+            }
+            slides[slideIndex-1].style.display = "block";
+            bgSlides[slideIndex-1].style.display = "block";
+            }
+        function startSlideshow() {
+            // Clear any existing interval
+            clearInterval(intervalId);
+            // Start a new interval to change slides every 2 seconds
+            intervalId = setInterval(function() {
+                plusSlides(1);
+            }, 5000);
+        }
+
+        // Start the slideshow initially
+        startSlideshow();
+    </script>
+
+</body>
+</html>
