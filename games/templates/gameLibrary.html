@@ -39,6 +39,7 @@
                     <div class="tab">Latest</div>
                     <div class="tab">Paid Games</div>
                     <div class="tab">Free Games</div>
+                    <div class="tab">Total Games - {{ num_games}}</div>
                 </div>
                 <div class="gameContainer">
                     <div class="game-box-2">
@@ -107,6 +108,14 @@
                         <p>Game 1 description goes here.</p>
                         <a href="gameDescription.html">Learn More</a>
                     </div>
+                    {% for game in games %}
+                    <div class="game-box-3">
+                        <img src="{{ game.image_url }}" alt="Game 1">
+                        <h3>{{ game.title }}</h3>
+                        <p>Game 1 description goes here.</p>
+                        <a href="{{ game.website_url }}l">Learn More</a>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

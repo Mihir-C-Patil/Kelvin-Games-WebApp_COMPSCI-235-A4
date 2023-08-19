@@ -757,7 +757,7 @@ class Review:
         ----------
         user: Game
             The user that the review is associated with.
-        game: Game
+        game:
             The game the review is associated with.
         rating: int
             The rating of the review (0 to 5 inclusive).
