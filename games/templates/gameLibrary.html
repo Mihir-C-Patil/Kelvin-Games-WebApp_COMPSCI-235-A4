@@ -110,10 +110,10 @@
                     </div>
                     {% for game in games %}
                     <div class="game-box-3">
-                        <img src="{{ game.image_url }}" alt="Game 1">
+                        <img src="{{ game.header_image }}" alt="Game 1">
                         <h3>{{ game.title }}</h3>
-                        <p>Game 1 description goes here.</p>
-                        <a href="{{ game.website_url }}l">Learn More</a>
+                        <p>{{ game.game_id }}</p>
+                        <a href="{{ game.game_url }}">View Game</a>
                     </div>
                     {% endfor %}
                 </div>
