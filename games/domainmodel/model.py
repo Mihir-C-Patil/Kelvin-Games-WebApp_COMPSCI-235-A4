@@ -215,7 +215,7 @@ class Game:
             self.__game_title = game_title.strip()
 
         self.__genres = list()
-        self.__reviews = list()
+        self.__reviews = False
         self.__tags = list()
         self.__price = None
         self.__release_date = None
@@ -314,7 +314,7 @@ class Game:
 
 
     @property
-    def reviews(self) -> list:
+    def reviews(self):
         """
         Return the list of reviews of a game object
 
@@ -322,17 +322,6 @@ class Game:
         """
 
         return self.__reviews
-
-    @property
-    def system_dict(self):
-        return self.__system_dict
-    @property
-    def languages(self):
-        return self.__languages
-
-    @property
-    def tags(self):
-        return self.__tags
 
     @property
     def price(self) -> (int, float):
@@ -383,10 +372,6 @@ class Game:
         """
 
         return self.__image_url
-
-    @property
-    def video_url(self):
-        return self.__video_url
 
     @property
     def website_url(self) -> str:
@@ -516,14 +501,6 @@ class Game:
         else:
             self.__image_url = None
 
-    @video_url.setter
-    def video_url(self, new_video_url: str) -> None:
-
-        if isinstance(new_video_url, str) and new_video_url.strip():
-            self.__video_url = new_video_url.strip()
-        else:
-            self.__video_url = None
-
     @website_url.setter
     def website_url(self, new_website_url: str) -> None:
         """
@@ -578,10 +555,7 @@ class Game:
         else:
             print(f'Could not find {genre_to_remove} in list of genres.')
 
-    def add_review(self, review):
-        if len(review.strip()) > 0:
-            self.__reviews.append(review)
-
+    """Added the following methods in Games class for games-description page"""
     def add_tag(self, tag):
         if len(tag.strip()) > 0:
             self.__tags.append(tag)
@@ -589,6 +563,35 @@ class Game:
     def add_language(self, language):
         if len(language.strip()) > 0:
             self.__languages.append(language)
+
+    @reviews.setter
+    def reviews(self, review):
+        if len(review.strip()) > 0:
+            self.__reviews = review
+
+    @property
+    def system_dict(self):
+        return self.__system_dict
+
+    @property
+    def languages(self):
+        return self.__languages
+
+    @property
+    def tags(self):
+        return self.__tags
+
+    @property
+    def video_url(self):
+        return self.__video_url
+
+    @video_url.setter
+    def video_url(self, new_video_url: str) -> None:
+
+        if isinstance(new_video_url, str) and new_video_url.strip():
+            self.__video_url = new_video_url.strip()
+        else:
+            self.__video_url = None
 
 class User:
     def __init__(self, username: str, password: str) -> None:
