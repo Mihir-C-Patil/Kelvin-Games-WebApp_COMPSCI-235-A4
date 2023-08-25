@@ -26,7 +26,7 @@ class Publisher:
         :return: str
         """
 
-        return f"<Publisher {self.__publisher_name}>"
+        return self.__publisher_name
 
     def __eq__(self, other) -> bool:
         """
@@ -128,7 +128,7 @@ class Genre:
         :return: str
         """
 
-        return f"<Genre {self.__genre_name}>"
+        return self.__genre_name
 
     def __eq__(self, other) -> bool:
         """
@@ -216,12 +216,16 @@ class Game:
 
         self.__genres = list()
         self.__reviews = list()
+        self.__tags = list()
         self.__price = None
         self.__release_date = None
         self.__description = None
         self.__publisher = None
         self.__image_url = None
         self.__website_url = None
+        self.__video_url = None
+        self.__languages = list()
+        self.__system_dict = dict()
 
     def __repr__(self) -> str:
         """
@@ -308,6 +312,7 @@ class Game:
 
         return self.__genres
 
+
     @property
     def reviews(self) -> list:
         """
@@ -317,6 +322,17 @@ class Game:
         """
 
         return self.__reviews
+
+    @property
+    def system_dict(self):
+        return self.__system_dict
+    @property
+    def languages(self):
+        return self.__languages
+
+    @property
+    def tags(self):
+        return self.__tags
 
     @property
     def price(self) -> (int, float):
@@ -367,6 +383,10 @@ class Game:
         """
 
         return self.__image_url
+
+    @property
+    def video_url(self):
+        return self.__video_url
 
     @property
     def website_url(self) -> str:
@@ -496,6 +516,14 @@ class Game:
         else:
             self.__image_url = None
 
+    @video_url.setter
+    def video_url(self, new_video_url: str) -> None:
+
+        if isinstance(new_video_url, str) and new_video_url.strip():
+            self.__video_url = new_video_url.strip()
+        else:
+            self.__video_url = None
+
     @website_url.setter
     def website_url(self, new_website_url: str) -> None:
         """
@@ -550,6 +578,17 @@ class Game:
         else:
             print(f'Could not find {genre_to_remove} in list of genres.')
 
+    def add_review(self, review):
+        if len(review.strip()) > 0:
+            self.__reviews.append(review)
+
+    def add_tag(self, tag):
+        if len(tag.strip()) > 0:
+            self.__tags.append(tag)
+
+    def add_language(self, language):
+        if len(language.strip()) > 0:
+            self.__languages.append(language)
 
 class User:
     def __init__(self, username: str, password: str) -> None:
