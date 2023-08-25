@@ -27,6 +27,14 @@ class MemoryRepository(AbstractRepository):
                 return game
         return self.__games
 
+    def get_similar_games(self, genre_list):
+        similar_game_list = []
+        for game in self.__games:
+            for genre in game.genres:
+                if genre in genre_list:
+                    similar_game_list.append(game)
+                    break
+        return similar_game_list
 
 def populate(repo: AbstractRepository):
     dir_name = os.path.dirname(os.path.abspath(__file__))
