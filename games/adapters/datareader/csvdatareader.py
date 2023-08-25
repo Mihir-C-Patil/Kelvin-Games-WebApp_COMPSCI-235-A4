@@ -42,11 +42,8 @@ class GameFileCSVReader:
                         self.__dataset_of_genres.add(genre)
                         game.add_genre(genre)
 
-                    reviews = row["Reviews"].split(",")
-                    for review in reviews:
-                        new_review = review.strip()
-                        self.__dataset_of_reviews.add(new_review)
-                        game.add_review(new_review)
+                    game.reviews = row["Reviews"]
+
 
                     tags = row["Tags"].split(",")
                     for tag in tags:
