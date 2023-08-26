@@ -52,5 +52,5 @@ def get_games_by_genre(genre, repo: AbstractRepository):
 
 def get_genres(repo: AbstractRepository):
     genres = repo.get_genres()
-    return genres
+    return [genre.genre_name for genre in genres]
 
