@@ -34,15 +34,12 @@ class MemoryRepository(AbstractRepository):
 
     def get_genre_of_games(self, target_genre):
         matching_game_genre = []
-        try:
-            for game in self.__games:
-                if game.genres == target_genre:
-                    matching_game_genre.append(game)
-                else:
-                    break
-        except ValueError:
-            # No game for specified genre. Simply return an empty list.
-            pass
+        for game in self.__games:
+            if Genre(target_genre) in game.genres:
+                matching_game_genre.append(game)
+            else:
+                # matching_game_genre.append(Game(786, " ".join(game.genres)))
+                pass
 
         return matching_game_genre
 

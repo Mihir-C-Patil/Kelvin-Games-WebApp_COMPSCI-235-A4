@@ -29,8 +29,8 @@ def games_by_genre():
     # Read url parameters assuming there will be at least one game with that genre
     target_genre = request.args.get('genre')
     selected_genre_games = services.get_games_by_genre(target_genre, repo.repo_instance)
-    for genre in selected_genre_games:
-        genre['game_genre_url'] = url_for('viewGames_bp.games_by_genre', genre=target_genre)
+    #for genre in selected_genre_games:
+    #    genre['game_genre_url'] = url_for('viewGames_bp.games_by_genre', genre=target_genre)
     # genre_url = url_for('viewGames_bp.games_by_genre', genre=target_genre)
     genres = services.get_genres(repo.repo_instance)
     return render_template('gameLibraryG.html', heading=target_genre, games=selected_genre_games, all_genres=genres,
