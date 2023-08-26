@@ -29,6 +29,7 @@
                   <img src="../static/img/CrashBandicoot.jpg" style="width:50%; height:100%" alt="GameImg">
                   <div class="text">Caption Text</div>
                 </div>
+
             </div>
             <a class="next" onclick="plusSlides(1)">❯</a>
         </div>
@@ -40,6 +41,9 @@
                     <div class="tab">Paid Games</div>
                     <div class="tab">Free Games</div>
                     <div class="tab">Total Games - {{ num_games}}</div>
+                    {% for genre in all_genres %}
+                        <div class="tab">{{ genre}}</div>
+                    {% endfor %}
                 </div>
                 <div class="gameContainer">
                     <div class="game-box-2">
