@@ -1,4 +1,5 @@
 """Initialize Flask app."""
+from pathlib import Path
 
 from flask import Flask, render_template
 
@@ -24,6 +25,9 @@ def create_app():
 
     # Create the Flask app object.
     app = Flask(__name__)
+
+    app.config.from_object('config.Config')
+    data_path = Path('games') / 'adapters' / 'data'
 
     @app.route('/')
     def home():
