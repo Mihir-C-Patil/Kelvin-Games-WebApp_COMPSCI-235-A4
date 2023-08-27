@@ -45,6 +45,7 @@
                         <div class="tab"><a href="{{ genre_urls[genre] }}">{{ genre}}</a></div>
                     {% endfor %}
                 </div>
+                {{ pagination.info|safe }}
                 <div class="gameContainer">
 
                     {% for game in games %}
@@ -56,6 +57,7 @@
                     </div>
                     {% endfor %}
                 </div>
+                {{ pagination.links|safe }}
             </div>
         </div>
     </main>

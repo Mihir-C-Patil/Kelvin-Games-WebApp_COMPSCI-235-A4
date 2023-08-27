@@ -184,3 +184,19 @@ body{
     box-shadow: 0 0 5px rgba(81, 203, 238, 1);
     border: 1px solid rgba(81, 203, 238, 1);
 }
+
+.pagination-page-info {
+padding: .6em;
+padding-left: 0;
+width: 40em;
+margin: .5em;
+margin-left: 0;
+font-size: 12px;
+}
+.pagination-page-info b {
+color: black;
+background: #6aa6ed;
+padding-left: 2px;
+padding: .1em .25em;
+font-size: 150%;
+}

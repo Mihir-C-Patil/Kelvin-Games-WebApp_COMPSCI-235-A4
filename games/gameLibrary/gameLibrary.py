@@ -1,4 +1,6 @@
 from flask import Blueprint, render_template, request, url_for
+from flask_paginate import Pagination, get_page_args
+
 
 from games.gameLibrary import services
 import games.adapters.repository as repo
@@ -29,9 +31,16 @@ def games_by_genre():
     # Read url parameters assuming there will be at least one game with that genre
     target_genre = request.args.get('genre')
     selected_genre_games = services.get_games_by_genre(target_genre, repo.repo_instance)
-    #for genre in selected_genre_games:
+    # get_page_arg defaults to page 1, per_page of 10
+    page, per_page, offset = get_page_args(per_page_parameter="pp", pp=9)
+    # rendered = selected_genre_games[((page-1)*per_page): ((page-1)*per_page + 5)]
+    rendered = selected_genre_games[offset: offset + per_page]
+    pagination = Pagination(page=page, per_page=per_page, offset=offset,
+                            total=len(selected_genre_games), record_name='List', css_framework='foundation')
+
+    # for genre in selected_genre_games:
     #    genre['game_genre_url'] = url_for('viewGames_bp.games_by_genre', genre=target_genre)
     # genre_url = url_for('viewGames_bp.games_by_genre', genre=target_genre)
     genres = services.get_genres(repo.repo_instance)
-    return render_template('gameLibraryG.html', heading=target_genre, games=selected_genre_games, all_genres=genres,
-                           genre_urls=get_genres_and_urls())
+    return render_template('gameLibraryG.html', heading=target_genre, games=rendered, all_genres=genres,
+                           genre_urls=get_genres_and_urls(), pagination=pagination)
