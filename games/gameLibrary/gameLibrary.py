@@ -39,7 +39,7 @@ def games_by_genre():
     rendered = selected_genre_games[offset: offset + per_page]
     pagination = Pagination(page=page, per_page=per_page, offset=offset,
                             total=len(selected_genre_games),
-                            record_name='List', css_framework='bootstrap5')
+                            record_name='List')
 
     # for genre in selected_genre_games:
     #    genre['game_genre_url'] = url_for('viewGames_bp.games_by_genre', genre=target_genre)

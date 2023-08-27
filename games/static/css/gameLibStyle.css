@@ -185,18 +185,67 @@ body{
     border: 1px solid rgba(81, 203, 238, 1);
 }
 
+/*.pagination-page-info {*/
+/*padding: .6em;*/
+/*padding-left: 0;*/
+/*width: 40em;*/
+/*margin: .5em;*/
+/*margin-left: 0;*/
+/*font-size: 12px;*/
+/*}*/
+/*.pagination-page-info b {*/
+/*color: white;*/
+/*background: #6aa6ed;*/
+/*padding-left: 2px;*/
+/*padding: .1em .25em;*/
+/*font-size: 150%;*/
+/*}*/
+
+/* Styling for pagination info */
 .pagination-page-info {
-padding: .6em;
-padding-left: 0;
-width: 40em;
-margin: .5em;
-margin-left: 0;
-font-size: 12px;
+    font-size: 12px;
+    color: #fff;
+    background-color: #333;
+    padding: 13px 13px;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
-.pagination-page-info b {
-color: black;
-background: #6aa6ed;
-padding-left: 2px;
-padding: .1em .25em;
-font-size: 150%;
+/* Styling for pagination links */
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    transition: transform 0.9s ease;
+}
+
+.pagination li {
+    margin: 0 5px;
+    transition: transform 0.2s ease;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 8px 15px;
+    background-color: #eee;
+    color: #333;
+    border-radius: 50px; /* Add rounded corners */
+    transition: background-color 0.3s, color 0.3s;
+
+}
+/*.pagination :hover{*/
+/*    transform: translateY(-5px);*/
+/*}*/
+
+.pagination li:hover {
+    transform: translateY(-5px);
+}
+
+.pagination a:hover {
+    background-color: #333;
+    color: #fff;
 }
