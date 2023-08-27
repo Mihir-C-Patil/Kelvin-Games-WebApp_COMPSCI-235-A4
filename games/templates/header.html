@@ -1,22 +1,28 @@
 <header class="header">
-    <div class="header__hamburger">
-        <div class="hamburger">
-            <span class="hamburger__line"></span>
-            <span class="hamburger__line"></span>
-            <span class="hamburger__line"></span>
-        </div>
-    </div>
-    <nav class="header__nav">
-        <ul class="nav__list">
-            <li class="nav__item"><a href="#">Home</a></li>
-            <li class="nav__item"><a href="#">All Games</a></li>
-            <li class="nav__item"><a href="#">About</a></li>
-        </ul>
-    </nav>
-    <div class="header__logo">
-        <img src="path_to_your_logo.png" alt="Website Logo">
-    </div>
-    <div class="header__right">
-        <input type="text" class="search-bar" placeholder="Search...">
-    </div>
-</header>
+    <section class="header__hamburger">
+        <span class="hamburger__top"></span>
+        <span class="hamburger__middle"></span>
+        <span class="hamburger__bottom"></span>
+    </section>
+    <section class="navigation">
+        <section class="header__logo">
+            <a href="#">
+                <img src="path_to_your_logo.png" alt="Website Logo">
+            </a>
+        </section>
+        <nav class="header__nav">
+            <ul class="nav__list">
+                <li class="nav__item"><a href="#">Home</a></li>
+                <li class="nav__item"><a href="#">All Games</a></li>
+                <li class="nav__item"><a href="#">About</a></li>
+            </ul>
+        </nav>
+    </section>
+    <section class="search-bar">
+        <label for="searchbar">
+            <input id="searchbar" type="text" class="search-box"
+                   placeholder="Search...">
+        </label>
+    </section>
+
+

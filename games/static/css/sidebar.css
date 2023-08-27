@@ -7,13 +7,29 @@
 }
 
 .sidebar {
+  z-index: 2;
   position: fixed;
   top: 20%;
-  bottom: 20%;
   left: 10px;
   background-color: darkblue;
   border-radius: 12px;
   padding: 25px;
+  transform: translateX(-110%);
+  transition: 250ms ease-out;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar[data-visible="true"] {
+  transform: translateX(0%);
 }
 
 .sidebar__section {
@@ -28,6 +44,7 @@
 .sidebar__heading {
   padding: 5px 0 5px 0;
   color: whitesmoke;
+  letter-spacing: 1px;
 }
 
 .sidebar__li {
