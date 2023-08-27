@@ -102,9 +102,15 @@
   border-radius: 5px;
   background-color: transparent;
   color: whitesmoke;
+  transition: 250ms ease;
 }
 
 .search-box::placeholder {
   opacity: 1;
   color: whitesmoke;
+}
+
+.search-box:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: 250ms ease;
 }
