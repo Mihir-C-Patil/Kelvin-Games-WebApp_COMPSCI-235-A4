@@ -23,11 +23,13 @@ class MemoryRepository(AbstractRepository):
 
 
 def populate(repo: AbstractRepository):
-    dir_name = os.path.dirname(os.path.abspath(__file__))
-    games_file_name = os.path.join(dir_name, "data/games.csv")
-    reader = GameFileCSVReader(games_file_name)
+    directory_name = os.path.dirname(os.path.abspath(__file__))
+    games_csv_path = os.path.join(directory_name, "data/games.csv")
+    reader = GameFileCSVReader(games_csv_path)
 
     reader.read_csv_file()
     games = reader.dataset_of_games
     for game in games:
         repo.add_game(game)
+        for genre in game.genres:
+            repo.add_genre(genre)
