@@ -78,12 +78,14 @@
   text-decoration: none;
   color: rgba(256, 256, 256, 0.9);
   font-weight: bold;
+  transition: 150ms ease;
 }
 
 .nav__item a:hover {
   text-decoration: none;
   color: rgba(256, 256, 256, 1);
   font-weight: bold;
+  transition: 150ms ease;
 }
 
 /* Logo styles */

@@ -14,7 +14,7 @@
   left: 10px;
   background-color: darkblue;
   border-radius: 12px;
-  padding: 25px;
+  padding: 10px 15px;
   transform: translateX(-110%);
   transition: 250ms ease-out;
 }
@@ -56,4 +56,10 @@
   margin-left: 15px;
   text-decoration: none;
   color: #ddd;
+  transition: 150ms ease;
+}
+
+.sidebar__li a:hover {
+  color: white;
+  transition: 150ms ease;
 }
