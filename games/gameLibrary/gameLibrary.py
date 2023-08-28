@@ -41,6 +41,14 @@ def games_by_genre():
                             total=len(selected_genre_games),
                             record_name='List')
 
+    if len(selected_genre_games) < 5:
+        slide_genre_games = selected_genre_games
+    elif len(selected_genre_games) < 10:
+        slide_genre_games = selected_genre_games[2:7]
+    else:
+        slide_genre_games = selected_genre_games[10:15]
+
+
     # for genre in selected_genre_games:
     #    genre['game_genre_url'] = url_for('viewGames_bp.games_by_genre', genre=target_genre)
     # genre_url = url_for('viewGames_bp.games_by_genre', genre=target_genre)
@@ -48,4 +56,4 @@ def games_by_genre():
     return render_template('gameLibraryG.html', heading=target_genre,
                            games=rendered, all_genres=genres,
                            genre_urls=get_genres_and_urls(),
-                           pagination=pagination, slide_genre_games=selected_genre_games[10:15])
+                           pagination=pagination, slide_genre_games=slide_genre_games)
