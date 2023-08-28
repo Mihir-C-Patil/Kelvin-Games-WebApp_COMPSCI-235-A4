@@ -53,3 +53,16 @@ def get_games_by_genre(genre, repo: AbstractRepository):
 def get_genres(repo: AbstractRepository):
     genres = repo.get_genres()
     return [genre.genre_name for genre in genres]
+
+
+def search_games_by_title(title: str, repo: AbstractRepository) -> list[dict]:
+    search_results = repo.search_games_by_title(title)
+    games_list = []
+    for game in search_results:
+        games_dictionary = {'game_id:': game.game_id,
+                            'title': game.title,
+                            'game_url': game.website_url,
+                            'header_image': game.image_url
+                            }
+        games_list.append(games_dictionary)
+    return games_list

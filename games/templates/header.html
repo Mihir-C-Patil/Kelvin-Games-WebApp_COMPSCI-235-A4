@@ -1,27 +1,30 @@
 <header class="header">
-    <section class="header__hamburger">
-        <span class="hamburger__top"></span>
-        <span class="hamburger__middle"></span>
-        <span class="hamburger__bottom"></span>
+  <section class="header__hamburger">
+    <span class="hamburger__top"></span>
+    <span class="hamburger__middle"></span>
+    <span class="hamburger__bottom"></span>
+  </section>
+  <section class="navigation">
+    <section class="header__logo">
+      <a href="#">
+        <img src="path_to_your_logo.png" alt="Website Logo">
+      </a>
     </section>
-    <section class="navigation">
-        <section class="header__logo">
-            <a href="#">
-                <img src="path_to_your_logo.png" alt="Website Logo">
-            </a>
-        </section>
-        <nav class="header__nav">
-            <ul class="nav__list">
-                <li class="nav__item"><a href="#">Home</a></li>
-                <li class="nav__item"><a href="#">All Games</a></li>
-                <li class="nav__item"><a href="#">About</a></li>
-            </ul>
-        </nav>
-    </section>
-    <section class="search-bar">
-        <label for="searchbar">
-            <input id="searchbar" type="text" class="search-box"
-                   placeholder="Search...">
-        </label>
-    </section>
+    <nav class="header__nav">
+      <ul class="nav__list">
+        <li class="nav__item"><a href="#">Home</a></li>
+        <li class="nav__item"><a href="#">All Games</a></li>
+        <li class="nav__item"><a href="#">About</a></li>
+      </ul>
+    </nav>
+  </section>
+  <section class="search-bar">
+    <form action="{{ url_for('search_games') }}" method="GET">
+      <label for="searchbar">
+        <input id="searchbar" type="text" class="search-box" name="query"
+               placeholder="Search...">
+      </label>
+      <button type="submit">Search</button>
+    </form>
+  </section>
 </header>

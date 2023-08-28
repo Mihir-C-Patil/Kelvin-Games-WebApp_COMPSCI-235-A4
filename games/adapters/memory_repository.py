@@ -21,6 +21,12 @@ class MemoryRepository(AbstractRepository):
     def get_number_of_games(self):
         return len(self.__games)
 
+    def search_games_by_title(self, title: str) -> List[Game]:
+        title = title.lower()
+        game_results = [game for game in self.__games if title
+                        in game.title.lower()]
+        return game_results
+
 
 def populate(repo: AbstractRepository):
     directory_name = os.path.dirname(os.path.abspath(__file__))
