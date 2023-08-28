@@ -12,24 +12,18 @@
     </header>
     <main class="main">
         <div class="slideshow">
-            <img src="../static/img/CR7_BGimg.jpeg" class="bg-img bgSlides fade" alt="">
-            <img src="../static/img/COD.jpg" class="bg-img bgSlides fade" alt="">
-            <img src="../static/img/CrashBandicoot.jpg" class="bg-img bgSlides fade" alt="">
+            {% for game in slide_genre_games %}
+                <img src="{{ game.header_image }}" class="bg-img bgSlides fade" alt="">
+            {% endfor %}
             <p class="pageHeading"> {{ heading }}</p>
             <a class="prev" onclick="plusSlides(-1)">❮</a>
             <div class="slideContent blur">
-                <div class="slides fade">
-                  <img src="../static/img/CR7_BGimg.jpeg" style="width:50%; height:100%" alt="GameImg">
-                  <div class="text">Caption Text</div>
-                </div>
-                <div class="slides fade">
-                  <img src="../static/img/COD.jpg" style="width:50%; height:100%" alt="GameImg">
-                  <div class="text">Caption Text</div>
-                </div>
-                <div class="slides fade">
-                  <img src="../static/img/CrashBandicoot.jpg" style="width:50%; height:100%" alt="GameImg">
-                  <div class="text">Caption Text</div>
-                </div>
+                {% for game in slide_genre_games %}
+                    <div class="slides fade">
+                      <img src="{{ game.header_image }}" style="width:50%; height:100%" alt="GameImg">
+                      <div class="text">{{ game.title }}</div>
+                    </div>
+                {% endfor %}
 
             </div>
             <a class="next" onclick="plusSlides(1)">❯</a>
@@ -48,7 +42,6 @@
                 </div>
                 {{ pagination.info|safe }}
                 <div class="gameContainer">
-
                     {% for game in games %}
                     <div class="game-box-3">
                         <img src="{{ game.header_image }}" alt="Game 1">

@@ -48,4 +48,4 @@ def games_by_genre():
     return render_template('gameLibraryG.html', heading=target_genre,
                            games=rendered, all_genres=genres,
                            genre_urls=get_genres_and_urls(),
-                           pagination=pagination)
+                           pagination=pagination, slide_genre_games=selected_genre_games[10:15])
