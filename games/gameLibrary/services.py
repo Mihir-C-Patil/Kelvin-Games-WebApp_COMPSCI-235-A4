@@ -27,7 +27,9 @@ def get_slide_games(repo: AbstractRepository):
             games_dict = {'game_id': game.game_id,
                           'title': game.title,
                           'game_url': game.website_url,
-                          'header_image': game.image_url
+                          'header_image': game.image_url,
+                          'price': game.price,
+                          'description': game.description
                           }
             games_dictionaries.append(games_dict)
             i += 1
@@ -44,8 +46,12 @@ def get_games_by_genre(genre, repo: AbstractRepository):
         games_dict = {'game_id': game.game_id,
                       'title': game.title,
                       'game_url': game.website_url,
-                      'header_image': game.image_url
+                      'header_image': game.image_url,
+                      'price': game.price,
+                      'description': game.description
                       }
+        if games_dict['price'] == 0.0:
+            games_dict['price'] = 'Free!'
         games_dicts.append(games_dict)
     return games_dicts
 

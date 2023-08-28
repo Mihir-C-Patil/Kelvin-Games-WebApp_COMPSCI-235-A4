@@ -5,26 +5,21 @@ body{
     background-color: rgb(24, 25, 26);
 }
 .bg-img {
-    /*background: url("../img/CR7_BGimg.jpeg") no-repeat center;*/
     position: fixed;
     top: 0; left: 12%; right: 0; bottom: 0;
     z-index: -9;
-    /*margin: auto;*/
     max-width: 1300px;
     min-width: 1300px;
     overflow: hidden;
-    /*background-size: 30px 100px;*/
 }
 
 .main{
-    /*max-width: 850px;*/
     margin: auto;
     top: 0; left: 0; right: 0; bottom: 0;
     z-index: -10;
 }
 .slideshow{
     height: 500px;
-    /*width: 100vw;*/
     overflow: hidden;
     margin-top: -10px;
     box-shadow: inset 250px 10px 50px rgba(24, 25, 26, 1.2), inset -250px -10px 50px rgba(24, 25, 26, 1.2);
@@ -37,15 +32,14 @@ body{
 }
 .slides img {
     horiz-align: left;
-    max-width: 300px;
-    max-height: 350px;
+    min-width: 450px;
+    /*max-height: 850px;*/
     overflow: hidden;
     /*display: inline;*/
     border-radius: 20px;
 }
-.fade {
-  animation-name: fade;
-  animation-duration: 1.5s;
+.gameInfo{
+    display: inline-block;
 }
 @keyframes fade {
   from {opacity: .4}
@@ -60,6 +54,7 @@ body{
     margin: auto;
     border-radius: 20px;
     padding: 15px;
+    /*display: flex;*/
 }
 .main .slideContent{
     z-index: 5;
