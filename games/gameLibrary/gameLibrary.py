@@ -1,9 +1,6 @@
 from flask import Blueprint, render_template, request, url_for
 from flask_paginate import Pagination, get_page_args
 
-from flask import Blueprint, render_template
-
-from games.gameLibrary import services
 import games.adapters.repository as repo
 from games.gameLibrary import services
 
@@ -44,6 +41,14 @@ def games_by_genre():
                             total=len(selected_genre_games),
                             record_name='List')
 
+    if len(selected_genre_games) < 5:
+        slide_genre_games = selected_genre_games
+    elif len(selected_genre_games) < 10:
+        slide_genre_games = selected_genre_games[2:7]
+    else:
+        slide_genre_games = selected_genre_games[10:15]
+
+
     # for genre in selected_genre_games:
     #    genre['game_genre_url'] = url_for('viewGames_bp.games_by_genre', genre=target_genre)
     # genre_url = url_for('viewGames_bp.games_by_genre', genre=target_genre)
@@ -51,5 +56,4 @@ def games_by_genre():
     return render_template('gameLibraryG.html', heading=target_genre,
                            games=rendered, all_genres=genres,
                            genre_urls=get_genres_and_urls(),
-                           pagination=pagination, slide_genre_games=selected_genre_games[10:15])
-    return render_template('gameLibrary.html', heading='All Games', games=all_games, num_games=game_count)
+                           pagination=pagination, slide_genre_games=slide_genre_games)
