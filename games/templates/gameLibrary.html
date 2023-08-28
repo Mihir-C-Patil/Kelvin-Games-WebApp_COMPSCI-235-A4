@@ -14,6 +14,9 @@
             <img src="../static/img/CR7_BGimg.jpeg" class="bg-img bgSlides fade" alt="">
             <img src="../static/img/COD.jpg" class="bg-img bgSlides fade" alt="">
             <img src="../static/img/CrashBandicoot.jpg" class="bg-img bgSlides fade" alt="">
+            {% for game in slide_games %}
+                <img src="{{ game.header_image }}" class="bg-img bgSlides fade" alt="">
+            {% endfor %}
             <p class="pageHeading"> Featured Games</p>
             <a class="prev" onclick="plusSlides(-1)">❮</a>
             <div class="slideContent blur">
@@ -29,6 +32,12 @@
                   <img src="../static/img/CrashBandicoot.jpg" style="width:50%; height:100%" alt="GameImg">
                   <div class="text">Caption Text</div>
                 </div>
+                {% for game in slide_games %}
+                    <div class="slides fade">
+                      <img src="{{ game.header_image }}" style="width:50%; height:100%" alt="GameImg">
+                      <div class="text">Caption Textttt</div>
+                    </div>
+                {% endfor %}
 
             </div>
             <a class="next" onclick="plusSlides(1)">❯</a>
