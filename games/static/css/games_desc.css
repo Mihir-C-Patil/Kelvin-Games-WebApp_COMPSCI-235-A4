@@ -59,8 +59,8 @@ body{
 
 .description{
     display: flex;
-    justify-content: flex-start;
-    margin-bottom: -20px;
+    flex-direction: row;
+    justify-content: left;
 }
 
 .desc_title{
@@ -173,6 +173,11 @@ body{
     opacity: 0; /* Fully visible by default */
 }
 
+.reco_game_description a{
+    color: white;
+    text-decoration: none;
+}
+
 .reco_game_description p{
     padding: 10px;
     font-size: 8px;
@@ -183,4 +188,18 @@ body{
 }
 .recommendation{
     margin-top: 100px;
+}
+
+.back_button_container{
+    margin-top: 100px;
+    background-color: var(--tag_background);
+    padding: 10px;
+    border-radius: 10px;
+    width: 100px;
+    border-color: var(--tag_text_colour);
+}
+
+.back_button_container a{
+    color: var(--text_colour);
+    text-decoration: none;
 }

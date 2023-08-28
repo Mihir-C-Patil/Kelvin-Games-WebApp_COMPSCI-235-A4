@@ -121,13 +121,22 @@
         {% for game in similar_games %}
         <div class="reco_game">
             <div class="reco_game_image">
-                <a href="/games-description/{{ game.game_id }}"><img src={{ game.image_url }}></a>
+                <img src={{ game.image_url }}>
                 <div class="reco_game_description">
-                    <p>{{ game.description }}</p>
+                    <a href="/games-description/{{ game.game_id }}"><p>{{ game.description }}</p></a>
                 </div>
             </div>
         </div>
         {% endfor %}
     </div>
 </section>
+
+<section class="go_back">
+    <div class="back_button_container">
+        <a href="/gamelibrary">Go Back to Library</a>
+    </div>
+</section>
+
 </body>
+
+
