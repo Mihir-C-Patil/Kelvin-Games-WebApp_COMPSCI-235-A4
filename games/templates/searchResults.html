@@ -18,7 +18,7 @@
 
   {% block content %}
     <h2>Search Results</h2>
-{#    {% if results %}#}
+    {% if games %}
       <ul>
         {% for game in games %}
           <li>
@@ -29,9 +29,9 @@
           </li>
         {% endfor %}
       </ul>
-{#    {% else %}#}
-{#      <p>No results found.</p>#}
-{#    {% endif %}#}
+    {% else %}
+      <p>No results found.</p>
+    {% endif %}
   {% endblock %}
 </main>
 
