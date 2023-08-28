@@ -11,27 +11,27 @@
 <body>
 <header>
   {% include 'header.html' %}
-  {% include 'sidebar.html.html' %}
+  {% include 'sidebar.html' %}
 </header>
 <main>
   {% block title %}Search Results{% endblock %}
 
   {% block content %}
     <h2>Search Results</h2>
-    {% if results %}
+{#    {% if results %}#}
       <ul>
-        {% for result in results %}
+        {% for game in games %}
           <li>
-            <a href="{{ result.game_url }}">
-              <img src="{{ result.header_image }}" alt="{{ result.title }}">
-              <h3>{{ result.title }}</h3>
+            <a href="{{ game.game_url }}">
+              <img src="{{ game.header_image }}" alt="{{ game.title }}">
+              <h3>{{ game.title }}</h3>
             </a>
           </li>
         {% endfor %}
       </ul>
-    {% else %}
-      <p>No results found.</p>
-    {% endif %}
+{#    {% else %}#}
+{#      <p>No results found.</p>#}
+{#    {% endif %}#}
   {% endblock %}
 </main>
 

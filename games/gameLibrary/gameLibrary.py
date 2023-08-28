@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, url_for, redirect
+from flask import Blueprint, render_template, request, url_for
 from flask_paginate import Pagination, get_page_args
 
 import games.adapters.repository as repo
@@ -48,7 +48,6 @@ def games_by_genre():
     else:
         slide_genre_games = selected_genre_games[10:15]
 
-
     # for genre in selected_genre_games:
     #    genre['game_genre_url'] = url_for('viewGames_bp.games_by_genre', genre=target_genre)
     # genre_url = url_for('viewGames_bp.games_by_genre', genre=target_genre)
@@ -56,15 +55,15 @@ def games_by_genre():
     return render_template('gameLibraryG.html', heading=target_genre,
                            games=rendered, all_genres=genres,
                            genre_urls=get_genres_and_urls(),
-                           pagination=pagination, slide_genre_games=slide_genre_games)
+                           pagination=pagination,
+                           slide_genre_games=slide_genre_games)
+
 
 @gameLibrary_blueprint.route('/search', methods=['GET', 'POST'])
 def search_games_by_title():
-    if request.method == 'POST':
-        search_query = request.form.get('search_query')
-        if search_query:
-            search_results = services.search_games_by_title(search_query,
-                                                            repo.repo_instance)
-            genres = services.get_genres(repo.repo_instance)
-            return render_template('searchResults.html', results=search_results, all_genres=genres)
-    return redirect(url_for('viewGames_bp.view_games'))
+    search = request.args.get('query')
+    search_results = services.search_games_by_title(search, repo.repo_instance)
+    genres = services.get_genres(repo.repo_instance)
+    return render_template('searchResults.html', heading='Search Results',
+                           games=search_results, num_games=len(search_results),
+                           slide_games=search_results, all_genres=genres)

@@ -63,8 +63,4 @@ def populate(repo: AbstractRepository):
     for game in games:
         repo.add_game(game)
         for genre in game.genres:
-            # Check if I need to add genre directly without creating Genre obj
-            genre_ojb = Genre(genre)
-            repo.add_genre(genre)
-        for genre in game.genres:
             repo.add_genre(genre)
