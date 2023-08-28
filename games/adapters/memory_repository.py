@@ -31,6 +31,25 @@ class MemoryRepository(AbstractRepository):
                         in game.title.lower()]
         return game_results
 
+    def search_games_by_publisher(self, publisher: str) -> List[Game]:
+        publisher = publisher.lower()
+        game_results = [game for game in self.__games if publisher
+                        in game.publisher.lower()]
+        return game_results
+
+    def search_games_by_category(self, category: str) -> List[Game]:
+        category = category.lower()
+        game_results = [game for game in self.__games if category
+                        in game.category.lower()]
+        return game_results
+
+    def search_games_by_tags(self, tags: str) -> List[Game]:
+        tags = tags.lower()
+        game_results = [game for game in self.__games if tags
+                        in game.tags.lower()]
+        return game_results
+
+
     def add_genre(self, genre: Genre):
         if isinstance(genre, Genre) and genre not in self.__genres:
             insort_left(self.__genres, genre)

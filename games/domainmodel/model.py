@@ -215,6 +215,8 @@ class Game:
             self.__game_title = game_title.strip()
 
         self.__genres = list()
+        self.__categories = list()
+        self.__tags = list()
         self.__reviews = list()
         self.__price = None
         self.__release_date = None
@@ -307,6 +309,26 @@ class Game:
         """
 
         return self.__genres
+
+    @property
+    def categories(self) -> list:
+        """
+        Return the list of categories of a game object
+
+        :return: list
+        """
+
+        return self.__categories
+
+    @property
+    def tags(self) -> list:
+        """
+        Return the list of tags of a game object
+
+        :return: list
+        """
+
+        return self.__tags
 
     @property
     def reviews(self) -> list:

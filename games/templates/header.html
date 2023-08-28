@@ -19,13 +19,28 @@
     </nav>
   </section>
   <section class="search-bar">
-    <form action="{{ url_for('viewGames_bp.search_games_by_title') }}"
-          method="GET">
+    <form class="search-form" action="{{ url_for('viewGames_bp.search_games') }}" method="GET">
       <label for="searchbar">
         <input id="searchbar" type="text" class="search-box" name="query"
                placeholder="Search...">
+        <button type="submit" class="search-button">
+          <svg class="svg" width="24" height="24"
+               xmlns="http://www.w3.org/2000/svg"
+               fill="none" stroke="currentColor" stroke-linecap="round"
+               stroke-linejoin="round" stroke-width="2">
+            <circle cx="11" cy="11" r="6"></circle>
+            <path d="M21 21L15.65 15.65"></path>
+          </svg>
+        </button>
       </label>
-      <button type="submit">Search</button>
+      <label for="search-criteria" class="search-criteria-label">
+        <select id="search-criteria" name="search_criteria">
+          <option value="title">Title</option>
+          <option value="publisher">Publisher</option>
+          <option value="category">Category</option>
+          <option value="tags">Tags</option>
+        </select>
+      </label>
     </form>
   </section>
 </header>
