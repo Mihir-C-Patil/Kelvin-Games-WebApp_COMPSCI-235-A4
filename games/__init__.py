@@ -33,7 +33,9 @@ def create_app():
 
     with app.app_context():
         from .gameLibrary import gameLibrary
+        from .gamesDescription import gamesDescription
         app.register_blueprint(gameLibrary.gameLibrary_blueprint)
+        app.register_blueprint(gamesDescription.games_description_blueprint)
 
     repo.repo_instance = MemoryRepository()
     populate(repo.repo_instance)

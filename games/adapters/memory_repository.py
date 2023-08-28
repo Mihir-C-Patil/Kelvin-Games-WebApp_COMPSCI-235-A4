@@ -25,6 +25,20 @@ class MemoryRepository(AbstractRepository):
     def get_number_of_games(self):
         return len(self.__games)
 
+    def get_games_by_id(self, id):
+        for game in self.__games:
+            if game.game_id == id:
+                return game
+        return self.__games
+
+    def get_similar_games(self, genre_list):
+        similar_game_list = []
+        for game in self.__games:
+            for genre in game.genres:
+                if genre in genre_list:
+                    similar_game_list.append(game)
+                    break
+        return similar_game_list
     def add_genre(self, genre: Genre):
         if isinstance(genre, Genre) and genre not in self.__genres:
             insort_left(self.__genres, genre)

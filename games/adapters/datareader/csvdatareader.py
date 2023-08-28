@@ -10,6 +10,10 @@ class GameFileCSVReader:
         self.__dataset_of_games = []
         self.__dataset_of_publishers = set()
         self.__dataset_of_genres = set()
+        self.__dataset_of_reviews = set()
+        self.__dataset_of_tags = set()
+        self.__dataset_of_languages = set()
+
 
     def read_csv_file(self):
         if not os.path.exists(self.__filename):
@@ -26,6 +30,7 @@ class GameFileCSVReader:
                     game.price = float(row["Price"])
                     game.description = row["About the game"]
                     game.image_url = row["Header image"]
+                    game.video_url = row["Movies"]
 
                     publisher = Publisher(row["Publishers"])
                     self.__dataset_of_publishers.add(publisher)
@@ -37,7 +42,38 @@ class GameFileCSVReader:
                         self.__dataset_of_genres.add(genre)
                         game.add_genre(genre)
 
+                    game.reviews = row["Reviews"]
+
+
+                    tags = row["Tags"].split(",")
+                    for tag in tags:
+                        new_tag = tag.strip()
+                        self.__dataset_of_tags.add(tag)
+                        game.add_tag(new_tag)
+
+                    languages = row["Supported languages"].split(",")
+                    for language in languages:
+                        new_language = language.strip().strip("[]'")
+                        self.__dataset_of_languages.add(new_language)
+                        game.add_language(new_language)
+
+                    if row["Windows"].lower() == "true":
+                        game.system_dict["windows"] = True
+                    else:
+                        game.system_dict["windows"] = False
+
+                    if row["Mac"].lower() == "true":
+                        game.system_dict["mac"] = True
+                    else:
+                        game.system_dict["mac"] = False
+
+                    if row["Linux"].lower() == "true":
+                        game.system_dict["linux"] = True
+                    else:
+                        game.system_dict["linux"] = False
+
                     self.__dataset_of_games.append(game)
+
 
                 except ValueError as e:
                     print(f"Skipping row due to invalid data: {e}")
