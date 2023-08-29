@@ -17,7 +17,7 @@ def view_games():
     genres = services.get_genres(repo.repo_instance)
 
     # get_page_arg defaults to page 1, per_page of 10
-    page, per_page, offset = get_page_args(per_page_parameter="pp", pp=9)
+    page, per_page, offset = get_page_args(per_page_parameter="pp", pp=10)
     # rendered = selected_genre_games[((page-1)*per_page): ((page-1)*per_page + 5)]
     rendered = all_games[offset: offset + per_page]
     random_game_index = random.randrange(0, len(all_games) - 5)
@@ -47,7 +47,7 @@ def games_by_genre():
     selected_genre_games = services.get_games_by_genre(target_genre,
                                                        repo.repo_instance)
     # get_page_arg defaults to page 1, per_page of 10
-    page, per_page, offset = get_page_args(per_page_parameter="pp", pp=9)
+    page, per_page, offset = get_page_args(per_page_parameter="pp", pp=10)
     # rendered = selected_genre_games[((page-1)*per_page): ((page-1)*per_page + 5)]
     rendered = selected_genre_games[offset: offset + per_page]
     pagination = Pagination(page=page, per_page=per_page, offset=offset,

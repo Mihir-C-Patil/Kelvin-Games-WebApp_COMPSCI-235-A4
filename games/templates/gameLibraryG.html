@@ -48,7 +48,37 @@
                 </div>
                 {{ pagination.info|safe }}
                 <div class="gameContainer">
-                    {% for game in games %}
+                    {% for game in games[0:2] %}
+                    <div class="game-box-2">
+                        <img src="{{ game.header_image }}" alt="Game 1">
+                        <h3>{{ game.title }}</h3>
+                        <p>{{ game.game_id }}</p>
+                        <a href="/games-description/{{ game.game_id }}">View Game</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="gameContainer">
+                    {% for game in games[2:5] %}
+                    <div class="game-box-3">
+                        <img src="{{ game.header_image }}" alt="Game 1">
+                        <h3>{{ game.title }}</h3>
+                        <p>{{ game.game_id }}</p>
+                        <a href="/games-description/{{ game.game_id }}">View Game</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="gameContainer">
+                    {% for game in games[5:7] %}
+                    <div class="game-box-2">
+                        <img src="{{ game.header_image }}" alt="Game 1">
+                        <h3>{{ game.title }}</h3>
+                        <p>{{ game.game_id }}</p>
+                        <a href="/games-description/{{ game.game_id }}">View Game</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="gameContainer">
+                    {% for game in games[7:10] %}
                     <div class="game-box-3">
                         <img src="{{ game.header_image }}" alt="Game 1">
                         <h3>{{ game.title }}</h3>

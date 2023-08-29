@@ -16,7 +16,7 @@ def search_games():
     if search:
         search_results = services.search_games_by_criteria(search, criteria,
                                                            repo.repo_instance)
-        page, per_page, offset = get_page_args(per_page_parameter="pp", pp=9)
+        page, per_page, offset = get_page_args(per_page_parameter="pp", pp=10)
         pagination = Pagination(page=page, per_page=per_page, offset=offset,
                                 total=len(search_results),
                                 record_name='List')
