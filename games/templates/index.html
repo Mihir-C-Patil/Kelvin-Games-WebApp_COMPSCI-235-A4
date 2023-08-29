@@ -2,42 +2,44 @@
 
 <html lang="en-nz">
 <head>
-    <meta charset="utf-8"/>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="author" content="CS235"/>
-    <meta name="description"
-          content="This is the homepage for the CS235 Game Library"/>
-    <link href="../static/css/sidebar.css" rel="stylesheet"/>
-    <link href="../static/css/header.css" rel="stylesheet"/>
-    <link href="../static/css/index.css" rel="stylesheet"/>
-    <script src="../static/js/hamburger.js" defer></script>
-    <title>Home</title>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="author" content="CS235"/>
+  <meta name="description"
+        content="This is the homepage for the CS235 Game Library"/>
+  <link href="../static/css/sidebar.css" rel="stylesheet"/>
+  <link href="../static/css/header.css" rel="stylesheet"/>
+  <link href="../static/css/index.css" rel="stylesheet"/>
+  <script src="../static/js/hamburger.js" defer></script>
+  <title>Home</title>
 </head>
 
 <body>
 <header>
-    {% include 'header.html' %}
-    {% include 'sidebar.html' %}
+  {% include 'header.html' %}
+  {% include 'sidebar.html' %}
 </header>
 <main>
-    <article class="hero">
-        <img src="../static/img/homepageHero.png" alt="An image of many games"
-             width="1268" height="664">
-    </article>
-    <article class="featured-games">
-        <section class="featured-game">
-            <img src="game1.jpg" alt="Game 1">
-            <div class="caption">Game 1 - Play Count: 1000</div>
-        </section>
-        <section class="featured-game">
-            <img src="game2.jpg" alt="Game 2">
-            <div class="caption">Game 2 - Play Count: 750</div>
-        </section>
-        <section class="featured-game">
-            <img src="game3.jpg" alt="Game 3">
-            <div class="caption">Game 3 - Play Count: 1200</div>
-        </section>
-    </article>
+  <article class="hero">
+  <div class="hero-content">
+    <img src="../static/img/logo-full.png" alt="Kelvin Games Logo" class="hero-logo">
+    <img src="../static/img/homepageHero.png" alt="An image of many games" class="hero-background">
+  </div>
+</article>
+  <article class="featured-games">
+    <section class="featured-game">
+      <img src="game1.jpg" alt="Game 1">
+      <div class="caption">Game 1 - Play Count: 1000</div>
+    </section>
+    <section class="featured-game">
+      <img src="game2.jpg" alt="Game 2">
+      <div class="caption">Game 2 - Play Count: 750</div>
+    </section>
+    <section class="featured-game">
+      <img src="game3.jpg" alt="Game 3">
+      <div class="caption">Game 3 - Play Count: 1200</div>
+    </section>
+  </article>
 </main>
 </body>
 </html>
