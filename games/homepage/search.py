@@ -3,6 +3,7 @@ import games.adapters.repository as repo
 from games.gameLibrary.gameLibrary import get_genres_and_urls
 from games.gameLibrary.services import get_genres
 from games.homepage import services
+from flask_paginate import Pagination, get_page_args
 
 search_blueprint = Blueprint('search_bp', __name__)
 
@@ -15,9 +16,13 @@ def search_games():
     if search:
         search_results = services.search_games_by_criteria(search, criteria,
                                                            repo.repo_instance)
+        page, per_page, offset = get_page_args(per_page_parameter="pp", pp=9)
+        pagination = Pagination(page=page, per_page=per_page, offset=offset,
+                                total=len(search_results),
+                                record_name='List')
         return render_template('searchResults.html', heading='Search Results',
-                               games=search_results, all_genres=genres,
-                               genre_urls=get_genres_and_urls())
+                               games=search_results[offset: offset + per_page], all_genres=genres,
+                               genre_urls=get_genres_and_urls(), pagination=pagination)
     else:
         return render_template('index.html', all_genres=genres,
                                genre_urls=get_genres_and_urls())

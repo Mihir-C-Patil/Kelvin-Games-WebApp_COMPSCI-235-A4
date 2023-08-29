@@ -1,39 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Search Results</title>
-  <link href="../static/css/sidebar.css" rel="stylesheet"/>
-  <link href="../static/css/header.css" rel="stylesheet"/>
-  <link href="../static/css/index.css" rel="stylesheet"/>
+    <meta charset="UTF-8">
+    <title>Search Results</title>
+    <link href="../static/css/sidebar.css" rel="stylesheet"/>
+    <link href="../static/css/header.css" rel="stylesheet"/>
+    <link href="../static/css/index.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../static/css/gameLibStyle.css"/>
   <script src="../static/js/hamburger.js" defer></script>
 </head>
 <body>
-<header>
-  {% include 'header.html' %}
-  {% include 'sidebar.html' %}
-</header>
-<main>
-  {% block title %}Search Results{% endblock %}
+    <header>
+      {% include 'header.html' %}
+      {% include 'sidebar.html' %}
+    </header>
+    <main class="main">
+        <div class="page">
+            <div class="content">
+              {% block title %}{% endblock %}
 
-  {% block content %}
-    <h2>Search Results</h2>
-    {% if games %}
-      <ul>
-        {% for game in games %}
-          <li>
-            <a href="{{ game.game_url }}">
-              <img src="{{ game.header_image }}" alt="{{ game.title }}">
-              <h3>{{ game.title }}</h3>
-            </a>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p>No results found.</p>
-    {% endif %}
-  {% endblock %}
-</main>
+              {% block content %}
+                <h2>Search Results</h2>
+                {% if games %}
+                    {{ pagination.info|safe }}
+                    <div class="gameContainer">
+                      {% for game in games %}
+                        <div class="game-box-3">
+                            <img src="{{ game.header_image }}" alt="Game 1">
+                            <h3>{{ game.title }}</h3>
+                            <p>{{ game.game_id }}</p>
+                            <a href="/games-description/{{ game.game_id }}">View Game</a>
+                        </div>
+                      {% endfor %}
+                    </div>
+                    {{ pagination.links|safe }}
+                {% else %}
+                  <p>No results found.</p>
+                {% endif %}
+              {% endblock %}
+            </div>
+        </div>
+    </main>
 
 </body>
 </html>
