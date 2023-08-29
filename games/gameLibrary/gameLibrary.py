@@ -1,3 +1,5 @@
+import random
+
 from flask import Blueprint, render_template, request, url_for
 from flask_paginate import Pagination, get_page_args
 
@@ -11,11 +13,20 @@ gameLibrary_blueprint = Blueprint('viewGames_bp', __name__)
 def view_games():
     game_count = services.get_number_of_games(repo.repo_instance)
     all_games = services.get_games(repo.repo_instance)
-    slide_games = services.get_slide_games(repo.repo_instance)
+    # slide_games = services.get_slide_games(repo.repo_instance)
     genres = services.get_genres(repo.repo_instance)
+
+    # get_page_arg defaults to page 1, per_page of 10
+    page, per_page, offset = get_page_args(per_page_parameter="pp", pp=9)
+    # rendered = selected_genre_games[((page-1)*per_page): ((page-1)*per_page + 5)]
+    rendered = all_games[offset: offset + per_page]
+    random_game_index = random.randrange(0, len(rendered)-5)
+    pagination = Pagination(page=page, per_page=per_page, offset=offset,
+                            total=len(all_games),
+                            record_name='List')
     return render_template('gameLibrary.html', heading='All Games',
-                           games=all_games, num_games=game_count,
-                           slide_games=slide_games, all_genres=genres)
+                           games=rendered, num_games=game_count,
+                           slide_games=rendered[random_game_index:random_game_index+5], all_genres=genres, pagination=pagination)
 
 
 def get_genres_and_urls():
@@ -47,7 +58,6 @@ def games_by_genre():
         slide_genre_games = selected_genre_games[2:7]
     else:
         slide_genre_games = selected_genre_games[10:15]
-
 
     # for genre in selected_genre_games:
     #    genre['game_genre_url'] = url_for('viewGames_bp.games_by_genre', genre=target_genre)
