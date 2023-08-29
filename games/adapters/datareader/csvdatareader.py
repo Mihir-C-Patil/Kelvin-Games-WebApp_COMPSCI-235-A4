@@ -10,6 +10,8 @@ class GameFileCSVReader:
         self.__dataset_of_games = []
         self.__dataset_of_publishers = set()
         self.__dataset_of_genres = set()
+        self.__dataset_of_categories = set()
+        self.__dataset_of_tags = set()
 
     def read_csv_file(self):
         if not os.path.exists(self.__filename):
@@ -36,6 +38,16 @@ class GameFileCSVReader:
                         genre = Genre(genre_name.strip())
                         self.__dataset_of_genres.add(genre)
                         game.add_genre(genre)
+
+                    categories = row["Categories"].split(",")
+                    for category in categories:
+                        game.add_category(category.strip())
+                        self.__dataset_of_categories.add(category.strip())
+
+                    tags = row["Tags"].split(",")
+                    for tag in tags:
+                        game.add_tag(tag.strip())
+                        self.__dataset_of_tags.add(tag.strip())
 
                     self.__dataset_of_games.append(game)
 
