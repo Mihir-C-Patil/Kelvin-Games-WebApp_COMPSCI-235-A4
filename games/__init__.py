@@ -5,6 +5,8 @@ from flask import Flask, render_template
 import games.adapters.repository as repo
 from games.adapters.memory_repository import populate
 from games.adapters.memory_repository import MemoryRepository
+from games.gameLibrary.gameLibrary import get_genres_and_urls
+from games.gameLibrary.services import get_genres
 
 # TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
 #  stay here!
@@ -42,6 +44,8 @@ def create_app():
 
     @app.route('/')
     def home():
-        return render_template('index.html')
+        genres = get_genres(repo.repo_instance)
+        return render_template('index.html', all_genres=genres,
+                               genre_urls=get_genres_and_urls())
 
     return app

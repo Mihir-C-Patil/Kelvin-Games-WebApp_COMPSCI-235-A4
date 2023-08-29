@@ -26,9 +26,3 @@ def search_games():
     else:
         return render_template('index.html', all_genres=genres,
                                genre_urls=get_genres_and_urls())
-
-
-def side_bar_genres():
-    genres = get_genres(repo.repo_instance)
-    return render_template('index.html', all_genres=genres,
-                           genre_urls=get_genres_and_urls())
