@@ -69,6 +69,7 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: left;
+    padding-bottom: 20px;
 }
 
 .desc_title{
@@ -78,6 +79,7 @@ body{
 .tag_container{
     display: flex;
     flex-wrap: wrap;
+    padding-bottom: 20px;
 }
 
 .tag{
@@ -98,6 +100,14 @@ body{
     margin-bottom: 50px;
 }
 
+.about_title {
+    padding-bottom: 20px;
+}
+
+.languages h3 {
+    padding-bottom: 20px;
+}
+
 .reviews{
     margin-top: 100px;
 }
@@ -105,6 +115,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
+    padding-top: 20px;
 }
 
 .review_box{
@@ -132,6 +143,10 @@ body{
     display: flex;
     flex-direction: column;
 }
+
+.system_container h3 {
+    padding-bottom: 20px;
+}
 .system_requirements{
     display: flex;
     flex-direction: row;
@@ -152,6 +167,10 @@ body{
      /* Display as inline-block to ensure proper alignment */
     overflow: hidden; /* Hide overflowing content */
     margin-right: 20px;
+}
+
+.reco_title {
+    padding-bottom: 20px;
 }
 
 .reco_game_image{
@@ -205,9 +224,14 @@ body{
     border-radius: 10px;
     width: 100px;
     border-color: var(--tag_text_colour);
+
 }
 
 .back_button_container a{
     color: var(--text_colour);
     text-decoration: none;
+}
+
+.go_back {
+    padding-bottom: 20px;
 }
