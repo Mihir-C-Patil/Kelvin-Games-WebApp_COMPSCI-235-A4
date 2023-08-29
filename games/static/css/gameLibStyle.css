@@ -21,7 +21,7 @@ body{
 .slideshow{
     height: 500px;
     overflow: hidden;
-    margin-top: -10px;
+    margin-top: 0px;
     box-shadow: inset 250px 10px 50px rgba(24, 25, 26, 1.2), inset -250px -10px 50px rgba(24, 25, 26, 1.2);
 }
 .bgSlides{
@@ -201,14 +201,24 @@ body{
 /*}*/
 
 /* Styling for pagination info */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pagination-form {
+    display: flex;
+    align-items: center;
+}
+
 .pagination-page-info {
     font-size: 12px;
     color: #fff;
     background-color: #333;
     padding: 13px 13px;
     border-radius: 20px;
-    display: inline-block;
-    margin-bottom: 10px;
+    margin: 0 5px;
     text-transform: uppercase;
     letter-spacing: 1px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
