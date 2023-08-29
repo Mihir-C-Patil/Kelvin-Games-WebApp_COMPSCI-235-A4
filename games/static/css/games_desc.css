@@ -1,9 +1,17 @@
 body{
-    margin: 200px;
     background-color: var(--background_colour);
     color: var(--text_colour);
+
 }
 
+.head{
+    padding-bottom: 100px;
+}
+
+.games_desc_content, .about_game, .reviews, .recommendation, .go_back{
+    margin-right: 200px;
+    margin-left: 200px;
+}
 .games_desc_content{
     padding: 3px;
 }
