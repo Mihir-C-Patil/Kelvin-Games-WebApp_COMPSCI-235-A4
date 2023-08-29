@@ -21,3 +21,12 @@ toggle.addEventListener('click', () => {
         overlay.classList.add("hide")
     }
 })
+
+overlay.addEventListener('click', () => {
+    sidebar.setAttribute('data-visible', false);
+    topLine.classList.remove("rotate")
+    middleLine.classList.remove("hide")
+    bottomLine.classList.remove("rotate-minus")
+    overlay.classList.add("hide")
+})
+
