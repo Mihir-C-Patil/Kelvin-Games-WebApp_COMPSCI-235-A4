@@ -40,16 +40,6 @@
         </div>
         <div class="page">
             <div class="content">
-                <div class="tab-container">
-                    <div class="tab">Featured</div>
-                    <div class="tab">Latest</div>
-                    <div class="tab">Paid Games</div>
-                    <div class="tab">Free Games</div>
-                    <div class="tab">Total Games - {{ num_games}}</div>
-                    {% for genre in all_genres %}
-                        <div class="tab">{{ genre}}</div>
-                    {% endfor %}
-                </div>
                 {{ pagination.info|safe }}
                 <div class="gameContainer">
                     {% for game in games %}

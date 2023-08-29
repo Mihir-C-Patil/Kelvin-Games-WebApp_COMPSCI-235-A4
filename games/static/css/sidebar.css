@@ -10,11 +10,11 @@
 .sidebar {
   z-index: 2;
   position: fixed;
-  top: 20%;
+  top: 11%;
   left: 10px;
   background-color: darkblue;
   border-radius: 12px;
-  padding: 10px 15px;
+  padding: 5px 15px;
   transform: translateX(-110%);
   transition: 250ms ease-out;
 }

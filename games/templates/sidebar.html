@@ -1,60 +1,13 @@
 <div class="overlay hide"></div>
 <aside class="sidebar" data-visible="false">
     <section class="sidebar__section">
-        <h2 class="sidebar__heading">BROWSE BY CATEGORY</h2>
-        <ul class="sidebar__ul">
-            <li class="sidebar__li">
-                <a href="#">Single-Player</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">Multi-Player</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">Co-op</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">PvP</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">VR</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">MMO</a>
-            </li>
-
-        </ul>
-    </section>
-
-    <section class="sidebar__section">
         <h2 class="sidebar__heading">BROWSE BY GENRE</h2>
         <ul class="sidebar__ul">
-            <li class="sidebar__li">
-                <a href="#">Free to Play</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">Action</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">Adventure</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">Indie</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">RPG</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">MMO</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">Sports</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">Racing</a>
-            </li>
-            <li class="sidebar__li">
-                <a href="#">Strategy</a>
-            </li>
+            {% for genre in all_genres %}
+                <li class="sidebar__li">
+                    <a href="{{ genre_urls[genre] }}">{{ genre}}</a>
+                </li>
+            {% endfor %}
 
         </ul>
     </section>

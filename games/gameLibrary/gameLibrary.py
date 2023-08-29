@@ -20,13 +20,14 @@ def view_games():
     page, per_page, offset = get_page_args(per_page_parameter="pp", pp=9)
     # rendered = selected_genre_games[((page-1)*per_page): ((page-1)*per_page + 5)]
     rendered = all_games[offset: offset + per_page]
-    random_game_index = random.randrange(0, len(all_games)-5)
+    random_game_index = random.randrange(0, len(all_games) - 5)
     pagination = Pagination(page=page, per_page=per_page, offset=offset,
                             total=len(all_games),
                             record_name='List')
     return render_template('gameLibrary.html', heading='All Games',
                            games=rendered, num_games=game_count,
-                           slide_games=all_games[random_game_index:random_game_index+5], all_genres=genres, pagination=pagination)
+                           slide_games=all_games[random_game_index:random_game_index + 5], all_genres=genres,
+                           pagination=pagination)
 
 
 def get_genres_and_urls():
@@ -68,3 +69,9 @@ def games_by_genre():
                            genre_urls=get_genres_and_urls(),
                            pagination=pagination,
                            slide_genre_games=slide_genre_games)
+
+
+def side_bar_genres():
+    genres = services.get_genres(repo.repo_instance)
+    return render_template('sidebar.html', all_genres=genres,
+                           genre_urls=get_genres_and_urls())
