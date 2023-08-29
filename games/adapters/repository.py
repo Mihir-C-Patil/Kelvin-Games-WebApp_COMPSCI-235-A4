@@ -48,3 +48,14 @@ class AbstractRepository(abc.ABC):
     def get_similar_games(self, genre):
         raise NotImplementedError
 
+    def search_games_by_title(self, title: str) -> List[Game]:
+        raise NotImplementedError
+
+    def search_games_by_publisher(self, query):
+        raise NotImplementedError
+
+    def search_games_by_category(self, query):
+        raise NotImplementedError
+
+    def search_games_by_tags(self, query):
+        raise NotImplementedError

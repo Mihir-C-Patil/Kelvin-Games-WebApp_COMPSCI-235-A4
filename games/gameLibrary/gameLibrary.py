@@ -56,4 +56,19 @@ def games_by_genre():
     return render_template('gameLibraryG.html', heading=target_genre,
                            games=rendered, all_genres=genres,
                            genre_urls=get_genres_and_urls(),
-                           pagination=pagination, slide_genre_games=slide_genre_games)
+                           pagination=pagination,
+                           slide_genre_games=slide_genre_games)
+
+
+@gameLibrary_blueprint.route('/search', methods=['GET', 'POST'])
+def search_games():
+    search = request.args.get('query').strip()
+    criteria = request.args.get('search_criteria')
+    if search:
+        search_results = services.search_games_by_criteria(search, repo.repo_instance)
+        genres = services.get_genres(repo.repo_instance)
+        return render_template('searchResults.html', heading='Search Results',
+                               games=search_results, num_games=len(search_results),
+                               slide_games=search_results, all_genres=genres)
+    else:
+        return render_template('index.html')

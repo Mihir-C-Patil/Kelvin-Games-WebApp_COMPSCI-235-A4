@@ -1,0 +1,35 @@
+.hero {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.featured-games {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.featured-game {
+  position: relative;
+  width: 200px;
+  margin: 0 20px;
+}
+
+.featured-game img {
+  width: 100%;
+  height: auto;
+}
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 14px;
+  text-align: center;
+}

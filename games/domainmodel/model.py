@@ -217,6 +217,7 @@ class Game:
         self.__genres = list()
         self.__reviews = False
         self.__tags = list()
+        self.__categories = list()
         self.__price = None
         self.__release_date = None
         self.__description = None
@@ -314,7 +315,17 @@ class Game:
 
 
     @property
-    def reviews(self):
+    def categories(self) -> list:
+        """
+        Return the list of categories of a game object
+
+        :return: list
+        """
+
+        return self.__categories
+
+    @property
+    def reviews(self) -> list:
         """
         Return the list of reviews of a game object
 
@@ -799,7 +810,7 @@ class Review:
         ----------
         user: Game
             The user that the review is associated with.
-        game:
+        game: Game
             The game the review is associated with.
         rating: int
             The rating of the review (0 to 5 inclusive).

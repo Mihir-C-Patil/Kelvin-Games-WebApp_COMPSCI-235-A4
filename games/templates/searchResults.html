@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Results</title>
+  <link href="../static/css/sidebar.css" rel="stylesheet"/>
+  <link href="../static/css/header.css" rel="stylesheet"/>
+  <link href="../static/css/index.css" rel="stylesheet"/>
+  <script src="../static/js/hamburger.js" defer></script>
+</head>
+<body>
+<header>
+  {% include 'header.html' %}
+  {% include 'sidebar.html' %}
+</header>
+<main>
+  {% block title %}Search Results{% endblock %}
+
+  {% block content %}
+    <h2>Search Results</h2>
+    {% if games %}
+      <ul>
+        {% for game in games %}
+          <li>
+            <a href="{{ game.game_url }}">
+              <img src="{{ game.header_image }}" alt="{{ game.title }}">
+              <h3>{{ game.title }}</h3>
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No results found.</p>
+    {% endif %}
+  {% endblock %}
+</main>
+
+</body>
+</html>

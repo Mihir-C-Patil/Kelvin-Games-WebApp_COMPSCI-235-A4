@@ -1,0 +1,46 @@
+<header class="header">
+  <section class="header__hamburger">
+    <span class="hamburger__top"></span>
+    <span class="hamburger__middle"></span>
+    <span class="hamburger__bottom"></span>
+  </section>
+  <section class="navigation">
+    <section class="header__logo">
+      <a href="{{ url_for('home') }}">
+        <img src="path_to_your_logo.png" alt="Website Logo">
+      </a>
+    </section>
+    <nav class="header__nav">
+      <ul class="nav__list">
+        <li class="nav__item"><a href="{{ url_for('home') }}">Home</a></li>
+        <li class="nav__item"><a href="#">All Games</a></li>
+        <li class="nav__item"><a href="#">About</a></li>
+      </ul>
+    </nav>
+  </section>
+  <section class="search-bar">
+    <form class="search-form" action="{{ url_for('viewGames_bp.search_games') }}" method="GET">
+      <label for="searchbar">
+        <input id="searchbar" type="text" class="search-box" name="query"
+               placeholder="Search...">
+        <button type="submit" class="search-button">
+          <svg class="svg" width="24" height="24"
+               xmlns="http://www.w3.org/2000/svg"
+               fill="none" stroke="currentColor" stroke-linecap="round"
+               stroke-linejoin="round" stroke-width="2">
+            <circle cx="11" cy="11" r="6"></circle>
+            <path d="M21 21L15.65 15.65"></path>
+          </svg>
+        </button>
+      </label>
+      <label for="search-criteria" class="search-criteria-label">
+        <select id="search-criteria" name="search_criteria">
+          <option value="title">Title</option>
+          <option value="publisher">Publisher</option>
+          <option value="category">Category</option>
+          <option value="tags">Tags</option>
+        </select>
+      </label>
+    </form>
+  </section>
+</header>

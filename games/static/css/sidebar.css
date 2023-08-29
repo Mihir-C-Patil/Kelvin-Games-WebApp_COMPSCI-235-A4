@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.sidebar {
+  z-index: 2;
+  position: fixed;
+  top: 20%;
+  left: 10px;
+  background-color: darkblue;
+  border-radius: 12px;
+  padding: 10px 15px;
+  transform: translateX(-110%);
+  transition: 250ms ease-out;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar[data-visible="true"] {
+  transform: translateX(0%);
+}
+
+.sidebar__section {
+  padding: 0.5em;
+  font-family: 'Roboto', sans-serif;
+}
+
+.sidebar__ul {
+  list-style: none;
+}
+
+.sidebar__heading {
+  padding: 5px 0 5px 0;
+  color: whitesmoke;
+  letter-spacing: 1px;
+}
+
+.sidebar__li {
+  padding: 2px;
+}
+
+.sidebar__li a {
+  margin-left: 15px;
+  text-decoration: none;
+  color: #ddd;
+  transition: 150ms ease;
+}
+
+.sidebar__li a:hover {
+  color: white;
+  transition: 150ms ease;
+}

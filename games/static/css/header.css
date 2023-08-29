@@ -1,0 +1,174 @@
+/* Reset and font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Background */
+.full {
+  background-color: #333;
+  height: 100%;
+}
+
+/* Header */
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background-color: darkblue;
+  color: #fff;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 35%;
+}
+
+.nav__item {
+  padding: 0 20px;
+  font-size: 20px;
+}
+
+/* Hamburger Menu */
+.header__hamburger {
+  z-index: 2;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20px;
+  width: 25px;
+}
+
+.hamburger__top,
+.hamburger__middle,
+.hamburger__bottom {
+  background-color: #fff;
+  height: 3px;
+  width: 100%;
+  transform: translateY(0) rotateZ(0);
+  display: flex;
+  transition: 250ms ease;
+}
+
+.rotate {
+  transform: translateY(8.5px) rotateZ(45deg);
+}
+
+.hide {
+  display: none;
+}
+
+.rotate-minus {
+  transform: translateY(-8.5px) rotateZ(-45deg);
+}
+
+/* Navigation Links */
+.nav__list {
+  list-style: none;
+  display: flex;
+}
+
+.nav__item a {
+  text-decoration: none;
+  color: rgba(256, 256, 256, 0.9);
+  font-weight: bold;
+  transition: 150ms ease;
+}
+
+.nav__item a:hover {
+  text-decoration: none;
+  color: rgba(256, 256, 256, 1);
+  font-weight: bold;
+  transition: 150ms ease;
+}
+
+/* Logo */
+.header__logo img {
+  max-width: 100px;
+  cursor: pointer;
+}
+
+/* Search Bar Container */
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Search Box */
+.search-box {
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: transparent;
+  color: whitesmoke;
+  transition: 250ms ease;
+  width: 100%;
+}
+
+.search-box::placeholder {
+  opacity: 1;
+  color: whitesmoke;
+}
+
+/* Search Bar Hover Effect */
+.search-bar:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: 250ms ease;
+}
+
+/* Search Button */
+.search-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  left: 56%;
+  top: 1em;
+  transform: translateY(-50%);
+}
+
+.search-button svg {
+  width: 20px;
+  height: 20px;
+  transition: 250ms ease;
+  color: whitesmoke;
+}
+
+.search-button:hover svg {
+  transition: 250ms ease;
+}
+
+/* Search Box Placeholder Opacity */
+.search-box::placeholder {
+  opacity: 1;
+  transition: opacity 250ms ease;
+}
+
+/* Search Box Placeholder Hover */
+.search-bar:hover .search-box::placeholder,
+.search-box:focus::placeholder {
+  opacity: 0.8;
+  transition: opacity 250ms ease;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
