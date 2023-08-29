@@ -13,7 +13,7 @@ class GameFileCSVReader:
         self.__dataset_of_reviews = set()
         self.__dataset_of_tags = set()
         self.__dataset_of_languages = set()
-
+        self.__dataset_of_categories = set()
 
     def read_csv_file(self):
         if not os.path.exists(self.__filename):
@@ -44,13 +44,6 @@ class GameFileCSVReader:
 
                     game.reviews = row["Reviews"]
 
-
-                    tags = row["Tags"].split(",")
-                    for tag in tags:
-                        new_tag = tag.strip()
-                        self.__dataset_of_tags.add(tag)
-                        game.add_tag(new_tag)
-
                     languages = row["Supported languages"].split(",")
                     for language in languages:
                         new_language = language.strip().strip("[]'")
@@ -71,6 +64,16 @@ class GameFileCSVReader:
                         game.system_dict["linux"] = True
                     else:
                         game.system_dict["linux"] = False
+
+                    categories = row["Categories"].split(",")
+                    for category in categories:
+                        game.add_category(category.strip())
+                        self.__dataset_of_categories.add(category.strip())
+
+                    tags = row["Tags"].split(",")
+                    for tag in tags:
+                        game.add_tag(tag.strip())
+                        self.__dataset_of_tags.add(tag.strip())
 
                     self.__dataset_of_games.append(game)
 

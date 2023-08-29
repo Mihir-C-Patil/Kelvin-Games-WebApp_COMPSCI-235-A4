@@ -5,7 +5,6 @@ from flask import Flask, render_template
 import games.adapters.repository as repo
 from games.adapters.memory_repository import populate
 from games.adapters.memory_repository import MemoryRepository
-from flask_bootstrap import Bootstrap
 
 # TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
 #  stay here!
@@ -29,13 +28,14 @@ def create_app():
 
     # Create the Flask app object.
     app = Flask(__name__)
-    bootstrap = Bootstrap(app)
 
     with app.app_context():
         from .gameLibrary import gameLibrary
         from .gamesDescription import gamesDescription
         app.register_blueprint(gameLibrary.gameLibrary_blueprint)
         app.register_blueprint(gamesDescription.games_description_blueprint)
+        from .homepage import search
+        app.register_blueprint(search.search_blueprint)
 
     repo.repo_instance = MemoryRepository()
     populate(repo.repo_instance)

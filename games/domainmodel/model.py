@@ -214,10 +214,10 @@ class Game:
         else:
             self.__game_title = game_title.strip()
 
-        self.__genres = list()
+        self.__genres = set()
+        self.__categories = set()
+        self.__tags = set()
         self.__reviews = False
-        self.__tags = list()
-        self.__categories = list()
         self.__price = None
         self.__release_date = None
         self.__description = None
@@ -323,6 +323,16 @@ class Game:
         """
 
         return self.__categories
+
+    @property
+    def tags(self) -> set:
+        """
+        Return the list of tags of a game object
+
+        :return: set
+        """
+
+        return self.__tags
 
     @property
     def reviews(self) -> list:
@@ -544,7 +554,7 @@ class Game:
         """
 
         if isinstance(new_genre, Genre) and new_genre not in self.__genres:
-            self.__genres.append(new_genre)
+            self.__genres.add(new_genre)
         return None
 
     def remove_genre(self, genre_to_remove: Genre) -> None:
@@ -589,10 +599,6 @@ class Game:
         return self.__languages
 
     @property
-    def tags(self):
-        return self.__tags
-
-    @property
     def video_url(self):
         return self.__video_url
 
@@ -603,6 +609,81 @@ class Game:
             self.__video_url = new_video_url.strip()
         else:
             self.__video_url = None
+    def add_category(self, new_category: str) -> None:
+        """
+        Adds a new category to the game's list of categories.
+        Does nothing if category is invalid or duplicate.
+
+        Parameters
+        ----------
+        new_category: str
+            This is a category to be added.
+        :param new_category: str
+        :return: None
+        """
+
+        if isinstance(new_category, str) and new_category.strip() \
+                and new_category not in self.__categories:
+            self.__categories.add(new_category.strip())
+
+    def remove_category(self, category_to_remove: str) -> None:
+        """
+        Removes a category from the game's list of categories.
+        Does nothing if category is invalid or doesn't exist.
+
+        Parameters
+        ----------
+        category_to_remove: str
+            This is a category to be removed.
+        :param category_to_remove: str
+        :return: None
+        """
+
+        if isinstance(category_to_remove, str) \
+                and category_to_remove.strip() \
+                and category_to_remove in self.__categories:
+            self.__categories.remove(category_to_remove.strip())
+        else:
+            print(f'Could not find {category_to_remove} '
+                  f'in list of categories.')
+
+    def add_tag(self, new_tag: str) -> None:
+        """
+        Adds a new tag to the game's list of tags.
+        Does nothing if tag is invalid or duplicate.
+
+        Parameters
+        ----------
+        new_tag: str
+            This is a tag to be added.
+        :param new_tag: str
+        :return: None
+        """
+
+        if isinstance(new_tag, str) and new_tag.strip() \
+                and new_tag not in self.__tags:
+            self.__tags.add(new_tag.strip())
+
+    def remove_tag(self, tag_to_remove: str) -> None:
+        """
+        Removes a tag from the game's list of tags.
+        Does nothing if tag is invalid or doesn't exist.
+
+        Parameters
+        ----------
+        tag_to_remove: str
+            This is a tag to be removed.
+        :param tag_to_remove: str
+        :return: None
+        """
+
+        if isinstance(tag_to_remove, str) \
+                and tag_to_remove.strip() \
+                and tag_to_remove in self.__tags:
+            self.__tags.remove(tag_to_remove.strip())
+        else:
+            print(f'Could not find {tag_to_remove} in list of tags.')
+
 
 class User:
     def __init__(self, username: str, password: str) -> None:
