@@ -27,7 +27,8 @@ def view_games():
     return render_template('gameLibrary.html', heading='All Games',
                            games=rendered, num_games=game_count,
                            slide_games=all_games[random_game_index:random_game_index + 5], all_genres=genres,
-                           pagination=pagination)
+                           pagination=pagination,
+                           genre_urls=get_genres_and_urls())
 
 
 def get_genres_and_urls():
