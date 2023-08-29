@@ -304,7 +304,7 @@ class Game:
         return self.__game_title
 
     @property
-    def genres(self) -> list[Genre]:
+    def genres(self) -> set[Genre]:
         """
         Return the list of genres of a game object
 
@@ -313,9 +313,8 @@ class Game:
 
         return self.__genres
 
-
     @property
-    def categories(self) -> list:
+    def categories(self) -> set:
         """
         Return the list of categories of a game object
 
@@ -335,7 +334,7 @@ class Game:
         return self.__tags
 
     @property
-    def reviews(self) -> list:
+    def reviews(self) -> bool:
         """
         Return the list of reviews of a game object
 
@@ -577,9 +576,6 @@ class Game:
             print(f'Could not find {genre_to_remove} in list of genres.')
 
     """Added the following methods in Games class for games-description page"""
-    def add_tag(self, tag):
-        if len(tag.strip()) > 0:
-            self.__tags.append(tag)
 
     def add_language(self, language):
         if len(language.strip()) > 0:
@@ -609,6 +605,7 @@ class Game:
             self.__video_url = new_video_url.strip()
         else:
             self.__video_url = None
+
     def add_category(self, new_category: str) -> None:
         """
         Adds a new category to the game's list of categories.
@@ -892,7 +889,7 @@ class Review:
         user: Game
             The user that the review is associated with.
         game: Game
-            The game the review is associated with.
+            This is the game the review is associated with.
         rating: int
             The rating of the review (0 to 5 inclusive).
         comment: str

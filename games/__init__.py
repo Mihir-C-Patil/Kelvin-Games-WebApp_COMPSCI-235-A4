@@ -32,9 +32,9 @@ def create_app():
     with app.app_context():
         from .gameLibrary import gameLibrary
         from .gamesDescription import gamesDescription
+        from .homepage import search
         app.register_blueprint(gameLibrary.gameLibrary_blueprint)
         app.register_blueprint(gamesDescription.games_description_blueprint)
-        from .homepage import search
         app.register_blueprint(search.search_blueprint)
 
     repo.repo_instance = MemoryRepository()
