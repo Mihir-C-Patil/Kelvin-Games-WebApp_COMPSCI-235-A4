@@ -91,7 +91,7 @@ body{
 .prev, .next {
   cursor: pointer;
   position: absolute;
-  top: 27%;
+  top: 37%;
   width: auto;
   padding: 16px;
   margin-top: -22px;
