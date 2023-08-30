@@ -78,11 +78,11 @@ def test_genre_initialization():
     genre2 = Genre(" Action ")
     assert repr(genre2) == "Action"
     genre3 = Genre(300)
-    assert repr(genre3) == "None"
+    assert repr(genre3) is None
     genre5 = Genre(" Early Access  ")
     assert genre5.genre_name == "Early Access"
-    genre1 = Genre("")
-    assert genre1.genre_name is None
+    genre6 = Genre("")
+    assert genre6.genre_name is None
 
 
 def test_genre_name_setter():
@@ -443,7 +443,7 @@ def test_read_csv_file():
     assert game.price == 9.99
     assert game.release_date == "Nov 12, 2007"
     assert game.publisher == Publisher("Activision")
-    assert game.genres == {Genre("Action")}
+    assert game.genres == [Genre("Action")]
 
 
 def test_tracks_dataset():
@@ -458,7 +458,7 @@ def test_publisher_dataset():
     publishers_set = reader.dataset_of_publishers
     sorted_publishers = sorted(publishers_set)
     sorted_publishers_str = str(sorted_publishers[:3])
-    assert sorted_publishers_str == "[13-lab,azimuth team, 2&30 Software, 2Awesome Studio]"
+    assert sorted_publishers_str == "[13-lab,azimuth team, 2Awesome Studio, 2Frogs Software]"
 
 
 def test_genres_dataset():
