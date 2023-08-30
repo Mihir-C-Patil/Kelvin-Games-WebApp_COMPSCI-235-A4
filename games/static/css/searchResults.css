@@ -109,6 +109,24 @@ main {
   margin-bottom: 0;
 }
 
+.no-results {
+  margin-top: 20px;
+}
+
+.no-result-heading {
+  font-size: 1.5em;
+  font-weight: 600;
+}
+
+.no-result-suggest {
+  margin-top: 20px;
+  margin-left: 50px;
+}
+
+.no-result-suggest-ul {
+  list-style-type: square;
+}
+
 footer {
   margin-top: auto;
   background-color: #041C32;
