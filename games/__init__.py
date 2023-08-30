@@ -41,23 +41,6 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
         data_path = app.config['TEST_DATA_PATH']
 
-        def test_pagination(app: FlaskClient):
-            with app:
-                response = app.get('/gamelibrary')
-                assert response.status_code == 200
-
-                # Simulate pagination query parameters
-                with app.get('/gamelibrary?page=2&pp=10', follow_redirects=True) as response:
-                    assert response.status_code == 200
-
-                # Test games_by_genre pagination
-                with app.get('/games_by_genre?genre=Action', follow_redirects=True) as response:
-                    assert response.status_code == 200
-
-                # Simulate games_by_genre pagination query parameters
-                with app.get('/games_by_genre?genre=Action&page=2&pp=10', follow_redirects=True) as response:
-                    assert response.status_code == 200
-
     with app.app_context():
         from .gameLibrary import gameLibrary
         from .gamesDescription import gamesDescription
