@@ -10,26 +10,32 @@ from games.adapters.memory_repository import populate
 from games.adapters.memory_repository import MemoryRepository
 from games.gameLibrary.gameLibrary import get_genres_and_urls
 from games.gameLibrary.services import get_genres
-
-# TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
-#  stay here!
 from games.domainmodel.model import *
 
 
-# TODO: Access to the games should be implemented via the repository pattern and using blueprints, so this can not
-#  stay here!
-def create_some_game():
-    some_game = Game(1, "Call of Duty® 4: Modern Warfare®")
-    some_game.release_date = "Nov 12, 2007"
-    some_game.price = 9.99
-    some_game.description = "The new action-thriller from the award-winning team at Infinity Ward, the creators of " \
-                            "the Call of Duty® series, delivers the most intense and cinematic action experience ever. "
-    some_game.image_url = "https://cdn.akamai.steamstatic.com/steam/apps/7940/header.jpg?t=1646762118"
-    return some_game
-
-
 def create_app(test_config=None):
-    """Construct the core application."""
+    """
+    Creates and configures the Flask application.
+
+    Parameters:
+    -----------
+    test_config : dict, optional
+        Configuration dictionary to be used for testing purposes.
+
+    Returns:
+    --------
+    app : Flask
+        The Flask application object.
+
+    Examples:
+    ---------
+    Create a Flask application object:
+        app = create_app()
+
+    Create a Flask application object with a test configuration:
+        test_config = {'TESTING': True}
+        app = create_app(test_config=test_config)
+    """
 
     # Create the Flask app object.
     app = Flask(__name__)

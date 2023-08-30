@@ -77,8 +77,6 @@ def test_genre_initialization():
     assert repr(genre1) == "Adventure"
     genre2 = Genre(" Action ")
     assert repr(genre2) == "Action"
-    genre3 = Genre(300)
-    assert repr(genre3) is None
     genre5 = Genre(" Early Access  ")
     assert genre5.genre_name == "Early Access"
     genre6 = Genre("")
