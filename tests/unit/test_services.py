@@ -32,4 +32,12 @@ def test_get_games_by_genre(in_memory_repo):
     assert type(games[1]) == dict
     assert type(games[4]) == dict
 
+def test_get_genres(in_memory_repo):
+    result = library_services.get_genres(in_memory_repo)
+    assert len(result) == 1
+
+def test_get_games(in_memory_repo):
+    result = library_services.get_games(in_memory_repo)
+    assert len(result) == 14
+
 
