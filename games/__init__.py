@@ -1,7 +1,7 @@
 """Initialize Flask app."""
 
 from flask import Flask, render_template
-
+from pathlib import Path
 import games.adapters.repository as repo
 from games.adapters.memory_repository import populate
 from games.adapters.memory_repository import MemoryRepository
@@ -25,11 +25,18 @@ def create_some_game():
     return some_game
 
 
-def create_app():
+def create_app(test_config=None):
     """Construct the core application."""
 
     # Create the Flask app object.
     app = Flask(__name__)
+
+    app.config.from_object('config.Config')
+    data_path = Path('games') / 'adapters' / 'data'
+
+    if test_config is not None:
+        app.config.from_mapping(test_config)
+        data_path = app.config['TEST_DATA_PATH']
 
     with app.app_context():
         from .gameLibrary import gameLibrary
