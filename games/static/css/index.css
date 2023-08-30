@@ -1,3 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+  box-sizing: border-box;
+}
+
 .hero {
   position: relative;
   display: flex;
@@ -64,3 +71,24 @@
 main{
   background-color: #04293A;
 }
+
+.about {
+  margin-top: 50px;
+  margin-left: 15%;
+  margin-right: 15%;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.about__paragraph {
+  margin-bottom: 20px;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+.about__paragraph:last-child {
+  margin-bottom: 0;
+}
+
