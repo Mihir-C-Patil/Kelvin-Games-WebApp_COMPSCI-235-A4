@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Games</title>
+    <link rel="stylesheet" href="../static/css/gameLibStyle.css"/>
+    <link href="../static/css/sidebar.css" rel="stylesheet"/>
+  <link href="../static/css/header.css" rel="stylesheet"/>
+  <script src="../static/js/hamburger.js" defer></script>
+</head>
+<body>
+    <header>
+        {% include 'header.html' %}
+        {% include 'sidebar.html' %}
+    </header>
+    <main class="main">
+        <div class="slideshow">
+            {% for game in slide_games %}
+                <img src="{{ game.header_image }}" class="bg-img bgSlides fade" alt="">
+            {% endfor %}
+            <p class="pageHeading"> Featured Games</p>
+            <a class="prev" onclick="plusSlides(-1)">❮</a>
+            <div class="slideContent blur">
+                {% for game in slide_games %}
+                    <div class="slides fade">
+                        <div class="gameInfo">
+                            <a href="/games-description/{{ game.game_id }}">
+                                <img src="{{ game.header_image }}" style="width:50%; height:100%" alt="GameImg">
+                            </a>
+                        </div>
+                        <div class="gameInfo">
+                            <div class="text">{{ game.title }}</div>
+                            <div class="text">{{ game.price }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+            <a class="next" onclick="plusSlides(1)">❯</a>
+        </div>
+        <div class="page">
+            <div class="content">
+                <div class="pagination-container">
+                    {{ pagination.info|safe }}
+                    <form action="{{ url_for('viewGames_bp.view_games') }}" method="GET">
+                        <label for="sort-criteria" class="sort-criteria-label">
+                            <select id="sort-criteria" name="sort_criteria" class="pagination-page-info">
+                                <option value="title">Title</option>
+                                <option value="game_id">Game ID</option>
+                                <option value="release_date">Release Date</option>
+                                <option value="price">Price</option>
+                            </select>
+                        </label>
+                        <button type="submit" class="pagination-page-info">Sort</button>
+                    </form>
+                </div>
+                <div class="gameContainer">
+                    {% for game in games[0:2] %}
+                    <div class="game-box-2">
+                        <img src="{{ game.header_image }}" alt="Game 1">
+                        <h3>{{ game.title }}</h3>
+                        <p>{{ game.game_id }}</p>
+                        <a href="/games-description/{{ game.game_id }}">View Game</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="gameContainer">
+                    {% for game in games[2:5] %}
+                    <div class="game-box-3">
+                        <img src="{{ game.header_image }}" alt="Game 1">
+                        <h3>{{ game.title }}</h3>
+                        <p>{{ game.game_id }}</p>
+                        <a href="/games-description/{{ game.game_id }}">View Game</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="gameContainer">
+                    {% for game in games[5:7] %}
+                    <div class="game-box-2">
+                        <img src="{{ game.header_image }}" alt="Game 1">
+                        <h3>{{ game.title }}</h3>
+                        <p>{{ game.game_id }}</p>
+                        <a href="/games-description/{{ game.game_id }}">View Game</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="gameContainer">
+                    {% for game in games[7:10] %}
+                    <div class="game-box-3">
+                        <img src="{{ game.header_image }}" alt="Game 1">
+                        <h3>{{ game.title }}</h3>
+                        <p>{{ game.game_id }}</p>
+                        <a href="/games-description/{{ game.game_id }}">View Game</a>
+                    </div>
+                    {% endfor %}
+                </div>
+                {{ pagination.links|safe }}
+            </div>
+        </div>
+    </main>
+    <script>
+        let slideIndex = 1;
+        let intervalId;
+        showSlides(slideIndex);
+
+        function plusSlides(n) {
+          showSlides(slideIndex += n);
+        }
+
+        function currentSlide(n) {
+          showSlides(slideIndex = n);
+        }
+
+        function showSlides(n) {
+            let i;
+            let slides = document.getElementsByClassName("slides");
+            let bgSlides = document.getElementsByClassName("bgSlides")
+            if (n > slides.length) {slideIndex = 1}
+            if (n < 1) {slideIndex = slides.length}
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                bgSlides[i].style.display = "none";
+            }
+            slides[slideIndex-1].style.display = "block";
+            bgSlides[slideIndex-1].style.display = "block";
+            }
+        function startSlideshow() {
+            // Clear any existing interval
+            clearInterval(intervalId);
+            // Start a new interval to change slides every 2 seconds
+            intervalId = setInterval(function() {
+                plusSlides(1);
+            }, 5000);
+        }
+
+        // Start the slideshow initially
+        startSlideshow();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+.hero {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 0 15%
+}
+
+.hero-content {
+  position: relative;
+  width: 70%;
+}
+
+.hero-logo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  height: auto;
+  width: 50%;
+  border-radius: 12px;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+}
+
+.hero-background {
+  width: 100%;
+  height: auto;
+  z-index: 1;
+}
+
+.featured-games {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.featured-game {
+  position: relative;
+  width: 200px;
+  margin: 0 20px;
+}
+
+.featured-game img {
+  width: 100%;
+  height: auto;
+}
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  font-size: 14px;
+  text-align: center;
+}
+
+main{
+  background-color: #04293A;
+}

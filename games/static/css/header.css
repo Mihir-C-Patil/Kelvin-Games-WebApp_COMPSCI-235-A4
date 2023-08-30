@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.full {
+  background-color: #333;
+  height: 100%;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+  height: 75px;
+  /*background-color: darkblue;*/
+  background-color: #041C32;
+  color: #fff;
+}
+
+/* Navigation */
+.navigation {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 35%;
+}
+
+.nav__item {
+  padding: 0 20px;
+  font-size: 20px;
+  min-width: fit-content;
+}
+
+/* Hamburger Menu */
+.header__hamburger {
+  z-index: 2;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 20px;
+  width: 25px;
+}
+
+.hamburger__top,
+.hamburger__middle,
+.hamburger__bottom {
+  background-color: #fff;
+  height: 3px;
+  width: 100%;
+  transform: translateY(0) rotateZ(0);
+  display: flex;
+  transition: 250ms ease;
+}
+
+.rotate {
+  transform: translateY(8.5px) rotateZ(45deg);
+}
+
+.hide {
+  display: none;
+}
+
+.rotate-minus {
+  transform: translateY(-8.5px) rotateZ(-45deg);
+}
+
+/* Navigation Links */
+.nav__list {
+  list-style: none;
+  display: flex;
+}
+
+.nav__item a {
+  text-decoration: none;
+  color: rgba(256, 256, 256, 0.9);
+  font-weight: bold;
+  transition: 150ms ease;
+}
+
+.nav__item a:hover {
+  text-decoration: none;
+  color: rgba(256, 256, 256, 1);
+  font-weight: bold;
+  transition: 150ms ease;
+}
+
+/* Logo */
+
+.header__logo {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding-right: 50px;
+}
+
+.header__logo img {
+  max-width: 50px;
+  cursor: pointer;
+}
+
+/* Search Bar Container */
+.search-bar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Search Box */
+.search-box {
+  padding: 5px;
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: transparent;
+  color: whitesmoke;
+  transition: 250ms ease;
+  width: 100%;
+}
+
+.search-box::placeholder {
+  opacity: 1;
+  color: whitesmoke;
+}
+
+/* Search Bar Hover Effect */
+.search-box:hover,
+.search-icon:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: 250ms ease;
+}
+
+.search-criteria-label:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  transition: 250ms ease;
+}
+
+
+/* Search Button */
+.search-button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  left: 55%;
+  top: 1em;
+  transform: translateY(-50%);
+}
+
+.search-button svg {
+  width: 20px;
+  height: 20px;
+  transition: 250ms ease;
+  color: whitesmoke;
+}
+
+.search-button:hover svg {
+  transition: 250ms ease;
+}
+
+
+.search-box::placeholder {
+  opacity: 1;
+  transition: opacity 250ms ease;
+}
+
+
+.search-bar:hover .search-box::placeholder,
+.search-box:focus::placeholder {
+  opacity: 0.8;
+  transition: opacity 250ms ease;
+}
+
+form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+.search-criteria-label {
+  margin-left: 10px;
+  display: block;
+  position: relative;
+  margin-bottom: 0px;
+}
+
+
+.search-criteria-label::after {
+  content: "\25BE"; /* Unicode down arrow character */
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  font-size: 12px;
+}
+
+
+#search-criteria {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 5px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  cursor: pointer;
+  background-color: transparent;
+  color: whitesmoke;
+  border: 1px solid white;
+}
+
+#search-criteria option {
+  /*background-color: darkblue;*/
+  background-color: #041C32;
+}

@@ -7,7 +7,7 @@ from games.adapters.datareader.csvdatareader import GameFileCSVReader
 
 def test_publisher_init():
     publisher1 = Publisher("Publisher A")
-    assert repr(publisher1) == "<Publisher Publisher A>"
+    assert repr(publisher1) == "Publisher A"
     assert publisher1.publisher_name == "Publisher A"
 
     publisher2 = Publisher("")
@@ -20,7 +20,7 @@ def test_publisher_init():
     assert publisher4.publisher_name == "Wild Rooster"
 
     publisher4.publisher_name = "Century Game"
-    assert repr(publisher4) == "<Publisher Century Game>"
+    assert repr(publisher4) == "Century Game"
 
 
 def test_publisher_eq():
@@ -54,17 +54,16 @@ def test_publisher_hash():
     publishers.add(publisher3)
     assert len(publishers) == 3
     assert repr(sorted(
-        publishers)) == "[<Publisher Big Fish Games>, <Publisher Century Game>, <Publisher Wild " \
-                        "Rooster>]"
+        publishers)) == "[Big Fish Games, Century Game, Wild Rooster]"
     publishers.discard(publisher1)
     assert repr(sorted(
-        publishers)) == "[<Publisher Big Fish Games>, <Publisher Century Game>]"
+        publishers)) == "[Big Fish Games, Century Game]"
 
 
 def test_publisher_name_setter():
     publisher = Publisher("Wild Rooster")
     publisher.publisher_name = "   Big Fish Games  "
-    assert repr(publisher) == "<Publisher Big Fish Games>"
+    assert repr(publisher) == "Big Fish Games"
 
     publisher.publisher_name = ""
     assert publisher.publisher_name is None
@@ -75,11 +74,11 @@ def test_publisher_name_setter():
 
 def test_genre_initialization():
     genre1 = Genre("Adventure")
-    assert repr(genre1) == "<Genre Adventure>"
+    assert repr(genre1) == "Adventure"
     genre2 = Genre(" Action ")
-    assert repr(genre2) == "<Genre Action>"
+    assert repr(genre2) == "Action"
     genre3 = Genre(300)
-    assert repr(genre3) == "<Genre None>"
+    assert repr(genre3) == "None"
     genre5 = Genre(" Early Access  ")
     assert genre5.genre_name == "Early Access"
     genre1 = Genre("")
@@ -431,9 +430,9 @@ def create_csv_reader():
 
 def test_csv_reader():
     reader = create_csv_reader()
-    assert len(reader.dataset_of_games) == 981
-    assert len(reader.dataset_of_publishers) == 892
-    assert len(reader.dataset_of_genres) == 26
+    assert len(reader.dataset_of_games) == 878
+    assert len(reader.dataset_of_publishers) == 799
+    assert len(reader.dataset_of_genres) == 24
 
 
 def test_read_csv_file():
@@ -444,7 +443,7 @@ def test_read_csv_file():
     assert game.price == 9.99
     assert game.release_date == "Nov 12, 2007"
     assert game.publisher == Publisher("Activision")
-    assert game.genres == [Genre("Action")]
+    assert game.genres == {Genre("Action")}
 
 
 def test_tracks_dataset():
@@ -459,7 +458,7 @@ def test_publisher_dataset():
     publishers_set = reader.dataset_of_publishers
     sorted_publishers = sorted(publishers_set)
     sorted_publishers_str = str(sorted_publishers[:3])
-    assert sorted_publishers_str == "[<Publisher 13-lab,azimuth team>, <Publisher 2&30 Software>, <Publisher 2Awesome Studio>]"
+    assert sorted_publishers_str == "[13-lab,azimuth team, 2&30 Software, 2Awesome Studio]"
 
 
 def test_genres_dataset():
@@ -467,7 +466,7 @@ def test_genres_dataset():
     genres_set = reader.dataset_of_genres
     sorted_genres = sorted(genres_set)
     sorted_genre_sample = str(sorted_genres[:3])
-    assert sorted_genre_sample == "[<Genre Action>, <Genre Adventure>, <Genre Animation & Modeling>]"
+    assert sorted_genre_sample == "[Action, Adventure, Animation & Modeling]"
 
 
 if __name__ == "__main__":

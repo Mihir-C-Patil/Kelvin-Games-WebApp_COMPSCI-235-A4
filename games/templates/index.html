@@ -1,78 +1,45 @@
 ﻿<!DOCTYPE html>
 
 <html lang="en-nz">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="author" content="CS235" />
-    <meta name="description" content="This is the homepage for the CS235 Game Library" />
-    <link href="../static/css/style.css" rel="stylesheet" />
-    <title>Home</title>
-  </head>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="author" content="CS235"/>
+  <meta name="description"
+        content="This is the homepage for the CS235 Game Library"/>
+  <link href="../static/css/sidebar.css" rel="stylesheet"/>
+  <link href="../static/css/header.css" rel="stylesheet"/>
+  <link href="../static/css/index.css" rel="stylesheet"/>
+  <script src="../static/js/hamburger.js" defer></script>
+  <title>Home</title>
+</head>
 
-  <body>
-    <header>
-      <aside class="sidebar">
-        <section class="sidebar__section">
-          <h2 class="sidebar__heading">Browse by Category</h2>
-          <ul class="sidebar__ul">
-            <li class="sidebar__li">
-              <a href="#">Single-Player</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">Multi-Player</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">Co-op</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">PvP</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">VR</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">MMO</a>
-            </li>
-
-          </ul>
-        </section>
-
-        <section class="sidebar__section">
-          <h2 class="sidebar__heading">Browse by Genre</h2>
-          <ul class="sidebar__ul">
-            <li class="sidebar__li">
-              <a href="#">Free to Play</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">Action</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">Adventure</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">Indie</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">RPG</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">MMO</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">Sports</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">Racing</a>
-            </li>
-            <li class="sidebar__li">
-              <a href="#">Strategy</a>
-            </li>
-
-          </ul>
-        </section>
-      </aside>
-    </header>
-
-  </body>
+<body>
+<header>
+  {% include 'header.html' %}
+  {% include 'sidebar.html' %}
+</header>
+<main>
+  <article class="hero">
+    <img src="../static/img/logo-full.png" alt="Kelvin Games Logo"
+         class="hero-logo">
+    <img src="../static/img/homepageHero.png" alt="An image of many games"
+         class="hero-background">
+  </article>
+  <article class="featured-games">
+    <section class="featured-game">
+      <img src="game1.jpg" alt="Game 1">
+      <div class="caption">Game 1 - Play Count: 1000</div>
+    </section>
+    <section class="featured-game">
+      <img src="game2.jpg" alt="Game 2">
+      <div class="caption">Game 2 - Play Count: 750</div>
+    </section>
+    <section class="featured-game">
+      <img src="game3.jpg" alt="Game 3">
+      <div class="caption">Game 3 - Play Count: 1200</div>
+    </section>
+  </article>
+</main>
+</body>
 </html>

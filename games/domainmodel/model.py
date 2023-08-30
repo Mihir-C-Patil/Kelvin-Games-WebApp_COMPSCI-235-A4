@@ -26,7 +26,7 @@ class Publisher:
         :return: str
         """
 
-        return f"<Publisher {self.__publisher_name}>"
+        return self.__publisher_name
 
     def __eq__(self, other) -> bool:
         """
@@ -128,7 +128,7 @@ class Genre:
         :return: str
         """
 
-        return f"<Genre {self.__genre_name}>"
+        return self.__genre_name
 
     def __eq__(self, other) -> bool:
         """
@@ -215,13 +215,18 @@ class Game:
             self.__game_title = game_title.strip()
 
         self.__genres = list()
-        self.__reviews = list()
+        self.__categories = set()
+        self.__tags = set()
+        self.__reviews = False
         self.__price = None
         self.__release_date = None
         self.__description = None
         self.__publisher = None
         self.__image_url = None
         self.__website_url = None
+        self.__video_url = None
+        self.__languages = list()
+        self.__system_dict = dict()
 
     def __repr__(self) -> str:
         """
@@ -309,7 +314,27 @@ class Game:
         return self.__genres
 
     @property
-    def reviews(self) -> list:
+    def categories(self) -> set:
+        """
+        Return the list of categories of a game object
+
+        :return: list
+        """
+
+        return self.__categories
+
+    @property
+    def tags(self) -> set:
+        """
+        Return the list of tags of a game object
+
+        :return: set
+        """
+
+        return self.__tags
+
+    @property
+    def reviews(self) -> bool:
         """
         Return the list of reviews of a game object
 
@@ -550,6 +575,112 @@ class Game:
         else:
             print(f'Could not find {genre_to_remove} in list of genres.')
 
+    """Added the following methods in Games class for games-description page"""
+
+    def add_language(self, language):
+        if len(language.strip()) > 0:
+            self.__languages.append(language)
+
+    @reviews.setter
+    def reviews(self, review):
+        if len(review.strip()) > 0:
+            self.__reviews = review
+
+    @property
+    def system_dict(self):
+        return self.__system_dict
+
+    @property
+    def languages(self):
+        return self.__languages
+
+    @property
+    def video_url(self):
+        return self.__video_url
+
+    @video_url.setter
+    def video_url(self, new_video_url: str) -> None:
+
+        if isinstance(new_video_url, str) and new_video_url.strip():
+            self.__video_url = new_video_url.strip()
+        else:
+            self.__video_url = None
+
+    def add_category(self, new_category: str) -> None:
+        """
+        Adds a new category to the game's list of categories.
+        Does nothing if category is invalid or duplicate.
+
+        Parameters
+        ----------
+        new_category: str
+            This is a category to be added.
+        :param new_category: str
+        :return: None
+        """
+
+        if isinstance(new_category, str) and new_category.strip() \
+                and new_category not in self.__categories:
+            self.__categories.add(new_category.strip())
+
+    def remove_category(self, category_to_remove: str) -> None:
+        """
+        Removes a category from the game's list of categories.
+        Does nothing if category is invalid or doesn't exist.
+
+        Parameters
+        ----------
+        category_to_remove: str
+            This is a category to be removed.
+        :param category_to_remove: str
+        :return: None
+        """
+
+        if isinstance(category_to_remove, str) \
+                and category_to_remove.strip() \
+                and category_to_remove in self.__categories:
+            self.__categories.remove(category_to_remove.strip())
+        else:
+            print(f'Could not find {category_to_remove} '
+                  f'in list of categories.')
+
+    def add_tag(self, new_tag: str) -> None:
+        """
+        Adds a new tag to the game's list of tags.
+        Does nothing if tag is invalid or duplicate.
+
+        Parameters
+        ----------
+        new_tag: str
+            This is a tag to be added.
+        :param new_tag: str
+        :return: None
+        """
+
+        if isinstance(new_tag, str) and new_tag.strip() \
+                and new_tag not in self.__tags:
+            self.__tags.add(new_tag.strip())
+
+    def remove_tag(self, tag_to_remove: str) -> None:
+        """
+        Removes a tag from the game's list of tags.
+        Does nothing if tag is invalid or doesn't exist.
+
+        Parameters
+        ----------
+        tag_to_remove: str
+            This is a tag to be removed.
+        :param tag_to_remove: str
+        :return: None
+        """
+
+        if isinstance(tag_to_remove, str) \
+                and tag_to_remove.strip() \
+                and tag_to_remove in self.__tags:
+            self.__tags.remove(tag_to_remove.strip())
+        else:
+            print(f'Could not find {tag_to_remove} in list of tags.')
+
 
 class User:
     def __init__(self, username: str, password: str) -> None:
@@ -758,7 +889,7 @@ class Review:
         user: Game
             The user that the review is associated with.
         game: Game
-            The game the review is associated with.
+            This is the game the review is associated with.
         rating: int
             The rating of the review (0 to 5 inclusive).
         comment: str
