@@ -66,7 +66,24 @@
           </div>
           {{ pagination.links|safe }}
         {% else %}
-          <p>No results found.</p>
+          <article class="no-results">
+            <section class="no-result-heading">
+              <p>Your search query did not return any results.</p>
+            </section>
+            <section class="no-result-suggest">
+              <ul class="no-result-suggest-ul">
+                <li class="no-result-suggest-li">Make sure all words are
+                  spelled correctly.
+                </li>
+                <li class="no-result-suggest-li">Check you have selected the
+                  correct search criteria.
+                </li>
+                <li class="no-result-suggest-li">Try different keywords.</li>
+                <li class="no-result-suggest-li">Try more general keywords.
+                </li>
+              </ul>
+            </section>
+          </article>
         {% endif %}
       {% endblock %}
     </div>
