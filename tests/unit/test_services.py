@@ -40,4 +40,63 @@ def test_get_games(in_memory_repo):
     result = library_services.get_games(in_memory_repo)
     assert len(result) == 14
 
+def get_number_of_games(in_memory_repo):
+    number = library_services.get_number_of_games()
+    assert number == 14
 
+
+def test_search_games_by_title(in_memory_repo):
+    # Tests the search_games_by_criteria function for title criteria.
+    query = "Call of Duty"
+    criteria = "title"
+    results = home_services.search_games_by_criteria(query, criteria, in_memory_repo)
+
+    # Ensure that the search results are of type list and contain dictionaries.
+    assert isinstance(results, list)
+    for result in results:
+        assert isinstance(result, dict)
+
+    # Check if the search results contain the expected game.
+    assert any(game['title'] == 'Call of Duty® 4: Modern Warfare®' for game in results)
+
+
+def test_search_games_by_publisher(in_memory_repo):
+    # Tests the search_games_by_criteria function for publisher criteria.
+    query = "Activision"
+    criteria = "publisher"
+    results = home_services.search_games_by_criteria(query, criteria, in_memory_repo)
+
+    # Ensure that the search results are of type list and contain dictionaries.
+    assert isinstance(results, list)
+    for result in results:
+        assert isinstance(result, dict)
+
+    # Check if the search results contain games published by "Activision".
+    assert all(game['header_image'] != '' for game in results)
+
+
+def test_search_games_by_category(in_memory_repo):
+    # Tests the search_games_by_criteria function for category criteria.
+    query = "Action"
+    criteria = "category"
+    results = home_services.search_games_by_criteria(query, criteria, in_memory_repo)
+
+    # Ensure that the search results are of type list and contain dictionaries.
+    assert isinstance(results, list)
+    for result in results:
+        assert isinstance(result, dict)
+
+
+def test_search_games_by_tags(in_memory_repo):
+    # Tests the search_games_by_criteria function for tags criteria.
+    query = "Multiplayer"
+    criteria = "tags"
+    results = home_services.search_games_by_criteria(query, criteria, in_memory_repo)
+
+    # Ensure that the search results are of type list and contain dictionaries.
+    assert isinstance(results, list)
+    for result in results:
+        assert isinstance(result, dict)
+
+    # Check if the search results contain games with the "Multiplayer" tag.
+    assert any(game['title'] == 'Call of Duty® 4: Modern Warfare®' for game in results)
