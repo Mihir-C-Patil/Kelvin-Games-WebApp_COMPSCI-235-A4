@@ -47,7 +47,7 @@ def create_app(test_config=None):
         app.register_blueprint(search.search_blueprint)
 
     repo.repo_instance = MemoryRepository()
-    populate(repo.repo_instance)
+    populate(data_path, repo.repo_instance)
 
     @app.route('/')
     def home():

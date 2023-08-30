@@ -1,7 +1,7 @@
 import os.path
 from bisect import insort_left
 from typing import List
-
+from pathlib import Path
 from games.domainmodel.model import *
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.repository import AbstractRepository
@@ -82,9 +82,9 @@ class MemoryRepository(AbstractRepository):
         return matching_game_genre
 
 
-def populate(repo: AbstractRepository):
+def populate(data_path: Path, repo: AbstractRepository):
     directory_name = os.path.dirname(os.path.abspath(__file__))
-    games_csv_path = os.path.join(directory_name, "data/games.csv")
+    games_csv_path =  data_path / "games.csv"
     reader = GameFileCSVReader(games_csv_path)
 
     reader.read_csv_file()
