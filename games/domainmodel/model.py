@@ -214,7 +214,7 @@ class Game:
         else:
             self.__game_title = game_title.strip()
 
-        self.__genres = set()
+        self.__genres = list()
         self.__categories = set()
         self.__tags = set()
         self.__reviews = False
@@ -304,7 +304,7 @@ class Game:
         return self.__game_title
 
     @property
-    def genres(self) -> set[Genre]:
+    def genres(self) -> list[Genre]:
         """
         Return the list of genres of a game object
 
@@ -553,7 +553,7 @@ class Game:
         """
 
         if isinstance(new_genre, Genre) and new_genre not in self.__genres:
-            self.__genres.add(new_genre)
+            self.__genres.append(new_genre)
         return None
 
     def remove_genre(self, genre_to_remove: Genre) -> None:
