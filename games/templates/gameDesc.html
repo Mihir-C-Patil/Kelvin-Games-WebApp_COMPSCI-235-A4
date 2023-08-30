@@ -23,9 +23,18 @@
     </div>
     <div class="game_container">
         <div class="game_trailer">
-            <video autoplay muted controls>
-                <source src="{{ game.video_url }}" type="video/mp4">
-            </video>
+            {% if game.video_url is none %}
+            <!-- Display a default YouTube video when video_url is None -->
+                <video autoplay muted controls>
+                    <source src=../static/video/ri.mp4 type="video/mp4">
+                </video>
+                <p>Game play video not available</p>
+            {% else %}
+                <!-- Display the game's video when video_url is not None -->
+                <video autoplay muted controls>
+                    <source src="{{ game.video_url }}" type="video/mp4">
+                </video>
+            {% endif %}
         </div>
         <div class="right_info">
             <div class="game_image">
