@@ -2,7 +2,8 @@
 
 body{
     font-family: 'Roboto', sans-serif;
-    background-color: rgb(24, 25, 26);
+    /*background-color: rgb(24, 25, 26);*/
+    background-color: #04293A;
 }
 .bg-img {
     position: fixed;
@@ -22,7 +23,7 @@ body{
     height: 500px;
     overflow: hidden;
     margin-top: 0px;
-    box-shadow: inset 250px 10px 50px rgba(24, 25, 26, 1.2), inset -250px -10px 50px rgba(24, 25, 26, 1.2);
+    box-shadow: inset 250px 10px 50px rgba(4, 41, 58, 1.2), inset -250px -10px 50px rgba(4, 41, 58, 1.2);
 }
 .bgSlides{
     /*display: none;*/
@@ -64,13 +65,15 @@ body{
 .page{
     max-width: 100%;
     margin: initial;
-    background: rgb(24, 25, 26);
+    /*background: rgb(24, 25, 26);*/
+    background: #04293A;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
 .page .content{
-    background: rgb(24, 25, 26);
+    /*background: rgb(24, 25, 26);*/
+    background: #04293A;
     border-radius: 20px;
     max-width: 850px;
     margin: auto;
@@ -95,7 +98,8 @@ body{
   width: auto;
   padding: 16px;
   margin-top: -22px;
-  color: black;
+  /*color: black;*/
+  color: #04293A;
   font-weight: bold;
   font-size: 50px;
   transition: 0.6s ease;
@@ -126,15 +130,17 @@ body{
     flex-wrap: wrap;
 }
 .tab{
-    background: white;
+    background: whitesmoke;
     padding: 12px;
     border-radius: 25px;
     margin: 5px;
     transition: transform 0.3s ease;
+    border: 1.7px solid #ECB365;
+
 }
 .tab a{
     text-decoration: none;
-    color: royalblue;
+    color: #04293A;
 }
 
 .tab:hover{
@@ -151,7 +157,8 @@ body{
 
 .game-box-2 {
   width: calc(354px);
-  background-color: #397598;
+  /*background-color: #397598;*/
+  background-color: #064663;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 10px;
@@ -168,7 +175,8 @@ body{
 }
 .game-box-3 {
   width: calc(216px);
-  background-color: #397598;
+  /*background-color: #397598;*/
+    background-color: #064663;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 10px;

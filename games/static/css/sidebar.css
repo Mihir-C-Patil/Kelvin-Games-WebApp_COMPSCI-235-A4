@@ -12,7 +12,8 @@
   position: fixed;
   top: 12%;
   left: 10px;
-  background-color: darkblue;
+  /*background-color: darkblue;*/
+  background-color: #04293A;
   border-radius: 12px;
   padding: 5px 15px;
   transform: translateX(-110%);

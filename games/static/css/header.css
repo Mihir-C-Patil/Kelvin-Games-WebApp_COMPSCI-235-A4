@@ -18,7 +18,8 @@
   justify-content: space-between;
   padding: 20px 40px;
   height: 75px;
-  background-color: darkblue;
+  /*background-color: darkblue;*/
+  background-color: #041C32;
   color: #fff;
 }
 
@@ -222,5 +223,6 @@ form {
 }
 
 #search-criteria option {
-  background-color: darkblue;
+  /*background-color: darkblue;*/
+  background-color: #041C32;
 }

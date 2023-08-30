@@ -1,5 +1,6 @@
 body{
-    background-color: var(--background_colour);
+    /*background-color: var(--background_colour);*/
+    background-color: #04293A;
     color: var(--text_colour);
 
 }
@@ -18,6 +19,7 @@ body{
 .game_title{
     text-align: left;
     font-size: 25px;
+    color: whitesmoke;
 }
 
 .game_trailer{
@@ -61,7 +63,9 @@ body{
     display: flex;
     flex-direction: column;
     margin-top: 3px;
-    background-color: aliceblue;
+    /*background-color: aliceblue;*/
+    background-color: #064663;
+    /*background-color: #3f2274;*/
     padding: 10px;
     height: 100%;
     align-items: flex-end;
@@ -86,6 +90,7 @@ body{
 
 .desc_title{
     margin-right: 10px;
+    color: #ECB365;
 }
 
 .tag_container{
@@ -96,32 +101,43 @@ body{
 
 .tag{
     padding: 1px 10px; /* Adjust padding as needed */
-    background-color: var(--tag_background);
-    border: 2px solid var(--tag_text_colour);
+    /*background-color: var(--tag_background);*/
+    background-color: whitesmoke;
+    /*border: 2px solid var(--tag_text_colour);*/
+    border: 2px solid #ECB365;
     border-radius: 10px;
     font-size: 11px;
-    color: var(--tag_text_colour);
+    /*color: var(--tag_text_colour);*/
+    color: #04293A;
     margin-right: 4px;
     margin-bottom: 4px;
 }
 
-.desc_ans{}
+.desc_ans{
+    color: whitesmoke;
+}
 
 .about_game{
     margin-top: 80px;
     margin-bottom: 50px;
+    color: whitesmoke;
 }
 
 .about_title {
     padding-bottom: 20px;
+    color: #ECB365;
 }
 
 .languages h3 {
     padding-bottom: 20px;
+    color: #ECB365;
 }
 
 .reviews{
     margin-top: 100px;
+}
+.reviews_title{
+    color: #ECB365;
 }
 .reviews_container{
     display: flex;
@@ -133,8 +149,9 @@ body{
 .review_box{
     width: 45%;
     margin: 10px;
-    background-color: var(--tag_background);;
-    border: 2px solid var(--tag_text_colour);
+    background-color: whitesmoke;
+    border: 2px solid #ECB365;
+    color: #04293A;
     border-radius: 10px;
     padding: 10px;
     height: auto;
@@ -158,6 +175,7 @@ body{
 
 .system_container h3 {
     padding-bottom: 20px;
+    color: #ECB365;
 }
 .system_requirements{
     display: flex;
@@ -183,6 +201,7 @@ body{
 
 .reco_title {
     padding-bottom: 20px;
+    color: #ECB365;
 }
 
 .reco_game_image{
@@ -231,11 +250,12 @@ body{
 
 .back_button_container{
     margin-top: 100px;
-    background-color: var(--tag_background);
+    background-color: whitesmoke;
     padding: 10px;
     border-radius: 10px;
     width: 100px;
-    border-color: var(--tag_text_colour);
+    border: 2px solid #ECB365;
+    color: #04293A;
 
 }
 
