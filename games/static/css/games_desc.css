@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+* {
+    font-family: 'Roboto', sans-serif
+}
+
 body{
     /*background-color: var(--background_colour);*/
     background-color: #04293A;
@@ -229,6 +235,11 @@ body{
     height: 100%;
     color: white;
     opacity: 0; /* Fully visible by default */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 25px;
 }
 
 .reco_game_description a{
@@ -236,10 +247,6 @@ body{
     text-decoration: none;
 }
 
-.reco_game_description p{
-    padding: 10px;
-    font-size: 8px;
-}
 .reco_game:hover .reco_game_description {
     transform: translateY(0); /* Show description on hover */
     opacity: 1; /* Make the description fully visible */

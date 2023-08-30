@@ -138,15 +138,16 @@
   </div>
   <div class="reco_container">
     {% for game in similar_games %}
-      <div class="reco_game">
-        <div class="reco_game_image">
-          <img src={{ game.image_url }}>
-          <div class="reco_game_description">
-            <a href="/games-description/{{ game.game_id }}">
-              <p>{{ game.description }}</p></a>
+      <a href="/games-description/{{ game.game_id }}">
+        <div class="reco_game">
+          <div class="reco_game_image">
+            <img src={{ game.image_url }}>
+            <div class="reco_game_description">
+              <p>View Game</p>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
     {% endfor %}
   </div>
 </section>
