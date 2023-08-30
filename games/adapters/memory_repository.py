@@ -29,7 +29,7 @@ class MemoryRepository(AbstractRepository):
         for game in self.__games:
             if game.game_id == id:
                 return game
-        return self.__games
+        return None
 
     def get_similar_games(self, genre_list):
         similar_game_list = []
