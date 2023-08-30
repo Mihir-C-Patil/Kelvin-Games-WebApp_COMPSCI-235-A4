@@ -17,6 +17,6 @@ def games_description(game_id):
         get_similar_games = services.similar_game(repo.repo_instance, get_game.genres)
 
     genres = get_genres(repo.repo_instance)
-    return render_template('gameDesc.html', game=get_game, similar_games=get_similar_games[0:4], all_genres=genres,
+    return render_template('gameDesc.html', game=get_game, similar_games=[game for game in get_similar_games if game != get_game][0:4], all_genres=genres,
                            genre_urls=get_genres_and_urls())
 
