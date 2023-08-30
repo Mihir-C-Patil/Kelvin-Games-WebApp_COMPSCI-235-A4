@@ -1,159 +1,163 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Games Description</title>
-    <link rel="stylesheet" href="../static/css/games_desc.css">
-    <link rel="stylesheet" href="../static/css/games_desc_global.css">
-    <link href="../static/css/sidebar.css" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <title>Games Description</title>
+  <link rel="stylesheet" href="../static/css/games_desc.css">
+  <link rel="stylesheet" href="../static/css/games_desc_global.css">
+  <link href="../static/css/sidebar.css" rel="stylesheet"/>
   <link href="../static/css/header.css" rel="stylesheet"/>
+  <link href="../static/css/footer.css" rel="stylesheet"/>
   <script src="../static/js/hamburger.js" defer></script>
 </head>
 <div class="head">
-        {% include 'header.html' %}
-        {% include 'sidebar.html' %}
-    </div>
+  {% include 'header.html' %}
+  {% include 'sidebar.html' %}
+</div>
 
 
 <body>
 <!--% include 'navbar.html' %-->
 <section class="games_desc_content">
-    <div class="game_title">
-        <h1>{{ game.title }}</h1>
+  <div class="game_title">
+    <h1>{{ game.title }}</h1>
+  </div>
+  <div class="game_container">
+    <div class="game_trailer">
+      {% if game.video_url is none %}
+        <!-- Display a default YouTube video when video_url is None -->
+        <video autoplay muted controls>
+          <source src=../static/video/ri.mp4 type="video/mp4">
+        </video>
+        <p>Game play video not available</p>
+      {% else %}
+        <!-- Display the game's video when video_url is not None -->
+        <video autoplay muted controls>
+          <source src="{{ game.video_url }}" type="video/mp4">
+        </video>
+      {% endif %}
     </div>
-    <div class="game_container">
-        <div class="game_trailer">
-            {% if game.video_url is none %}
-            <!-- Display a default YouTube video when video_url is None -->
-                <video autoplay muted controls>
-                    <source src=../static/video/ri.mp4 type="video/mp4">
-                </video>
-                <p>Game play video not available</p>
-            {% else %}
-                <!-- Display the game's video when video_url is not None -->
-                <video autoplay muted controls>
-                    <source src="{{ game.video_url }}" type="video/mp4">
-                </video>
-            {% endif %}
+    <div class="right_info">
+      <div class="game_image">
+        <img src="{{ game.image_url }}">
+      </div>
+      <div class="tag_container">
+        {% for tag in game.tags %}
+          <button class="tag">{{ tag }}</button>
+        {% endfor %}
+      </div>
+      <div class="description">
+        <div class="desc_title">
+          <p><strong>Release Date:</strong></p>
         </div>
-        <div class="right_info">
-            <div class="game_image">
-                <img src="{{ game.image_url }}">
-            </div>
-            <div class="tag_container">
-                {% for tag in game.tags %}
-                <button class="tag">{{ tag }}</button>
-                {% endfor %}
-            </div>
-            <div class="description">
-                <div class="desc_title">
-                    <p><strong>Release Date:</strong></p>
-                </div>
-                <div class="desc_ans">
-                    <p>{{ game.release_date }}</p>
-                </div>
-            </div>
-            <div class="description">
-                <div class="desc_title">
-                    <p><strong>Price:</strong></p>
-                </div>
-                <div class="desc_ans">
-                    <p>{{ game.price }}</p>
-                </div>
-            </div>
-            <div class="description">
-                <div class="desc_title">
-                    <p><strong>Publisher:</strong></p>
-                </div>
-                <div class="desc_ans">
-                    <p>{{ game.publisher }}</p>
-                </div>
-            </div>
+        <div class="desc_ans">
+          <p>{{ game.release_date }}</p>
         </div>
+      </div>
+      <div class="description">
+        <div class="desc_title">
+          <p><strong>Price:</strong></p>
+        </div>
+        <div class="desc_ans">
+          <p>{{ game.price }}</p>
+        </div>
+      </div>
+      <div class="description">
+        <div class="desc_title">
+          <p><strong>Publisher:</strong></p>
+        </div>
+        <div class="desc_ans">
+          <p>{{ game.publisher }}</p>
+        </div>
+      </div>
     </div>
+  </div>
 </section>
 
 <section class="about_game">
-    <div class="about_title">
-        <h1>About This Game</h1>
+  <div class="about_title">
+    <h1>About This Game</h1>
+  </div>
+  <div class="about_text">
+    <p>{{ game.description }}</p>
+  </div>
+  <div class="about_bottom_container">
+    <div class="languages">
+      <h3>Supported Languages</h3>
+      {% for language in game.languages %}
+        <button class="tag">{{ language }}</button>
+      {% endfor %}
     </div>
-    <div class="about_text">
-        <p>{{ game.description }}</p>
+    <div class="system_container">
+      <h3>System Requirements</h3>
+      <div class="system_requirements">
+        {% if game.system_dict["apple"] %}
+          <div class="system_icons">
+            <img src="../static/icons/apple-icon.png" alt="apple">
+          </div>
+        {% endif %}
+        {% if game.system_dict["linux"] %}
+          <div class="system_icons">
+            <img src="../static/icons/linux-icon.png" alt="linux">
+          </div>
+        {% endif %}
+        {% if game.system_dict["windows"] %}
+          <div class="system_icons">
+            <img src="../static/icons/windows-icon.png" alt="windows">
+          </div>
+        {% endif %}
+      </div>
     </div>
-    <div class="about_bottom_container">
-        <div class="languages">
-            <h3>Supported Languages</h3>
-            {% for language in game.languages %}
-            <button class="tag">{{ language }}</button>
-            {% endfor %}
-        </div>
-        <div class="system_container">
-        <h3>System Requirements</h3>
-        <div class="system_requirements">
-            {% if game.system_dict["apple"] %}
-            <div class="system_icons">
-                <img src="../static/icons/apple-icon.png" alt="apple">
-            </div>
-            {% endif %}
-            {% if game.system_dict["linux"] %}
-            <div class="system_icons">
-                <img src="../static/icons/linux-icon.png" alt="linux">
-            </div>
-            {% endif %}
-            {% if game.system_dict["windows"] %}
-            <div class="system_icons">
-                <img src="../static/icons/windows-icon.png" alt="windows">
-            </div>
-            {% endif %}
-        </div>
-        </div>
-    </div>
+  </div>
 </section>
 
 <section class="reviews">
-    <div class="reviews_title">
-        <h1>Reviews</h1>
-    </div>
-    <div class="reviews_container">
-        {% if game.reviews %}
-        <div class="review_box">
-            <div class="review_post">
-                <p>{{ game.reviews }}</p>
-            </div>
+  <div class="reviews_title">
+    <h1>Reviews</h1>
+  </div>
+  <div class="reviews_container">
+    {% if game.reviews %}
+      <div class="review_box">
+        <div class="review_post">
+          <p>{{ game.reviews }}</p>
         </div>
-        {% else %}
-        <div class="review_box">
-            <div class="review_post">
-                <p>Currently, there are no reviews for this game.</p>
-            </div>
+      </div>
+    {% else %}
+      <div class="review_box">
+        <div class="review_post">
+          <p>Currently, there are no reviews for this game.</p>
         </div>
-        {% endif %}
-    </div>
+      </div>
+    {% endif %}
+  </div>
 </section>
 
 <section class="recommendation">
-    <div class="reco_title">
-        <h1>Explore Similar Genres</h1>
-    </div>
-    <div class="reco_container">
-        {% for game in similar_games %}
-        <div class="reco_game">
-            <div class="reco_game_image">
-                <img src={{ game.image_url }}>
-                <div class="reco_game_description">
-                    <a href="/games-description/{{ game.game_id }}"><p>{{ game.description }}</p></a>
-                </div>
-            </div>
+  <div class="reco_title">
+    <h1>Explore Similar Genres</h1>
+  </div>
+  <div class="reco_container">
+    {% for game in similar_games %}
+      <div class="reco_game">
+        <div class="reco_game_image">
+          <img src={{ game.image_url }}>
+          <div class="reco_game_description">
+            <a href="/games-description/{{ game.game_id }}">
+              <p>{{ game.description }}</p></a>
+          </div>
         </div>
-        {% endfor %}
-    </div>
+      </div>
+    {% endfor %}
+  </div>
 </section>
 
 <section class="go_back">
-    <div class="back_button_container">
-        <a href="/games_by_genre?genre={{ game.genres[0] }}">Go Back to Library</a>
-    </div>
+  <div class="back_button_container">
+    <a href="/games_by_genre?genre={{ game.genres[0] }}">Go Back to Library</a>
+  </div>
 </section>
+
+{% include 'footer.html' %}
 
 </body>
 

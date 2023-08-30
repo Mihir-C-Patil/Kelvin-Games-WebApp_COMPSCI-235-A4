@@ -3,6 +3,24 @@ from games.adapters.repository import AbstractRepository
 
 def search_games_by_criteria(query: str, criteria: str,
                              repo: AbstractRepository) -> list[dict]:
+    """
+
+    Search games by criteria.
+
+    This method allows you to search for games based on the given criteria
+    and query in the repository.
+
+    Parameters:
+    query (str): The query string to search for.
+    criteria (str): The criteria to use for the search (title, publisher,
+    category, tags).
+    repo (AbstractRepository): The repository to search in.
+
+    Returns:
+    list[dict]: A list of dictionaries representing the search results. Each
+    dictionary contains the game id, title, game URL, and header image URL.
+
+    """
     search_results = []
     if criteria == "title":
         search_results = repo.search_games_by_title(query)

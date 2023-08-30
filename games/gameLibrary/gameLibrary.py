@@ -1,6 +1,8 @@
 import random
+
 from flask import Blueprint, render_template, request, url_for
 from flask_paginate import Pagination, get_page_args
+
 import games.adapters.repository as repo
 from games.gameLibrary import services
 
@@ -11,12 +13,14 @@ gameLibrary_blueprint = Blueprint('viewGames_bp', __name__)
 @gameLibrary_blueprint.route('/gamelibrary', methods=['GET', 'POST'])
 def view_games():
     """
-    Render the view for the game library page, displaying a sorted list of games.
+    Render the view for the game library page, displaying a sorted list
+    of games.
 
     Returns:
         rendered_template: HTML template for the game library view.
     """
-    sort_criteria = request.args.get('sort_criteria', 'title')  # Default sorting by title
+    sort_criteria = request.args.get('sort_criteria',
+                                     'title')  # Default sort by title
     game_count = services.get_number_of_games(repo.repo_instance)
     all_games = services.get_games(repo.repo_instance)
     genres = services.get_genres(repo.repo_instance)
@@ -33,7 +37,9 @@ def view_games():
     # Render the template
     return render_template('gameLibrary.html', heading='All Games',
                            games=sorted_rendered, num_games=game_count,
-                           slide_games=all_games[random_game_index:random_game_index + 5], all_genres=genres,
+                           slide_games=all_games[
+                                       random_game_index:random_game_index + 5],
+                           all_genres=genres,
                            pagination=pagination,
                            genre_urls=get_genres_and_urls())
 
@@ -43,16 +49,19 @@ def get_genres_and_urls(sort_criteria='title'):
     Generate URLs for each genre using Flask's url_for function.
 
     Args:
-        sort_criteria (str): The sorting criteria for generating genre URLs.
+        sort_criteria (str): The sorting criteria for generating genre
+        URLs.
 
     Returns:
-        genre_urls (dict): A dictionary mapping genre names to their corresponding URLs.
+        genre_urls (dict): A dictionary mapping genre names to their
+        corresponding URLs.
     """
     genre_names = services.get_genres(repo.repo_instance)
     genre_urls = dict()
     for genre_name in genre_names:
         genre_urls[genre_name] = url_for('viewGames_bp.games_by_genre',
-                                         genre=genre_name, sort_criteria=sort_criteria)
+                                         genre=genre_name,
+                                         sort_criteria=sort_criteria)
     return genre_urls
 
 
@@ -66,7 +75,8 @@ def games_by_genre():
     """
     target_genre = request.args.get('genre')
     sort_criteria = request.args.get('sort_criteria', 'title')
-    selected_genre_games = services.get_games_by_genre(target_genre, repo.repo_instance)
+    selected_genre_games = services.get_games_by_genre(target_genre,
+                                                       repo.repo_instance)
 
     # Pagination setup
     page, per_page, offset = get_page_args(per_page_parameter="pp", pp=10)

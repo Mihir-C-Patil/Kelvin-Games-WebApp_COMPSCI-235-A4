@@ -41,7 +41,7 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     @abc.abstractmethod
-    def get_games_by_id(self, id:int):
+    def get_games_by_id(self, id: int):
         raise NotImplementedError
 
     @abc.abstractmethod

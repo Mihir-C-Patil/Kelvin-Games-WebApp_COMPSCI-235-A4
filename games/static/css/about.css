@@ -14,7 +14,7 @@ main {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  padding: 0 15%
+  padding: 0 15%;
 }
 
 .hero-content {
@@ -72,7 +72,7 @@ main {
   text-align: center;
 }
 
-main{
+main {
   background-color: #04293A;
 }
 
@@ -86,13 +86,19 @@ main{
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.about h2 {
+  color: white;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
 .about__paragraph {
   margin-bottom: 20px;
   line-height: 1.6;
   font-size: 16px;
+  color: white;
 }
 
 .about__paragraph:last-child {
   margin-bottom: 0;
 }
-

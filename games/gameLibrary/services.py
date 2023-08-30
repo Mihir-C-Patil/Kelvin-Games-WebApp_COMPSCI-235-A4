@@ -5,8 +5,8 @@ def get_number_of_games(repo: AbstractRepository):
     """
     Get the total number of games in the repository.
 
-    Args:
-        repo (AbstractRepository): The repository instance to retrieve data from.
+    Args: repo (AbstractRepository): The repository instance to retrieve
+    data from.
 
     Returns:
         int: The total number of games in the repository.
@@ -16,14 +16,15 @@ def get_number_of_games(repo: AbstractRepository):
 
 def get_games(repo: AbstractRepository):
     """
-    Get a list of dictionaries representing game information from the repository.
+    Get a list of dictionaries representing game information from the
+    repository.
 
-    Args:
-        repo (AbstractRepository): The repository instance to retrieve data from.
+    Args: repo (AbstractRepository): The repository instance to retrieve
+    data from.
 
-    Returns:
-        list: A list of dictionaries, each containing game information including
-              game_id, title, game_url, header_image, price, description, and release_date.
+    Returns: list: A list of dictionaries, each containing game information
+    including game_id, title, game_url, header_image, price, description,
+    and release_date.
     """
     games = repo.get_games()
     games_dictionaries = []
@@ -43,13 +44,14 @@ def get_games(repo: AbstractRepository):
 
 def get_slide_games(repo: AbstractRepository):
     """
-    Get a list of dictionaries representing game information for sliding carousel display.
+    Get a list of dictionaries representing game information for sliding
+    carousel display.
 
-    Args:
-        repo (AbstractRepository): The repository instance to retrieve data from.
+    Args: repo (AbstractRepository): The repository instance to retrieve
+    data from.
 
-    Returns:
-        list: A list of dictionaries, each containing game information for sliding carousel display.
+    Returns: list: A list of dictionaries, each containing game information
+    for sliding carousel display.
     """
     games = repo.get_games()
     games_dictionaries = []
@@ -74,14 +76,14 @@ def get_slide_games(repo: AbstractRepository):
 
 def get_games_by_genre(genre, repo: AbstractRepository):
     """
-    Get a list of dictionaries representing game information filtered by a specific genre.
+    Get a list of dictionaries representing game information filtered by a
+    specific genre.
 
-    Args:
-        genre (str): The target genre for filtering.
-        repo (AbstractRepository): The repository instance to retrieve data from.
+    Args: genre (str): The target genre for filtering. repo (
+    AbstractRepository): The repository instance to retrieve data from.
 
-    Returns:
-        list: A list of dictionaries, each containing game information for the specified genre.
+    Returns: list: A list of dictionaries, each containing game information
+    for the specified genre.
     """
     games = repo.get_genre_of_games(target_genre=genre)
     games_dicts = []
@@ -104,7 +106,8 @@ def get_genres(repo: AbstractRepository):
     Get a list of available genres from the repository.
 
     Args:
-        repo (AbstractRepository): The repository instance to retrieve data from.
+        repo (AbstractRepository): The repository instance to retrieve data
+        from.
 
     Returns:
         list: A list of available genres.

@@ -58,4 +58,12 @@ def create_app(test_config=None):
         return render_template('index.html', all_genres=genres,
                                genre_urls=get_genres_and_urls())
 
+    @app.route('/about')
+    def about():
+        genres = get_genres(repo.repo_instance)
+        return render_template('about.html', all_genres=genres,
+                               genre_urls=get_genres_and_urls())
+
     return app
+
+

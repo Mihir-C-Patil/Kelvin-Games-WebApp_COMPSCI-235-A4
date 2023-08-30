@@ -10,6 +10,11 @@ search_blueprint = Blueprint('search_bp', __name__)
 
 @search_blueprint.route('/search', methods=['GET', 'POST'])
 def search_games():
+    """
+    Searches for games based on user input and criteria.
+
+    :return: Rendered template with search results or homepage.
+    """
     search = request.args.get('query').strip()
     criteria = request.args.get('search_criteria')
     genres = get_genres(repo.repo_instance)
@@ -22,7 +27,8 @@ def search_games():
                                 record_name='List')
         return render_template('searchResults.html', heading='Search Results',
                                games=search_results[offset: offset + per_page], all_genres=genres,
-                               genre_urls=get_genres_and_urls(), pagination=pagination)
+                               genre_urls=get_genres_and_urls(),
+                               pagination=pagination)
     else:
         return render_template('index.html', all_genres=genres,
                                genre_urls=get_genres_and_urls())
