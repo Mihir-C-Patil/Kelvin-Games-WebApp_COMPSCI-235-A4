@@ -18,7 +18,6 @@
   justify-content: space-between;
   padding: 20px 40px;
   height: 75px;
-  /*background-color: darkblue;*/
   background-color: #041C32;
   color: #fff;
 }
@@ -40,7 +39,7 @@
 
 /* Hamburger Menu */
 .header__hamburger {
-  z-index: 2;
+  z-index: 9999;
   cursor: pointer;
   color: white;
   display: flex;
@@ -83,12 +82,11 @@
   text-decoration: none;
   color: rgba(256, 256, 256, 0.9);
   font-weight: bold;
-  transition: 150ms ease;
 }
 
 .nav__item a:hover {
   text-decoration: none;
-  color: rgba(256, 256, 256, 1);
+  color: #c600d0;
   font-weight: bold;
   transition: 150ms ease;
 }
