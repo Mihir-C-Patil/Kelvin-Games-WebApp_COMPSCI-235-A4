@@ -1,0 +1,21 @@
+body::-webkit-scrollbar{
+    display: none;
+    scrollbar-width: none;
+  }
+
+.progress-bar-container {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 5px;
+    background-color: #04293A;
+    z-index: 999;
+}
+
+.progress-bar {
+    height: 0;
+    width: 100%;
+    background-color: #c600d0;
+    transition: height 0.3s ease;
+}

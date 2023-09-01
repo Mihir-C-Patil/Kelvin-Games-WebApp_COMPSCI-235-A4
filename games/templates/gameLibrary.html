@@ -8,6 +8,8 @@
   <link href="../static/css/header.css" rel="stylesheet"/>
   <link href="../static/css/footer.css" rel="stylesheet"/>
   <script src="../static/js/hamburger.js" defer></script>
+    <link href="../static/css/scrollbar.css" rel="stylesheet"/>
+    <script src="../static/js/scrollbar.js" defer></script>
 </head>
 <body>
 <header>
@@ -15,6 +17,7 @@
   {% include 'sidebar.html' %}
 </header>
 <main class="main">
+    {% include 'scrollbar.html' %}
   <div class="slideshow">
     {% for game in slide_games %}
       <img src="{{ game.header_image }}" class="bg-img bgSlides fade" alt="">
