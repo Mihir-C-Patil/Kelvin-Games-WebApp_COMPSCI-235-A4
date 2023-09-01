@@ -61,44 +61,72 @@
         </form>
       </div>
       <div class="gameContainer">
-        {% for game in games[0:2] %}
-          <div class="game-box-2">
-            <img src="{{ game.header_image }}" alt="Game 1">
-            <h3>{{ game.title }}</h3>
-            <p>{{ game.game_id }}</p>
-            <a href="/games-description/{{ game.game_id }}">View Game</a>
-          </div>
-        {% endfor %}
+          {% for game in games[0:2] %}
+            <div class="game-box-2">
+              <div class="game-image">
+                <img src="{{ game.header_image }}" alt="Game 1">
+              </div>
+              <div class="game-info">
+                <div class="info-row">
+                  <h3 class="title_2row">{{ game.title }}</h3>
+                  <p class="game-id">{{ game.game_id }}</p>
+                </div>
+                <p class="game-price">${{ game.price }}</p>
+                <a href="/games-description/{{ game.game_id }}">View Game</a>
+              </div>
+            </div>
+          {% endfor %}
       </div>
-      <div class="gameContainer">
-        {% for game in games[2:5] %}
-          <div class="game-box-3">
-            <img src="{{ game.header_image }}" alt="Game 1">
-            <h3>{{ game.title }}</h3>
-            <p>{{ game.game_id }}</p>
-            <a href="/games-description/{{ game.game_id }}">View Game</a>
-          </div>
-        {% endfor %}
+       <div class="gameContainer">
+          {% for game in games[2:5] %}
+            <div class="game-box-3">
+              <div class="game-image">
+                <img src="{{ game.header_image }}" alt="Game 1">
+              </div>
+              <div class="game-info">
+                <div class="info-row">
+                  <h3 class="title_3row">{{ game.title }}</h3>
+                  <p class="game-id">{{ game.game_id }}</p>
+                </div>
+                <p class="game-price">${{ game.price }}</p>
+                <a href="/games-description/{{ game.game_id }}">View Game</a>
+              </div>
+            </div>
+          {% endfor %}
       </div>
-      <div class="gameContainer">
-        {% for game in games[5:7] %}
-          <div class="game-box-2">
-            <img src="{{ game.header_image }}" alt="Game 1">
-            <h3>{{ game.title }}</h3>
-            <p>{{ game.game_id }}</p>
-            <a href="/games-description/{{ game.game_id }}">View Game</a>
-          </div>
-        {% endfor %}
+       <div class="gameContainer">
+          {% for game in games[5:7] %}
+            <div class="game-box-2">
+              <div class="game-image">
+                <img src="{{ game.header_image }}" alt="Game 1">
+              </div>
+              <div class="game-info">
+                <div class="info-row">
+                  <h3 class="title_2row">{{ game.title }}</h3>
+                  <p class="game-id">{{ game.game_id }}</p>
+                </div>
+                <p class="game-price">${{ game.price }}</p>
+                <a href="/games-description/{{ game.game_id }}">View Game</a>
+              </div>
+            </div>
+          {% endfor %}
       </div>
-      <div class="gameContainer">
-        {% for game in games[7:10] %}
-          <div class="game-box-3">
-            <img src="{{ game.header_image }}" alt="Game 1">
-            <h3>{{ game.title }}</h3>
-            <p>{{ game.game_id }}</p>
-            <a href="/games-description/{{ game.game_id }}">View Game</a>
-          </div>
-        {% endfor %}
+       <div class="gameContainer">
+          {% for game in games[7:10] %}
+            <div class="game-box-3">
+              <div class="game-image">
+                <img src="{{ game.header_image }}" alt="Game 1">
+              </div>
+              <div class="game-info">
+                <div class="info-row">
+                  <h3 class="title_3row">{{ game.title }}</h3>
+                  <p class="game-id">{{ game.game_id }}</p>
+                </div>
+                <p class="game-price">${{ game.price }}</p>
+                <a href="/games-description/{{ game.game_id }}">View Game</a>
+              </div>
+            </div>
+          {% endfor %}
       </div>
       {{ pagination.links|safe }}
     </div>
