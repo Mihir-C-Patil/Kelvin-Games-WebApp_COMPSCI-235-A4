@@ -1,0 +1,1 @@
+from games.adapters.repository import AbstractRepository

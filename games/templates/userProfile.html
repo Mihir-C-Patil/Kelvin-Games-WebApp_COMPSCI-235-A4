@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="../static/css/sidebar.css" rel="stylesheet"/>
+    <link href="../static/css/header.css" rel="stylesheet"/>
+    <link href="../static/css/footer.css" rel="stylesheet"/>
+    <link href="../static/css/userProfile.css" rel="stylesheet"/>
+    <script src="../static/js/hamburger.js" defer></script>
+    <link href="../static/css/scrollbar.css" rel="stylesheet"/>
+    <script src="../static/js/scrollbar.js" defer></script>
+</head>
+<body>
+<header>
+  {% include 'header.html' %}
+  {% include 'sidebar.html' %}
+</header>
+<main>
+    {% include 'scrollbar.html' %}
+     <div class="profile-container">
+        <div class="profile-card">
+            <img src="../static/img/hacker.png" alt="User Profile Picture">
+            <h1>Patil Patil</h1>
+            <p>CS220 Pro</p>
+            <p>Location: Always avoids Library</p>
+            <p>Email: patil@mihir.com</p>
+        </div>
+
+        <div class="activity-history">
+            <h2>Activity History</h2>
+            <div class="activity-item">
+                <h3>Rated Games</h3>
+                <ul>
+                    <li><a href="#">Game 1</a></li>
+                    <li><a href="#">Game 2</a></li>
+                    <li><a href="#">Game 3</a></li>
+                </ul>
+            </div>
+
+            <div class="activity-item">
+                <h3>Reviewed Games</h3>
+                <ul>
+                    <li><a href="#">Game 4</a></li>
+                    <li><a href="#">Game 5</a></li>
+                </ul>
+            </div>
+
+            <div class="activity-item">
+                <h3>Wishlist</h3>
+                <ul>
+                    <li><a href="#">Game 6</a></li>
+                    <li><a href="#">Game 7</a></li>
+                    <li><a href="#">Game 8</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</main>
+{% include 'footer.html' %}
+</body>
+</html>
