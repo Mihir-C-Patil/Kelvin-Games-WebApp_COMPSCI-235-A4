@@ -6,6 +6,7 @@
     <link href="../static/css/sidebar.css" rel="stylesheet"/>
     <link href="../static/css/header.css" rel="stylesheet"/>
     <link href="../static/css/footer.css" rel="stylesheet"/>
+    <link href="../static/css/gameLibStyle.css" rel="stylesheet"/>
     <link href="../static/css/userProfile.css" rel="stylesheet"/>
     <script src="../static/js/hamburger.js" defer></script>
     <link href="../static/css/scrollbar.css" rel="stylesheet"/>
@@ -55,6 +56,79 @@
                 </ul>
             </div>
         </div>
+    </div>
+    <div class="wishlist-container">
+        <div class="wishlist_title">
+            <h1>Your Wishlist</h1>
+        </div>
+        <div class="gameContainer">
+          {% for game in games[0:2] %}
+            <div class="game-box-2">
+              <div class="game-image">
+                <img src="{{ game.header_image }}" alt="Game 1">
+              </div>
+              <div class="game-info">
+                <div class="info-row">
+                  <h3 class="title_2row">{{ game.title }}</h3>
+                  <p class="game-id">{{ game.game_id }}</p>
+                </div>
+                <p class="game-price">${{ game.price }}</p>
+                <a href="/games-description/{{ game.game_id }}">View Game</a>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+       <div class="gameContainer">
+          {% for game in games[2:5] %}
+            <div class="game-box-3">
+              <div class="game-image">
+                <img src="{{ game.header_image }}" alt="Game 1">
+              </div>
+              <div class="game-info">
+                <div class="info-row">
+                  <h3 class="title_3row">{{ game.title }}</h3>
+                  <p class="game-id">{{ game.game_id }}</p>
+                </div>
+                <p class="game-price">${{ game.price }}</p>
+                <a href="/games-description/{{ game.game_id }}">View Game</a>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+       <div class="gameContainer">
+          {% for game in games[30:32] %}
+            <div class="game-box-2">
+              <div class="game-image">
+                <img src="{{ game.header_image }}" alt="Game 1">
+              </div>
+              <div class="game-info">
+                <div class="info-row">
+                  <h3 class="title_2row">{{ game.title }}</h3>
+                  <p class="game-id">{{ game.game_id }}</p>
+                </div>
+                <p class="game-price">${{ game.price }}</p>
+                <a href="/games-description/{{ game.game_id }}">View Game</a>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
+       <div class="gameContainer">
+          {% for game in games[7:10] %}
+            <div class="game-box-3">
+              <div class="game-image">
+                <img src="{{ game.header_image }}" alt="Game 1">
+              </div>
+              <div class="game-info">
+                <div class="info-row">
+                  <h3 class="title_3row">{{ game.title }}</h3>
+                  <p class="game-id">{{ game.game_id }}</p>
+                </div>
+                <p class="game-price">${{ game.price }}</p>
+                <a href="/games-description/{{ game.game_id }}">View Game</a>
+              </div>
+            </div>
+          {% endfor %}
+      </div>
     </div>
 </main>
 {% include 'footer.html' %}
