@@ -1,7 +1,7 @@
 import abc
 from typing import List
 
-from games.domainmodel.model import Game, Genre
+from games.domainmodel.model import *
 
 repo_instance = None
 
@@ -58,4 +58,10 @@ class AbstractRepository(abc.ABC):
         raise NotImplementedError
 
     def search_games_by_tags(self, query):
+        raise NotImplementedError
+
+    def get_user(self, username: str) -> User:
+        raise NotImplementedError
+
+    def add_user(self, user: User) -> None:
         raise NotImplementedError
