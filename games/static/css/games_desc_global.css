@@ -1,18 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+:root {
+  --text_colour: black;
+  --tag_background: bisque;
+  --tag_text_colour: fuchsia;
+  --background_colour: white;
+  --HEADER-HEIGHT: 75px;
+}
+
 * {
-    font-family: 'Roboto', sans-serif
+  font-family: 'Roboto', sans-serif
 }
 
 
-:root{
-    --text_colour: black;
-    --tag_background: bisque;
-    --tag_text_colour: fuchsia;
-    --background_colour: white;
 
-}
-
-body{
-    font-family: "Roboto", "sans-serif";
+body {
+  margin-top: var(--HEADER-HEIGHT);
+  font-family: "Roboto", "sans-serif";
 }

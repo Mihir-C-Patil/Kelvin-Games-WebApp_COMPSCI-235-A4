@@ -1,18 +1,28 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+/* || VARIABLES */
+
+:root {
+  --FF: 'Roboto', sans-serif;
+  --FOOTER-FONT-COLOR: white;
+  --FONT-SIZE: 18px;
+  --FOOTER-BG-COLOR: #041C32;
+  --PANE-COLOR: #041C32;
+  --PADDING: 20px;
+}
+
+/* || RESET */
+
 * {
-    font-family: 'Roboto', sans-serif
-}
-
-/* Footer */
-.footer {
-  background-color: #041C32;
-  color: #fff;
-  text-align: center;
-  padding: 20px;
-  font-size: 18px;
-}
-
-.footer__content p {
+  font-family: var(--FF);
   margin: 0;
+}
+
+/* FOOTER */
+.footer {
+  background-color: var(--FOOTER-BG-COLOR);
+  color: var(--FOOTER-FONT-COLOR);
+  text-align: center;
+  padding: var(--PADDING);
+  font-size: var(--FONT-SIZE);
 }

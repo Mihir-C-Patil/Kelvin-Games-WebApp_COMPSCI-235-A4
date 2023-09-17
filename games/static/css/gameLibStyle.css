@@ -1,97 +1,123 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+:root {
+  --HEADER-HEIGHT: 75px;
+}
+
 * {
-    font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
-body{
-    font-family: 'Roboto', sans-serif;
-    /*background-color: rgb(24, 25, 26);*/
-    background-color: #04293A;
+body {
+  margin-top: var(--HEADER-HEIGHT);
+  font-family: 'Roboto', sans-serif;
+  /*background-color: rgb(24, 25, 26);*/
+  background-color: #04293A;
 }
+
 .bg-img {
-    position: fixed;
-    top: 0; left: 12%; right: 0; bottom: 0;
-    z-index: -9;
-    max-width: 1300px;
-    min-width: 1300px;
-    overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 12%;
+  right: 0;
+  bottom: 0;
+  z-index: -9;
+  max-width: 1300px;
+  min-width: 1300px;
+  overflow: hidden;
 }
 
-.main{
-    margin: auto;
-    top: 0; left: 0; right: 0; bottom: 0;
-    z-index: -10;
+.main {
+  margin: auto;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -10;
 }
-.slideshow{
-    height: 500px;
-    overflow: hidden;
-    margin-top: 0px;
-    box-shadow: inset 250px 10px 50px rgba(4, 41, 58, 1.2), inset -250px -10px 50px rgba(4, 41, 58, 1.2);
+
+.slideshow {
+  height: 500px;
+  overflow: hidden;
+  margin-top: 0px;
+  box-shadow: inset 250px 10px 50px rgba(4, 41, 58, 1.2), inset -250px -10px 50px rgba(4, 41, 58, 1.2);
 }
-.bgSlides{
-    /*display: none;*/
+
+.bgSlides {
+  /*display: none;*/
 }
-.slides{
-    display: none;
+
+.slides {
+  display: none;
 }
+
 .slides img {
-    horiz-align: left;
-    min-width: 450px;
-    /*max-height: 850px;*/
-    overflow: hidden;
-    /*display: inline;*/
-    border-radius: 20px;
+  horiz-align: left;
+  min-width: 450px;
+  /*max-height: 850px;*/
+  overflow: hidden;
+  /*display: inline;*/
+  border-radius: 20px;
 }
-.gameInfo{
-    display: inline-block;
+
+.gameInfo {
+  display: inline-block;
 }
+
 @keyframes fade {
-  from {opacity: .4}
-  to {opacity: 1}
+  from {
+    opacity: .4
+  }
+  to {
+    opacity: 1
+  }
 }
 
 .blur {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(5px);
-    height: 75%;
-    max-width: 850px;
-    margin: auto;
-    border-radius: 20px;
-    padding: 15px;
-    /*display: flex;*/
-}
-.main .slideContent{
-    z-index: 5;
-    color: white;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  height: 75%;
+  max-width: 850px;
+  margin: auto;
+  border-radius: 20px;
+  padding: 15px;
+  /*display: flex;*/
 }
 
-.page{
-    max-width: 100%;
-    margin: initial;
-    /*background: rgb(24, 25, 26);*/
-    background: #04293A;
-    padding-top: 10px;
-    padding-bottom: 10px;
+.main .slideContent {
+  z-index: 5;
+  color: white;
 }
 
-.page .content{
-    /*background: rgb(24, 25, 26);*/
-    background: #04293A;
-    border-radius: 20px;
-    max-width: 850px;
-    margin: auto;
-    padding: 20px;
-    top: 0; left: 0; right: 0; bottom: 0;
+.page {
+  max-width: 100%;
+  margin: initial;
+  /*background: rgb(24, 25, 26);*/
+  background: #04293A;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.page .content {
+  /*background: rgb(24, 25, 26);*/
+  background: #04293A;
+  border-radius: 20px;
+  max-width: 850px;
+  margin: auto;
+  padding: 20px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 
 }
 
-.pageHeading{
-    font-weight: bold;
-    font-size: 35px;
-    margin: auto;
-    max-width: 850px;
-    color: white;
+.pageHeading {
+  font-weight: bold;
+  font-size: 35px;
+  margin: auto;
+  max-width: 850px;
+  color: white;
 }
 
 /* Next & previous buttons */
@@ -109,9 +135,10 @@ body{
   transition: 0.6s ease;
   user-select: none;
 }
+
 .prev {
-    left: 250px;
-    border-radius: 20px 20px 20px 20px;
+  left: 250px;
+  border-radius: 20px 20px 20px 20px;
 }
 
 /* Position the "next button" to the right */
@@ -122,41 +149,44 @@ body{
 
 /* On hover, add a black background color with a little bit see-through */
 .prev:hover, .next:hover {
-  background-color: rgba(255,255,255,0.4);
+  background-color: rgba(255, 255, 255, 0.4);
 }
 
-.tab-container{
-    display: flex;
-    margin-left: 50px;
-    margin-right: 50px;
-    align-content: space-around;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-.tab{
-    background: whitesmoke;
-    padding: 12px;
-    border-radius: 25px;
-    margin: 5px;
-    transition: transform 0.3s ease;
-    border: 1.7px solid #ECB365;
-
-}
-.tab a{
-    text-decoration: none;
-    color: #04293A;
+.tab-container {
+  display: flex;
+  margin-left: 50px;
+  margin-right: 50px;
+  align-content: space-around;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
-.tab:hover{
-    background-color: #555;
-    transform: translateY(-5px);
+.tab {
+  background: whitesmoke;
+  padding: 12px;
+  border-radius: 25px;
+  margin: 5px;
+  transition: transform 0.3s ease;
+  border: 1.7px solid #ECB365;
+
 }
-.gameContainer{
-    display: flex;
-    /*flex-direction: column;*/
-    padding: 10px;
-    flex: 1;
-    flex-wrap: wrap;
+
+.tab a {
+  text-decoration: none;
+  color: #04293A;
+}
+
+.tab:hover {
+  background-color: #555;
+  transform: translateY(-5px);
+}
+
+.gameContainer {
+  display: flex;
+  /*flex-direction: column;*/
+  padding: 10px;
+  flex: 1;
+  flex-wrap: wrap;
 }
 
 .game-box-2 {
@@ -173,14 +203,16 @@ body{
   flex-direction: column;
   transition: transform 0.3s ease;
 }
-.game-box-2:hover{
-    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-    border: 1px solid rgba(81, 203, 238, 1);
+
+.game-box-2:hover {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
 }
+
 .game-box-3 {
   width: calc(216px);
   /*background-color: #397598;*/
-    background-color: #064663;
+  background-color: #064663;
   box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 10px;
@@ -191,9 +223,10 @@ body{
   flex-direction: column;
   transition: transform 0.3s ease;
 }
-.game-box-3:hover{
-    box-shadow: 0 0 5px rgba(81, 203, 238, 1);
-    border: 1px solid rgba(81, 203, 238, 1);
+
+.game-box-3:hover {
+  box-shadow: 0 0 5px rgba(81, 203, 238, 1);
+  border: 1px solid rgba(81, 203, 238, 1);
 }
 
 /*.pagination-page-info {*/
@@ -214,71 +247,74 @@ body{
 
 /* Styling for pagination info */
 .pagination-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .pagination-form {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .pagination-page-info {
-    font-size: 12px;
-    color: #fff;
-    background-color: #333;
-    padding: 13px 13px;
-    border-radius: 20px;
-    margin: 0 5px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  color: #fff;
+  background-color: #333;
+  padding: 13px 13px;
+  border-radius: 20px;
+  margin: 0 5px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 /* Styling for pagination links */
 .pagination {
-    display: flex;
-    justify-content: center;
-    list-style: none;
-    padding: 0;
-    transition: transform 0.9s ease;
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  transition: transform 0.9s ease;
 }
 
 .pagination li {
-    margin: 0 5px;
-    transition: transform 0.2s ease;
+  margin: 0 5px;
+  transition: transform 0.2s ease;
 }
 
 .pagination a {
-    text-decoration: none;
-    padding: 8px 15px;
-    background-color: #eee;
-    color: #333;
-    border-radius: 50px; /* Add rounded corners */
-    transition: background-color 0.3s, color 0.3s;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 16px;
+  text-decoration: none;
+  padding: 8px 15px;
+  background-color: #eee;
+  color: #333;
+  border-radius: 50px; /* Add rounded corners */
+  transition: background-color 0.3s, color 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 16px;
 
 }
+
 /*.pagination :hover{*/
 /*    transform: translateY(-5px);*/
 /*}*/
 
 .pagination li:hover {
-    transform: translateY(-5px);
+  transform: translateY(-5px);
 }
 
 .pagination a:hover {
-    background-color: #333;
-    color: #fff;
-}
-.pagination .active a{
-    background-color: #333;
-    color: #fff;
+  background-color: #333;
+  color: #fff;
 }
 
-.pagination .active a:hover{
-    background-color: #eee;
-    color: #333;
+.pagination .active a {
+  background-color: #333;
+  color: #fff;
+}
+
+.pagination .active a:hover {
+  background-color: #eee;
+  color: #333;
 }
