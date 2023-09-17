@@ -1,34 +1,54 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+/* || VARIABLES */
+:root {
+  /* || FONTS */
+  --FF: 'Roboto', sans-serif;
+
+  /* || COLORS */
+  --SIDEBAR-BG-COLOR: #041C32;
+  --SIDEBAR-LI-COLOR: #ddd;
+  --SIDEBAR-LI-HOVER-COLOR: #d100ff;
+  --OVERLAY-COLOR: rgba(0, 0, 0, 0.1);
+  --SIDEBAR-HEADING-COLOR: white;
+
+  /* || MARGINS */
+  --SIDEBAR-TOP-MARGIN: 12%;
+  --SIDEBAR-LEFT-MARGIN: 10px;
+
+  /* || DIMENSIONS */
+  --BORDER-RADIUS: 12px;
+  --SIDEBAR-PADDING: 5px 15px;
+
+
+  --SIDEBAR-HEADING-PADDING: 5px 0 5px 0;
+  --SIDEBAR-LI-PADDING: 2px;
+  --SIDEBAR-LI-PADDING-L: 15px;
+
+  /* || EFFECTS */
+  --SITE-ANIMATIONS: 250ms ease;
+  --OVERLAY-BLUR: blur(1px);
+}
+
+/* || RESET */
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--FF);
 }
 
+/* || SIDEBAR */
 .sidebar {
   z-index: 69;
   position: fixed;
-  top: 12%;
-  left: 10px;
-  background-color: #041C32;
-  border-radius: 12px;
-  padding: 5px 15px;
+  top: var(--SIDEBAR-TOP-MARGIN);
+  left: var(--SIDEBAR-LEFT-MARGIN);
+  background-color: var(--SIDEBAR-BG-COLOR);
+  border-radius: var(--BORDER-RADIUS);
+  padding: var(--SIDEBAR-PADDING);
   transform: translateX(-110%);
-  transition: 250ms ease-out;
-}
-
-.overlay {
-  position: absolute;
-  z-index: 21;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
-  backdrop-filter: blur(1px);
-  transition: 250ms ease;
+  transition: var(--SITE-ANIMATIONS);
 }
 
 .sidebar[data-visible="true"] {
@@ -37,7 +57,7 @@
 
 .sidebar__section {
   padding: 0.5em;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--FF);
 }
 
 .sidebar__ul {
@@ -45,23 +65,36 @@
 }
 
 .sidebar__heading {
-  padding: 5px 0 5px 0;
-  color: whitesmoke;
+  padding: var(--SIDEBAR-HEADING-PADDING);
+  color: var(--SIDEBAR-HEADING-COLOR);
   letter-spacing: 1px;
 }
 
 .sidebar__li {
-  padding: 2px;
+  padding: var(--SIDEBAR-LI-PADDING);
 }
 
 .sidebar__li a {
-  margin-left: 15px;
+  margin-left: var(--SIDEBAR-LI-PADDING-L);
   text-decoration: none;
-  color: #ddd;
-  transition: 150ms ease;
+  color: var(--SIDEBAR-LI-COLOR);
+  transition: var(--SITE-ANIMATIONS);
 }
 
 .sidebar__li a:hover {
-  color: #d100ff;
-  transition: 150ms ease;
+  color: var(--SIDEBAR-LI-HOVER-COLOR);
+  transition: var(--SITE-ANIMATIONS);
+}
+
+/* || OVERLAY */
+.overlay {
+  position: absolute;
+  z-index: 21;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background-color: var(--OVERLAY-COLOR);
+  backdrop-filter: var(--OVERLAY-BLUR);
+  transition: var(--SITE-ANIMATIONS);
 }

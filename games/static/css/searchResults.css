@@ -1,9 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
+:root {
+  /* || FONTS*/
+  --FF: 'Roboto', sans-serif;
+  --HEADING-FONT-SIZE: 1.5em;
+
+  /* || COLORS */
+  --SITE-BG-COLOR: #04293A;
+
+  /* || PADDING */
+  --MAIN-PADDING: 50px;
+
+  /* || MARGINS */
+  --NO-RESULT-MARGIN: 20px;
+  --NO-RESULT-MARGIN-L: 50px;
+  --HEADER-HEIGHT: 75px;
+}
+
 * {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: var(--FF);
   box-sizing: border-box;
 }
 
@@ -12,122 +29,28 @@ html, body {
 }
 
 main {
+
+  margin-top: var(--HEADER-HEIGHT);
   flex: 1;
-  padding-bottom: 50px;
+  padding-bottom: var(--MAIN-PADDING);
   min-height: 100vh;
-}
-
-.hero {
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 0 15%;
-}
-
-.hero-logo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 2;
-  height: auto;
-  width: 50%;
-  border-radius: 12px;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
-}
-
-.hero-background {
-  width: 100%;
-  height: auto;
-  z-index: 1;
-}
-
-.featured-games {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 50px;
-}
-
-.featured-game {
-  position: relative;
-  width: 200px;
-  margin: 0 20px;
-}
-
-.featured-game img {
-  width: 100%;
-  height: auto;
-}
-
-.caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.7);
-  color: white;
-  font-size: 14px;
-  text-align: center;
-}
-
-main {
-  background-color: #04293A;
-}
-
-.about {
-  margin-top: 50px;
-  margin-left: 15%;
-  margin-right: 15%;
-  padding: 20px;
-  background-color: #064663;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.about h2 {
-  color: white;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.about__paragraph {
-  margin-bottom: 20px;
-  line-height: 1.6;
-  font-size: 16px;
-  color: white;
-}
-
-.about__paragraph:last-child {
-  margin-bottom: 0;
+  background-color: var(--SITE-BG-COLOR);
 }
 
 .no-results {
-  margin-top: 20px;
+  margin-top: var(--NO-RESULT-MARGIN);
 }
 
 .no-result-heading {
-  font-size: 1.5em;
+  font-size: var(--HEADING-FONT-SIZE);
   font-weight: 600;
 }
 
 .no-result-suggest {
-  margin-top: 20px;
-  margin-left: 50px;
+  margin-top: var(--NO-RESULT-MARGIN);
+  margin-left: var(--NO-RESULT-MARGIN-L);
 }
 
 .no-result-suggest-ul {
   list-style-type: square;
-}
-
-footer {
-  margin-top: auto;
-  background-color: #041C32;
-  color: white;
-  text-align: center;
-  padding: 10px 0;
 }
