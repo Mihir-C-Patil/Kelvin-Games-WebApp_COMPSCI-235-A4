@@ -15,28 +15,21 @@
 <body>
 {% include 'header.html' %}
 {% include 'sidebar.html' %}
-
-
-
-{#TODO: Implement backend and make form dynamic#}
-
-
-
 <main id="main">
-  <h1 class="title">TITLE</h1>
-  <form action="URL" class="submitForm">
-    {{ CSRFTOKEN }}
+  <h1 class="title">{{ title }}</h1>
+  <form action="{{ handler_url }}" class="submitForm">
+    {{ form._csrf }}
     <section class="field">
-      {{ USERNAME-LABEL }}
-      {{ USERNAME-INPUT }}
-      {% if usernameHasErrors %}
+      {{ form.username.label }}
+      {{ form.username }}
+      {% if form.username.errors or username_error_message %}
         <ul class="errors">
-          {% if usernameError %}
+          {% if username_error_message %}
             <li>
               {{ username_error_message }}
             </li>
           {% endif %}
-          {% for usernameError in usernameErrors %}
+          {% for usernameError in form.username.errors %}
             <li>
               {{ usernameError }}
             </li>
@@ -45,16 +38,16 @@
       {% endif %}
     </section>
     <section class="field">
-      {{ PASSWORD-LABEL }}
-      {{ PASSWORD-INPUT }}
-      {% if passwordHasErrors %}
+      {{ form.password.label }}
+      {{ form.password }}
+      {% if form.password.errors or password_error_message %}
         <ul class="errors">
-          {% if passwordError %}
+          {% if password_error_message %}
             <li>
-              {{ PASSWORD-ERROR-MESSAGE }}
+              {{ password_error_message }}
             </li>
           {% endif %}
-          {% for passwordError in PASSWORD-ERRORS %}
+          {% for passwordError in form.password.errors %}
             <li>
               {{ passwordError }}
             </li>
@@ -62,7 +55,7 @@
         </ul>
       {% endif %}
     </section>
-  {{ formSUBMIT }}
+  {{ form.submit }}
   </form>
 </main>
 </body>
