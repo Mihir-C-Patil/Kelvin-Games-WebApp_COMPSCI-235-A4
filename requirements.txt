@@ -3,3 +3,4 @@ Flask==2.3.2
 flask-paginate
 Bootstrap-Flask
 python-dotenv
+flask-wtf==0.15.0
