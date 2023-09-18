@@ -13,7 +13,6 @@ from games.gameLibrary.services import get_genres
 from games.domainmodel.model import *
 
 
-
 def create_app(test_config=None):
     """
     Creates and configures the Flask application.
