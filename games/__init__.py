@@ -53,10 +53,12 @@ def create_app(test_config=None):
         from .gamesDescription import gamesDescription
         from .homepage import search
         from .userProfile import userProfile
+        from .authentication import authentication
         app.register_blueprint(gameLibrary.gameLibrary_blueprint)
         app.register_blueprint(gamesDescription.games_description_blueprint)
         app.register_blueprint(search.search_blueprint)
         app.register_blueprint(userProfile.userProfile_blueprint)
+        app.register_blueprint(authentication.authentication_blueprint)
 
     repo.repo_instance = MemoryRepository()
     populate(data_path, repo.repo_instance)
