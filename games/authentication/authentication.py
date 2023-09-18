@@ -95,3 +95,19 @@ def login():
                            username_error_message=username_not_found,
                            password_error_message=incorrect_password,
                            form=form)
+
+
+@authentication_blueprint.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('app.home'))
+
+
+def login_required(view):
+    @wraps(view)
+    def wrapped_view(**kwargs):
+        if 'username' not in session:
+            return redirect(url_for('authentication_blueprint.login'))
+        return view(**kwargs)
+
+    return wrapped_view

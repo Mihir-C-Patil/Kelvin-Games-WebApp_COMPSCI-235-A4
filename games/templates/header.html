@@ -45,7 +45,7 @@
     </form>
   </section>
   <ul class="nav__list">
-    <li class="nav__item"><a href="/">Login</a></li>
-    <li class="nav__item"><a href="/">Register</a></li>
+    <li class="nav__item"><a href="{{ url_for('authentication_bp.login') }}">Login</a></li>
+    <li class="nav__item"><a href="{{ url_for('authentication_bp.register') }}">Register</a></li>
   </ul>
 </header>
