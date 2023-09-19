@@ -11,7 +11,7 @@ from functools import wraps
 import games.adapters.repository as repo
 from games.authentication import services
 
-authentication_blueprint = Blueprint('authentication_bp', __name__)
+authentication_blueprint = Blueprint('authentication_bp', __name__, url_prefix='/authentication')
 
 
 class PasswordValid:
@@ -23,12 +23,8 @@ class PasswordValid:
         self.message = message
 
     def __call__(self, form, field):
-        schema = PasswordValidator
-        (schema
-         .min(8)
-         .has().uppercase()
-         .has().lowercase()
-         .has().digits())
+        schema = PasswordValidator()
+        schema.min(8).has().uppercase().has().lowercase().has().digits()
         if not schema.validate(field.data):
             raise ValidationError(self.message)
 
@@ -37,8 +33,7 @@ class RegistrationForm(FlaskForm):
     username = StringField('Username',
                            [DataRequired(message='Please provide a username.'),
                             Length(min=3,
-                                   message='Username must be at least '
-                                           'three characters.')])
+                                   message='Too Small Bro!')])
 
     password = PasswordField('Password', [DataRequired(
         message='Please provide a password'), PasswordValid()])
@@ -85,7 +80,7 @@ def login():
 
             session.clear()
             session['username'] = user['username']
-            return redirect(url_for('app.home'))
+            return redirect(url_for('home'))
         except services.UnknownUserException:
             username_not_found = 'The username entered does not exist.'
         except services.AuthenticationException:
@@ -107,7 +102,7 @@ def login_required(view):
     @wraps(view)
     def wrapped_view(**kwargs):
         if 'username' not in session:
-            return redirect(url_for('authentication_blueprint.login'))
+            return redirect(url_for('authentication_bp.login'))
         return view(**kwargs)
 
     return wrapped_view

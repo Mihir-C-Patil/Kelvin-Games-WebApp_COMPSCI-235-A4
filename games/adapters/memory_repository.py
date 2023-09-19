@@ -1,4 +1,5 @@
 import os.path
+from abc import ABC
 from bisect import insort_left
 from typing import List
 from pathlib import Path
@@ -7,7 +8,7 @@ from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.repository import AbstractRepository
 
 
-class MemoryRepository(AbstractRepository):
+class MemoryRepository(AbstractRepository, ABC):
     """
     A memory-based repository implementation for games and genres.
     """
@@ -17,6 +18,7 @@ class MemoryRepository(AbstractRepository):
         self.__genres = list()
         self.__users = list()
         self.comments = list()
+        self.__user_wishlist_games = {}
 
     def add_game(self, game: Game):
         """
@@ -136,6 +138,7 @@ class MemoryRepository(AbstractRepository):
         """
         return next((user for user in self.__users if user.username
                      == username), None)
+
 
 
 def populate(data_path: Path, repo: AbstractRepository):
