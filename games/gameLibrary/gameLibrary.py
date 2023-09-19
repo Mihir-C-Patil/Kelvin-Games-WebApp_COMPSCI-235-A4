@@ -97,13 +97,15 @@ def games_by_genre():
     else:
         slide_genre_games = selected_genre_games[10:15]
     genres = services.get_genres(repo.repo_instance)
+    form = WishlistForm()
 
     # Render the template
     return render_template('gameLibraryG.html', heading=target_genre,
                            games=sorted_rendered, all_genres=genres,
                            genre_urls=get_genres_and_urls(sort_criteria),
                            pagination=pagination,
-                           slide_genre_games=slide_genre_games)
+                           slide_genre_games=slide_genre_games,
+                           form=form)
 
 
 def side_bar_genres():

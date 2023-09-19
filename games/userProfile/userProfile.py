@@ -24,7 +24,7 @@ userProfile_blueprint = Blueprint('pp_bp', __name__)
 #                            genre_urls=get_genres_and_urls(), games=all_games)
 
 @userProfile_blueprint.route('/userprofile', methods=['GET'])
-# @login_required  # You may use this decorator to ensure the user is logged in.
+@login_required  # You may use this decorator to ensure the user is logged in.
 def view_user_profile():
     if 'username' in session:
         genres = get_genres(repo.repo_instance)

@@ -18,7 +18,7 @@ class MemoryRepository(AbstractRepository, ABC):
         self.__genres = list()
         self.__users = list()
         self.comments = list()
-        self.__user_wishlist_games = {}
+        self.__user_wishlist_games = list()
 
     def add_game(self, game: Game):
         """
