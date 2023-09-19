@@ -136,11 +136,9 @@
     <ul>
         {{ user }}
         {{ wishlist }}
-        {{ user.get_wishlist }}
-        {{ user.get_wishlist().wishlist }}
         {% for game in wishlist %}
         <li>
-            {{ game.title }} - <a href="{{ url_for('remove_from_wishlist', game_id=game.game_id) }}">Remove</a>
+            {{ game.title }} - <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove</a>
         </li>
         {% endfor %}
     </ul>

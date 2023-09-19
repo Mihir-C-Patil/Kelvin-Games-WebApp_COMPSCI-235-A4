@@ -75,9 +75,9 @@
                 </div>
                 <p class="game-price">${{ game.price }}</p>
                 <a href="/games-description/{{ game.game_id }}">View Game</a>
-                <form method="POST" action="{{ url_for('pp_bp.add_to_wishlist') }}">
+                <form method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
                     {{ form.hidden_tag() }}
-                    <input type="hidden" name="game_id" value="{{ game.game_id }}">
+{#                    <input type="hidden" name="game_id" value="{{ game.game_id }}">#}
                     <button type="submit" class="btn btn-primary">Add to Wishlist</button>
                 </form>
               </div>

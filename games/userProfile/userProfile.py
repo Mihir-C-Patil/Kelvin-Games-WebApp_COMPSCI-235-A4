@@ -1,4 +1,7 @@
-from flask import Blueprint, render_template, session, redirect, flash, url_for
+from flask import Blueprint, render_template, session, redirect, flash, url_for, request
+from flask_wtf import FlaskForm
+from wtforms import HiddenField, SubmitField
+
 # from flask_login import login_required
 
 import games.adapters.repository as repo
@@ -37,13 +40,16 @@ def view_user_profile():
 
 # userProfile.py
 
-@userProfile_blueprint.route('/add_to_wishlist', methods=['POST'])
+# @userProfile_blueprint.route('/add_to_wishlist', methods=['POST'])
+@userProfile_blueprint.route('/add_to_wishlist/<int:game_id>', methods=['POST'])
 @login_required  # Ensure the user is logged in
-def add_to_wishlist():
+def add_to_wishlist(game_id):
     user = authservice.get_user(session['username'], repo.repo_instance)
     form = WishlistForm()
     if form.validate_on_submit():
-        game_id = form.game_id.data
+        # game_id = int(form.game_id.data)
+        # game_id = int(request.form.get('game_id'))
+        # game_id = 12460
         game = repo.repo_instance.get_games_by_id(game_id)
 
         if game:
@@ -53,7 +59,7 @@ def add_to_wishlist():
     return redirect(url_for('pp_bp.view_user_profile'))
 
 
-@userProfile_blueprint.route('/remove_from_wishlist/<int:game_id>', methods=['POST'])
+@userProfile_blueprint.route('/remove_from_wishlist/<int:game_id>', methods=['GET', 'POST'])
 @login_required  # Ensure the user is logged in
 def remove_from_wishlist(game_id):
     user = authservice.get_user(session['username'], repo.repo_instance)
@@ -61,7 +67,7 @@ def remove_from_wishlist(game_id):
 
     if game:
         remove_game_from_wishlist(user, game)
-        return redirect(url_for('view_user_profile'))
+        return redirect(url_for('pp_bp.view_user_profile'))
     else:
         flash('Game not found', 'error')
         return redirect(url_for('pp_bp.view_user_profile'))

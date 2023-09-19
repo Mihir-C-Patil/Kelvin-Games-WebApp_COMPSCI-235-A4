@@ -57,9 +57,9 @@ class MemoryRepository(AbstractRepository, ABC):
         """
         return len(self.__games)
 
-    def get_games_by_id(self, id):
+    def get_games_by_id(self, game_id):
         for game in self.__games:
-            if game.game_id == id:
+            if game.game_id == game_id:
                 return game
         return None
 
@@ -138,7 +138,6 @@ class MemoryRepository(AbstractRepository, ABC):
         """
         return next((user for user in self.__users if user.username
                      == username), None)
-
 
 
 def populate(data_path: Path, repo: AbstractRepository):

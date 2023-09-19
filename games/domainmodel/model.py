@@ -1066,7 +1066,7 @@ class Wishlist:
         else:
             raise StopIteration
 
-    def add_game(self, game_to_add: Game) -> None:
+    def add_wish_game(self, game_to_add: Game) -> None:
         """
         Append a Game object to the wishlist.
 

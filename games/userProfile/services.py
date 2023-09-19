@@ -6,7 +6,7 @@ def add_game_to_wishlist(user, game):
         user (User): The user for whom to add the game.
         game (Game): The game to be added to the wishlist.
     """
-    user.get_wishlist.add_game(game)
+    user.get_wishlist().add_wish_game(game)
 
 
 def remove_game_from_wishlist(user, game):
@@ -17,7 +17,7 @@ def remove_game_from_wishlist(user, game):
         user (User): The user for whom to remove the game.
         game (Game): The game to be removed from the wishlist.
     """
-    user.get_wishlist.remove_game(game)
+    user.get_wishlist().remove_game(game)
 
 
 def get_user_wishlist(user):
