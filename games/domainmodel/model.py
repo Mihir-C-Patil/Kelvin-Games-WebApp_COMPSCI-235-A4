@@ -700,17 +700,12 @@ class User:
         :raise ValueError
         """
 
-        if isinstance(username, str) and username.strip():
-            self.__username = username.lower().strip()
-        else:
-            raise ValueError("Username must be a non-empty string.")
-        if isinstance(password, str) and len(password.strip()) > 6:
-            self.__password = password
-        else:
-            raise ValueError("Password must be string with min length of 7.")
+        self.__username: str = username
+        self.__password: str = password
 
         self.__favourite_games: list[Game] = list()
         self.__reviews: list[Review] = list()
+        self.__wishlist = Wishlist(self)
 
     def __repr__(self) -> str:
         """

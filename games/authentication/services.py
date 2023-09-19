@@ -45,3 +45,4 @@ def authenticate_user(username: str, password: str, repo: AbstractRepository):
 def user_to_dict(user: User):
     user_dictionary = {'username': user.username, 'password': user.password}
     return user_dictionary
+
