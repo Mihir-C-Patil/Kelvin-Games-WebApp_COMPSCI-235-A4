@@ -130,6 +130,20 @@
           {% endfor %}
       </div>
     </div>
+    <h3>Welcome, {{ user.username }}!</h3>
+
+    <h4>Your Wishlist</h4>
+    <ul>
+        {{ user }}
+        {{ wishlist }}
+        {{ user.get_wishlist }}
+        {{ user.get_wishlist().wishlist }}
+        {% for game in wishlist %}
+        <li>
+            {{ game.title }} - <a href="{{ url_for('remove_from_wishlist', game_id=game.game_id) }}">Remove</a>
+        </li>
+        {% endfor %}
+    </ul>
 </main>
 {% include 'footer.html' %}
 </body>

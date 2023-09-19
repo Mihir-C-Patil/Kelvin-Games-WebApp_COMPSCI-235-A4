@@ -4,6 +4,7 @@ from flask import Flask, render_template
 from pathlib import Path
 
 from flask.testing import FlaskClient
+from flask_login import LoginManager
 
 import games.adapters.repository as repo
 from games.adapters.memory_repository import populate
@@ -75,5 +76,6 @@ def create_app(test_config=None):
                                genre_urls=get_genres_and_urls())
 
     return app
+
 
 

@@ -4,6 +4,7 @@ from flask import Blueprint, render_template, request, url_for
 from flask_paginate import Pagination, get_page_args
 
 import games.adapters.repository as repo
+from games.authentication.authentication import WishlistForm
 from games.gameLibrary import services
 
 # Create a Flask Blueprint for the game library view
@@ -24,6 +25,7 @@ def view_games():
     game_count = services.get_number_of_games(repo.repo_instance)
     all_games = services.get_games(repo.repo_instance)
     genres = services.get_genres(repo.repo_instance)
+    form = WishlistForm()
 
     # Pagination setup
     page, per_page, offset = get_page_args(per_page_parameter="pp", pp=10)
@@ -41,7 +43,8 @@ def view_games():
                                        random_game_index:random_game_index + 5],
                            all_genres=genres,
                            pagination=pagination,
-                           genre_urls=get_genres_and_urls())
+                           genre_urls=get_genres_and_urls(),
+                           form=form)
 
 
 def get_genres_and_urls(sort_criteria='title'):

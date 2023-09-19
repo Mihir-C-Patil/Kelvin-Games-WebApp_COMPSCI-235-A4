@@ -1,7 +1,7 @@
 from flask import (Blueprint, render_template, redirect, url_for, session,
                    request)
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, HiddenField
 from wtforms.validators import DataRequired, Length, ValidationError
 
 from password_validator import PasswordValidator
@@ -75,6 +75,7 @@ def login():
     if form.validate_on_submit():
         try:
             user = services.get_user(form.username.data, repo.repo_instance)
+            user = {'username': user.username, 'password': user.password}
             services.authenticate_user(user['username'], form.password.data,
                                        repo.repo_instance)
 
@@ -106,3 +107,8 @@ def login_required(view):
         return view(**kwargs)
 
     return wrapped_view
+
+
+class WishlistForm(FlaskForm):
+    game_id = HiddenField('Game ID')
+    submit = SubmitField('Add to Wishlist')

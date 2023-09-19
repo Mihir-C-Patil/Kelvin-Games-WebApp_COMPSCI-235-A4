@@ -871,6 +871,9 @@ class User:
         else:
             return None
 
+    def get_wishlist(self):
+        return self.__wishlist
+
 
 class Review:
     def __init__(self, user: User, game: Game,
@@ -1137,3 +1140,4 @@ class Wishlist:
         :return: list[Game]
         """
         return self.__list_of_games
+
