@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, session, request
+from flask import Blueprint, render_template, redirect, url_for, session, request, flash
 from better_profanity import Profanity
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, HiddenField, SubmitField, SelectField
@@ -50,10 +50,11 @@ def post_review(game_id):
         print('yes')
         user = authservice.get_user(session['username'], repo.repo_instance)
         if form.validate_on_submit():
-            services.add_review(form.rating.data, form.comment.data, user, game)
-            print(game.reviews)
-            print('Hello')
-            return redirect(url_for('games_description_bp.games_description', game_id=game_id))
+            if services.add_review(form.rating.data, form.comment.data, user, game):
+                flash('Review successfully added', 'success')
+                return redirect(url_for('games_description_bp.games_description', game_id=game_id))
+            else:
+                flash('You have already added a review for this game!', 'error')
     print('hello5')
     return render_template('gameDesc.html', game_id=game_id, form=form, game=game)
 

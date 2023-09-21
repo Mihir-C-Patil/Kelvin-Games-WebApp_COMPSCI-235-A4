@@ -37,11 +37,14 @@ def add_review(rating: int, review: str, user: User, game: Game):
     if len(game.reviews) == 0:
         user.add_review(new_review)
         game.add_review(new_review)
+        return True
     else:
         for review in game.reviews:
             if user != review.user:
                 user.add_review(new_review)
                 game.add_review(new_review)
+                return True
+        return False
 
 def get_average(game: Game):
     rating = 0
@@ -49,6 +52,6 @@ def get_average(game: Game):
     for review in game.reviews:
         rating += review.rating
     if len(game.reviews) > 0:
-        average = rating / len(game.reviews)
+        average = round(rating / len(game.reviews), 1)
     return average
 
