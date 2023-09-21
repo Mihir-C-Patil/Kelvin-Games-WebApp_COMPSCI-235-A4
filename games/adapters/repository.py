@@ -65,3 +65,7 @@ class AbstractRepository(abc.ABC):
 
     def add_user(self, user: User) -> None:
         raise NotImplementedError
+
+    def get_all_reviews(self) -> None:
+        raise NotImplementedError
+
