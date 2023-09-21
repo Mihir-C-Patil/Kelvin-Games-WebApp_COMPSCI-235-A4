@@ -217,7 +217,7 @@ class Game:
         self.__genres = list()
         self.__categories = set()
         self.__tags = set()
-        self.__reviews = False
+        self.__reviews = list()
         self.__price = None
         self.__release_date = None
         self.__description = None
@@ -334,7 +334,7 @@ class Game:
         return self.__tags
 
     @property
-    def reviews(self) -> bool:
+    def reviews(self) -> list:
         """
         Return the list of reviews of a game object
 
@@ -577,14 +577,13 @@ class Game:
 
     """Added the following methods in Games class for games-description page"""
 
+    def add_review(self, review):
+        if isinstance(review, Review) and review not in self.__reviews:
+            self.__reviews.append(review)
+
     def add_language(self, language):
         if len(language.strip()) > 0:
             self.__languages.append(language)
-
-    @reviews.setter
-    def reviews(self, review):
-        if len(review.strip()) > 0:
-            self.__reviews = review
 
     @property
     def system_dict(self):
