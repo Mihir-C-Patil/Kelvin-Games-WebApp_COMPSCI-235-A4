@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, session, redirect, flash, url_for, request
+from flask_paginate import get_page_args, Pagination
 from flask_wtf import FlaskForm
 from wtforms import HiddenField, SubmitField
 
@@ -31,9 +32,14 @@ def view_user_profile():
         all_games = gameservice.get_games(repo.repo_instance)
         user = authservice.get_user(session['username'], repo.repo_instance)
         wishlist = get_user_wishlist(user)
+        page, per_page, offset = get_page_args(per_page_parameter="pp", pp=10)
+        rendered = wishlist[offset: offset + per_page]
+        pagination = Pagination(page=page, per_page=per_page, offset=offset,
+                                total=len(wishlist),
+                                record_name='List')
         return render_template('userProfile.html', all_genres=genres,
                                genre_urls=get_genres_and_urls(),
-                               games=all_games, user=user, wishlist=wishlist)
+                               games=all_games, user=user, wishlist=rendered, pagination=pagination)
     flash('Please login to access your profile', 'error')
     return redirect(url_for('viewGames_bp.view_games'))
 

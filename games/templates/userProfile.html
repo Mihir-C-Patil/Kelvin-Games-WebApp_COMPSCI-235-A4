@@ -61,6 +61,9 @@
         <div class="wishlist_title">
             <h1>{{ user.username }}'s Wishlist</h1>
         </div>
+        <div class="pagination-container">
+          {{ pagination.info|safe }}
+        </div>
         <div class="gameContainer">
           {% for game in wishlist %}
             <div class="game-box-2">
@@ -79,6 +82,7 @@
             </div>
           {% endfor %}
       </div>
+      {{ pagination.links|safe }}
     </div>
 </main>
 {% include 'footer.html' %}
