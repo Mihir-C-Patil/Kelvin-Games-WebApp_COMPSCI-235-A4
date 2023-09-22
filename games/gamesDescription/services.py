@@ -32,7 +32,7 @@ def similar_game(repo: AbstractRepository, genre):
     """
     return repo.get_similar_games(genre)
 
-def add_review(rating: int, review: str, user: User, game: Game, time):
+def add_review(rating: int, review: str, user: User, game: Game):
     new_review = Review(user, game, rating, review)
     if len(game.reviews) == 0:
         user.add_review(new_review)
