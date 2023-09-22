@@ -40,11 +40,12 @@ def add_review(rating: int, review: str, user: User, game: Game):
         return True
     else:
         for review in game.reviews:
-            if user != review.user:
-                user.add_review(new_review)
-                game.add_review(new_review)
-                return True
-        return False
+            if user == review.user:
+                return False
+    user.add_review(new_review)
+    game.add_review(new_review)
+    return True
+
 
 def get_average(game: Game):
     rating = 0

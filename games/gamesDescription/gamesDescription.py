@@ -2,7 +2,7 @@ from flask import Blueprint, render_template, redirect, url_for, session, reques
 from better_profanity import Profanity
 from flask_wtf import FlaskForm
 from wtforms import TextAreaField, HiddenField, SubmitField, SelectField
-from wtforms.validators import DataRequired, length, ValidationError
+from wtforms.validators import DataRequired, Length, ValidationError
 from games.authentication.authentication import login_required
 import games.adapters.repository as repo
 import games.gamesDescription.services as services
@@ -14,7 +14,7 @@ from games.gameLibrary.services import get_genres
 class ReviewForm(FlaskForm):
     options = [(1, '1 star'), (2, '2 stars'), (3, '3 stars'), (4, '4 stars'), (5, '5 stars')]
     rating = SelectField('Rating', choices=options, coerce=int)
-    comment = TextAreaField('Review')
+    comment = TextAreaField('Review', [DataRequired(), Length(min=4, message='Your review is too short')])
     #game_id = HiddenField('game_id')
     submit = SubmitField('Submit Review')
     # game_id = HiddenField("Game id")
@@ -47,7 +47,6 @@ def post_review(game_id):
     game = services.get_game(repo.repo_instance, game_id)
     form = ReviewForm()
     if 'username' in session:
-        print('yes')
         user = authservice.get_user(session['username'], repo.repo_instance)
         if form.validate_on_submit():
             if services.add_review(form.rating.data, form.comment.data, user, game):
@@ -55,6 +54,10 @@ def post_review(game_id):
                 return redirect(url_for('games_description_bp.games_description', game_id=game_id))
             else:
                 flash('You have already added a review for this game!', 'error')
+                return redirect(url_for('games_description_bp.games_description', game_id=game_id))
+        else:
+            #flash('Form validation failed. Please check error!', 'error')
+            return redirect(url_for('games_description_bp.games_description', game_id=game_id))
     print('hello5')
-    return render_template('gameDesc.html', game_id=game_id, form=form, game=game)
+    #return render_template('gameDesc.html', game_id=game_id, form=form, game=game)
 
