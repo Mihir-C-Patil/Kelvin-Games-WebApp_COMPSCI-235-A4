@@ -32,7 +32,7 @@ def view_user_profile():
         all_games = gameservice.get_games(repo.repo_instance)
         user = authservice.get_user(session['username'], repo.repo_instance)
         wishlist = get_user_wishlist(user)
-        page, per_page, offset = get_page_args(per_page_parameter="pp", pp=10)
+        page, per_page, offset = get_page_args(per_page_parameter="pp", pp=7)
         rendered = wishlist[offset: offset + per_page]
         pagination = Pagination(page=page, per_page=per_page, offset=offset,
                                 total=len(wishlist),
