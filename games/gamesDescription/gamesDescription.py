@@ -10,6 +10,8 @@ from games.authentication import services as authservice
 from datetime import datetime
 from games.gameLibrary.gameLibrary import get_genres_and_urls
 from games.gameLibrary.services import get_genres
+from flask_paginate import Pagination, get_page_args
+import random
 
 class ReviewForm(FlaskForm):
     options = [(1, '1 star'), (2, '2 stars'), (3, '3 stars'), (4, '4 stars'), (5, '5 stars')]
@@ -35,11 +37,22 @@ def games_description(game_id):
     form = ReviewForm()
     get_average = services.get_average(get_game)
     get_number_of_reviews = len(get_game.reviews)
+
+    '''page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter="per_page")
+
+    total_reviews = len(get_game.reviews)
+    pagination_reviews = services.get_reviews(get_game, offset=offset, per_page=per_page)
+    rendered = get_game.reviews[offset: offset + per_page]
+    #sorted_rendered = sorted(rendered, key=lambda x: x[])
+    #random_game_index = random.randrange(0, len(get_game.reviews) - 5)
+    pagination = Pagination(page=page, per_page=per_page,
+                            total=len(get_game.reviews),
+                            record_name='Reviews')'''
     return render_template('gameDesc.html', game=get_game,
                            similar_games=[game for game in get_similar_games
                                           if game != get_game][0:4],
                            all_genres=genres,
-                           genre_urls=get_genres_and_urls(), form=form, average=get_average, review_number=get_number_of_reviews)
+                           genre_urls=get_genres_and_urls(),form=form, average=get_average, review_number=get_number_of_reviews)#reviews=pagination_reviews, page=page, per_page=per_page, pagination=pagination)
 
 @games_description_blueprint.route('/review/<int:game_id>', methods=['POST'])
 @login_required
@@ -50,7 +63,7 @@ def post_review(game_id):
         user = authservice.get_user(session['username'], repo.repo_instance)
         if form.validate_on_submit():
             timestamp = datetime.utcnow()
-            if services.add_review(form.rating.data, form.comment.data, user, game, timestamp):
+            if services.add_review(form.rating.data, form.comment.data, user, game):
                 flash('Review successfully added', 'success')
                 return redirect(url_for('games_description_bp.games_description', game_id=game_id))
             else:
@@ -61,4 +74,5 @@ def post_review(game_id):
             return redirect(url_for('games_description_bp.games_description', game_id=game_id))
     print('hello5')
     #return render_template('gameDesc.html', game_id=game_id, form=form, game=game)
+
 
