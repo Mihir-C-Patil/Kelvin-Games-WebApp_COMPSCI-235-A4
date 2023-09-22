@@ -876,7 +876,7 @@ class User:
 
 class Review:
     def __init__(self, user: User, game: Game,
-                 rating: int, comment: str) -> None:
+                 rating: int, comment: str, timestamp=None) -> None:
         """
         Initialise a Review Object.
         Raise ValueError if parameters invalid.
@@ -918,6 +918,11 @@ class Review:
             self.__comment = comment.strip()
         else:
             raise ValueError('Comment must be non-empty string.')
+
+        if timestamp is None:
+            self.__timestamp = datetime.utcnow()
+        else:
+            self.__timestamp = timestamp
 
     def __repr__(self) -> str:
         """
@@ -1003,6 +1008,10 @@ class Review:
             self.__comment = new_comment.strip()
         else:
             raise ValueError("Comment must be non-empty string.")
+
+    @property
+    def timestamp(self):
+        return self.__timestamp
 
     @rating.setter
     def rating(self, new_rating: int) -> None:

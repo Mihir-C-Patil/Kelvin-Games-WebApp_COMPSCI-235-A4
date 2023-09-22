@@ -7,14 +7,14 @@ from games.authentication.authentication import login_required
 import games.adapters.repository as repo
 import games.gamesDescription.services as services
 from games.authentication import services as authservice
-
+from datetime import datetime
 from games.gameLibrary.gameLibrary import get_genres_and_urls
 from games.gameLibrary.services import get_genres
 
 class ReviewForm(FlaskForm):
     options = [(1, '1 star'), (2, '2 stars'), (3, '3 stars'), (4, '4 stars'), (5, '5 stars')]
     rating = SelectField('Rating', choices=options, coerce=int)
-    comment = TextAreaField('Review', [DataRequired(), Length(min=4, message='Your review is too short')])
+    comment = TextAreaField('Review', [DataRequired()]) #, Length(max=200, message='Your review is too long')])
     #game_id = HiddenField('game_id')
     submit = SubmitField('Submit Review')
     # game_id = HiddenField("Game id")
@@ -49,14 +49,15 @@ def post_review(game_id):
     if 'username' in session:
         user = authservice.get_user(session['username'], repo.repo_instance)
         if form.validate_on_submit():
-            if services.add_review(form.rating.data, form.comment.data, user, game):
+            timestamp = datetime.utcnow()
+            if services.add_review(form.rating.data, form.comment.data, user, game, timestamp):
                 flash('Review successfully added', 'success')
                 return redirect(url_for('games_description_bp.games_description', game_id=game_id))
             else:
                 flash('You have already added a review for this game!', 'error')
                 return redirect(url_for('games_description_bp.games_description', game_id=game_id))
         else:
-            #flash('Form validation failed. Please check error!', 'error')
+            flash('Form validation failed. Please try again!', 'error')
             return redirect(url_for('games_description_bp.games_description', game_id=game_id))
     print('hello5')
     #return render_template('gameDesc.html', game_id=game_id, form=form, game=game)

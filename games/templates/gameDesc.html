@@ -159,11 +159,11 @@
     </div>
   <div class="reviews_container">
     {% if game.reviews %}
-      {% for review in game.reviews %}
+      {% for review in game.reviews|reverse %}
       <div class="review_box">
           <div class="user_review_info">
           <h3>{{ review.user.username }}</h3>
-          <h4>Posted on: 19/09/2023</h4>
+          <h4>Posted on: {{ review.timestamp.strftime('%d/%m/%Y %H:%M:%S') }}</h4>
           </div>
           <div class="rating">
              <h4>Rating: {{ review.rating }}</h4>
