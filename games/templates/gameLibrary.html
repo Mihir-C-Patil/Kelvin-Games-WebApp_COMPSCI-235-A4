@@ -75,10 +75,9 @@
                 </div>
                 <p class="game-price">${{ game.price }}</p>
                 <a href="/games-description/{{ game.game_id }}">View Game</a>
-                <form method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
                     {{ form.hidden_tag() }}
-{#                    <input type="hidden" name="game_id" value="{{ game.game_id }}">#}
-                    <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+                    <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
                 </form>
               </div>
             </div>
@@ -97,9 +96,9 @@
                 </div>
                 <p class="game-price">${{ game.price }}</p>
                 <a href="/games-description/{{ game.game_id }}">View Game</a>
-                <form method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
                     {{ form.hidden_tag() }}
-                    <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+                    <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
                 </form>
               </div>
             </div>
@@ -118,9 +117,9 @@
                 </div>
                 <p class="game-price">${{ game.price }}</p>
                 <a href="/games-description/{{ game.game_id }}">View Game</a>
-                <form method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
                     {{ form.hidden_tag() }}
-                    <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+                    <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
                 </form>
               </div>
             </div>
@@ -139,9 +138,9 @@
                 </div>
                 <p class="game-price">${{ game.price }}</p>
                 <a href="/games-description/{{ game.game_id }}">View Game</a>
-                <form method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
                     {{ form.hidden_tag() }}
-                    <button type="submit" class="btn btn-primary">Add to Wishlist</button>
+                    <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
                 </form>
               </div>
             </div>
@@ -193,6 +192,11 @@
 
   // Start the slideshow initially
   startSlideshow();
+
+  //Submit Function
+  function submitFunction(link) {
+        link.closest(".wish-sub").submit();
+    }
 </script>
 {% include 'footer.html' %}
 
