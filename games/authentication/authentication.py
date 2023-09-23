@@ -99,7 +99,7 @@ def login():
 @authentication_blueprint.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('app.home'))
+    return redirect(url_for('home'))
 
 
 def login_required(view):
