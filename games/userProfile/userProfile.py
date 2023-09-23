@@ -12,7 +12,8 @@ from games.authentication import services as authservice
 
 from games.gameLibrary.gameLibrary import get_genres_and_urls
 from games.gameLibrary.services import get_genres
-from games.userProfile.services import remove_game_from_wishlist, add_game_to_wishlist, get_user_wishlist
+from games.userProfile.services import remove_game_from_wishlist, add_game_to_wishlist, get_user_wishlist, \
+    get_user_reviews
 
 userProfile_blueprint = Blueprint('pp_bp', __name__)
 
@@ -37,9 +38,10 @@ def view_user_profile():
         pagination = Pagination(page=page, per_page=per_page, offset=offset,
                                 total=len(wishlist),
                                 record_name='List')
+        reviews = get_user_reviews(user)
         return render_template('userProfile.html', all_genres=genres,
                                genre_urls=get_genres_and_urls(),
-                               games=all_games, user=user, wishlist=rendered, pagination=pagination)
+                               games=all_games, user=user, wishlist=rendered, pagination=pagination, reviews=reviews)
     flash('Please login to access your profile', 'error')
     return redirect(url_for('viewGames_bp.view_games'))
 

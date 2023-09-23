@@ -27,37 +27,7 @@
             <p>Location: Always avoids Library</p>
             <p>Email: patil@mihir.com</p>
         </div>
-
-        <div class="activity-history">
-            <h2>Activity History</h2>
-            <div class="activity-item">
-                <h3>Rated Games</h3>
-                <ul>
-                    <li><a href="#">Game 1</a></li>
-                    <li><a href="#">Game 2</a></li>
-                    <li><a href="#">Game 3</a></li>
-                </ul>
-            </div>
-
-            <div class="activity-item">
-                <h3>Reviewed Games</h3>
-                <ul>
-                    <li><a href="#">Game 4</a></li>
-                    <li><a href="#">Game 5</a></li>
-                </ul>
-            </div>
-
-            <div class="activity-item">
-                <h3>Wishlist</h3>
-                <ul>
-                    <li><a href="#">Game 6</a></li>
-                    <li><a href="#">Game 7</a></li>
-                    <li><a href="#">Game 8</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="wishlist-container">
+     <div class="wishlist-container">
         <div class="wishlist_title">
             <h1>{{ user.username }}'s Wishlist</h1>
         </div>
@@ -120,6 +90,26 @@
       </div>
       {{ pagination.links|safe }}
     </div>
+
+        <div class="activity-history-container">
+            <h2>Reviewed Games</h2>
+            {% for review in reviews %}
+            <div class="activity-history">
+                <div class="activity-item">
+                    <h3>{{ review.game.title }}</h3>
+                    <ul>
+                        <li>{{ review.timestamp }}</li>
+                        <li>{{ review.rating }}</li>
+                        <li>{{ review.comment }}</li>
+                    </ul>
+                    <a href="/games-description/{{ review.game.game_id }}">View Game</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
 </main>
 {% include 'footer.html' %}
 </body>

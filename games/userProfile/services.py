@@ -47,3 +47,7 @@ def get_user_wishlist(user):
         }
         wishlist_games_dicts.append(games_wishlist_games_dict)
     return wishlist_games_dicts
+
+
+def get_user_reviews(user):
+    return user.reviews

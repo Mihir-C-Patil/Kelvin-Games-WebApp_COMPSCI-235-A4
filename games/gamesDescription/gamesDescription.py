@@ -13,13 +13,15 @@ from games.gameLibrary.services import get_genres
 from flask_paginate import Pagination, get_page_args
 import random
 
+
 class ReviewForm(FlaskForm):
     options = [(1, '1 star'), (2, '2 stars'), (3, '3 stars'), (4, '4 stars'), (5, '5 stars')]
     rating = SelectField('Rating', choices=options, coerce=int)
-    comment = TextAreaField('Review', [DataRequired()]) #, Length(max=200, message='Your review is too long')])
-    #game_id = HiddenField('game_id')
+    comment = TextAreaField('Review', [DataRequired()])  # , Length(max=200, message='Your review is too long')])
+    # game_id = HiddenField('game_id')
     submit = SubmitField('Submit Review')
     # game_id = HiddenField("Game id")
+
 
 games_description_blueprint = Blueprint('games_description_bp', __name__)
 
@@ -52,7 +54,9 @@ def games_description(game_id):
                            similar_games=[game for game in get_similar_games
                                           if game != get_game][0:4],
                            all_genres=genres,
-                           genre_urls=get_genres_and_urls(),form=form, average=get_average, review_number=get_number_of_reviews)#reviews=pagination_reviews, page=page, per_page=per_page, pagination=pagination)
+                           genre_urls=get_genres_and_urls(), form=form, average=get_average,
+                           review_number=get_number_of_reviews)  # reviews=pagination_reviews, page=page, per_page=per_page, pagination=pagination)
+
 
 @games_description_blueprint.route('/review/<int:game_id>', methods=['POST'])
 @login_required
@@ -62,7 +66,7 @@ def post_review(game_id):
     if 'username' in session:
         user = authservice.get_user(session['username'], repo.repo_instance)
         if form.validate_on_submit():
-            timestamp = datetime.utcnow()
+            timestamp = datetime.utcnow().strftime("%d %B %Y %I:%M:%S %p")
             if services.add_review(form.rating.data, form.comment.data, user, game):
                 flash('Review successfully added', 'success')
                 return redirect(url_for('games_description_bp.games_description', game_id=game_id))
@@ -73,6 +77,4 @@ def post_review(game_id):
             flash('Form validation failed. Please try again!', 'error')
             return redirect(url_for('games_description_bp.games_description', game_id=game_id))
     print('hello5')
-    #return render_template('gameDesc.html', game_id=game_id, form=form, game=game)
-
-
+    # return render_template('gameDesc.html', game_id=game_id, form=form, game=game)

@@ -920,7 +920,7 @@ class Review:
             raise ValueError('Comment must be non-empty string.')
 
         if timestamp is None:
-            self.__timestamp = datetime.utcnow()
+            self.__timestamp = datetime.utcnow().strftime("%d %B %Y %I:%M:%S %p")
         else:
             self.__timestamp = timestamp
 
