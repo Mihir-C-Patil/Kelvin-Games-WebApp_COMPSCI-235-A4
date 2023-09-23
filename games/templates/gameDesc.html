@@ -37,6 +37,16 @@
 <section class="games_desc_content">
   <div class="game_title">
     <h1>{{ game.title }}</h1>
+      {% if 'username' in session %}
+        {% if game in wishlist %}
+            <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove from Wishlist</a>
+        {% else %}
+            <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                {{ form.hidden_tag() }}
+                <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
+            </form>
+        {% endif %}
+      {% endif %}
   </div>
   <div class="game_container">
     <div class="game_trailer">
@@ -208,6 +218,11 @@
             message.style.display = 'none';
         });
     }, 5000);
+
+    //Submit Function
+  function submitFunction(link) {
+        link.closest(".wish-sub").submit();
+    }
 </script>
 
 <section class="recommendation">
@@ -237,7 +252,6 @@
 </section>
 
 {% include 'footer.html' %}
-
 </body>
 
 

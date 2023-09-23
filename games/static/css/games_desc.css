@@ -478,3 +478,14 @@ select#rating{
     background-color: #eee;
     color: #333;
 }
+
+.game_title a {
+  font-size: 1.3rem;
+  color: #51cbf2;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.game_title a:hover {
+  color: #397598;
+}

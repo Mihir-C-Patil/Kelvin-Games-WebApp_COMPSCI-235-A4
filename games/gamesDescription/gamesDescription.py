@@ -13,6 +13,8 @@ from games.gameLibrary.services import get_genres
 from flask_paginate import Pagination, get_page_args
 import random
 
+from games.userProfile.services import get_user_wishlist, get_user_wishlist_objs
+
 
 class ReviewForm(FlaskForm):
     options = [(1, '1 star'), (2, '2 stars'), (3, '3 stars'), (4, '4 stars'), (5, '5 stars')]
@@ -44,12 +46,19 @@ def games_description(game_id):
     pagination = Pagination(page=page, per_page=per_page, offset=offset,
                             total=len(get_game.reviews),
                             record_name='List')
+    if 'username' in session and authservice.get_user(session['username'], repo.repo_instance) is not None:
+        user = authservice.get_user(session['username'], repo.repo_instance)
+        wishlist = get_user_wishlist_objs(user)
+    else:
+        wishlist = []
+    # print(wishlist)
     return render_template('gameDesc.html', game=get_game,
                            similar_games=[game for game in get_similar_games
                                           if game != get_game][0:4],
                            all_genres=genres,
                            genre_urls=get_genres_and_urls(), form=form, average=get_average,
-                           review_number=get_number_of_reviews, pagination=pagination, page_reviews=rendered)
+                           review_number=get_number_of_reviews, pagination=pagination, page_reviews=rendered,
+                           wishlist=wishlist)
 
 
 @games_description_blueprint.route('/review/<int:game_id>', methods=['POST'])

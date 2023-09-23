@@ -37,7 +37,6 @@ def view_games():
     pagination = Pagination(page=page, per_page=per_page, offset=offset,
                             total=len(all_games),
                             record_name='List')
-    print('username' in session)
     if 'username' in session and authservice.get_user(session['username'], repo.repo_instance) is not None:
         user = authservice.get_user(session['username'], repo.repo_instance)
         wishlist = get_user_wishlist(user)
@@ -107,7 +106,12 @@ def games_by_genre():
     genres = services.get_genres(repo.repo_instance)
     form = WishlistForm()
     user = authservice.get_user(session['username'], repo.repo_instance)
-    wishlist = get_user_wishlist(user)
+    if 'username' in session and authservice.get_user(session['username'], repo.repo_instance) is not None:
+        user = authservice.get_user(session['username'], repo.repo_instance)
+        wishlist = get_user_wishlist(user)
+    else:
+        wishlist = []
+    print(wishlist)
     # Render the template
     return render_template('gameLibraryG.html', heading=target_genre,
                            games=sorted_rendered, all_genres=genres,
