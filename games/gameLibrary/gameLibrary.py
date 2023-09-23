@@ -37,8 +37,12 @@ def view_games():
     pagination = Pagination(page=page, per_page=per_page, offset=offset,
                             total=len(all_games),
                             record_name='List')
-    user = authservice.get_user(session['username'], repo.repo_instance)
-    wishlist = get_user_wishlist(user)
+    print('username' in session)
+    if 'username' in session and authservice.get_user(session['username'], repo.repo_instance) is not None:
+        user = authservice.get_user(session['username'], repo.repo_instance)
+        wishlist = get_user_wishlist(user)
+    else:
+        wishlist = []
 
     # Render the template
     return render_template('gameLibrary.html', heading='All Games',

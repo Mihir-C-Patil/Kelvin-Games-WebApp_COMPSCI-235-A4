@@ -10,6 +10,7 @@ from functools import wraps
 
 import games.adapters.repository as repo
 from games.authentication import services
+from games.authentication.services import UnknownUserException
 
 authentication_blueprint = Blueprint('authentication_bp', __name__, url_prefix='/authentication')
 
@@ -75,6 +76,8 @@ def login():
     if form.validate_on_submit():
         try:
             user = services.get_user(form.username.data, repo.repo_instance)
+            if user is None:
+                raise UnknownUserException
             user = {'username': user.username, 'password': user.password}
             services.authenticate_user(user['username'], form.password.data,
                                        repo.repo_instance)
@@ -104,6 +107,10 @@ def login_required(view):
     def wrapped_view(**kwargs):
         if 'username' not in session:
             return redirect(url_for('authentication_bp.login'))
+        user = services.get_user(session['username'], repo.repo_instance)
+        if not user:
+            session.clear()
+            return redirect(url_for('authentication_bp.register'))
         return view(**kwargs)
 
     return wrapped_view

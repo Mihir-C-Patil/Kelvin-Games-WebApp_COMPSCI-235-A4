@@ -75,13 +75,15 @@
                 </div>
                 <p class="game-price">${{ game.price }}</p>
                 <a href="/games-description/{{ game.game_id }}">View Game</a>
-                {% if game in wishlist %}
-                    <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove from Wishlist</a>
-                {% else %}
-                    <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
-                        {{ form.hidden_tag() }}
-                        <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
-                    </form>
+                {% if 'username' in session %}
+                    {% if game in wishlist %}
+                        <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove from Wishlist</a>
+                    {% else %}
+                        <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                            {{ form.hidden_tag() }}
+                            <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
+                        </form>
+                    {% endif %}
                 {% endif %}
               </div>
             </div>
@@ -100,13 +102,15 @@
                 </div>
                 <p class="game-price">${{ game.price }}</p>
                 <a href="/games-description/{{ game.game_id }}">View Game</a>
-                {% if game in wishlist %}
-                    <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove from Wishlist</a>
-                {% else %}
-                    <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
-                        {{ form.hidden_tag() }}
-                        <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
-                    </form>
+                {% if 'username' in session %}
+                    {% if game in wishlist %}
+                        <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove from Wishlist</a>
+                    {% else %}
+                        <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                            {{ form.hidden_tag() }}
+                            <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
+                        </form>
+                    {% endif %}
                 {% endif %}
               </div>
             </div>
@@ -125,13 +129,15 @@
                 </div>
                 <p class="game-price">${{ game.price }}</p>
                 <a href="/games-description/{{ game.game_id }}">View Game</a>
-                {% if game in wishlist %}
-                    <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove from Wishlist</a>
-                {% else %}
-                    <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
-                        {{ form.hidden_tag() }}
-                        <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
-                    </form>
+                {% if 'username' in session %}
+                    {% if game in wishlist %}
+                        <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove from Wishlist</a>
+                    {% else %}
+                        <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                            {{ form.hidden_tag() }}
+                            <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
+                        </form>
+                    {% endif %}
                 {% endif %}
               </div>
             </div>
@@ -150,13 +156,15 @@
                 </div>
                 <p class="game-price">${{ game.price }}</p>
                 <a href="/games-description/{{ game.game_id }}">View Game</a>
-                {% if game in wishlist %}
-                    <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove from Wishlist</a>
-                {% else %}
-                    <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
-                        {{ form.hidden_tag() }}
-                        <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
-                    </form>
+                {% if 'username' in session %}
+                    {% if game in wishlist %}
+                        <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove from Wishlist</a>
+                    {% else %}
+                        <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                            {{ form.hidden_tag() }}
+                            <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
+                        </form>
+                    {% endif %}
                 {% endif %}
               </div>
             </div>
