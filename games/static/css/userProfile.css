@@ -155,4 +155,14 @@ body {
   margin-right: 10px;
   color: #ECB365;
 }
+.activity-item a {
+  font-size: 1rem;
+  color: #51cbf2;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.activity-item a:hover {
+  color: #397598;
+}
 
