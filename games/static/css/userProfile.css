@@ -3,10 +3,10 @@
 /*    margin: 0;*/
 /*    padding: 0;*/
 /*}*/
-
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 /* Apply a background color and set font styles */
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: #f0f0f0;
 }
 
