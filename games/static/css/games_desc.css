@@ -404,3 +404,77 @@ select#rating{
     padding: 10px 0;
     width: 20%
 }
+
+
+/* Styling for pagination info */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pagination-form {
+    display: flex;
+    align-items: center;
+}
+
+.pagination-page-info {
+    font-size: 12px;
+    color: #fff;
+    background-color: #333;
+    padding: 13px 13px;
+    border-radius: 20px;
+    margin: 0 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for pagination links */
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    transition: transform 0.9s ease;
+}
+
+.pagination li {
+    margin: 0 5px;
+    transition: transform 0.2s ease;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 8px 15px;
+    background-color: #eee;
+    color: #333;
+    border-radius: 50px; /* Add rounded corners */
+    transition: background-color 0.3s, color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 16px;
+
+}
+
+/*.pagination :hover{*/
+/*    transform: translateY(-5px);*/
+/*}*/
+
+.pagination li:hover {
+    transform: translateY(-5px);
+}
+
+.pagination a:hover {
+    background-color: #333;
+    color: #fff;
+}
+.pagination .active a{
+    background-color: #333;
+    color: #fff;
+}
+
+.pagination .active a:hover{
+    background-color: #eee;
+    color: #333;
+}

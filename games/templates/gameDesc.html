@@ -157,9 +157,12 @@
         <button class="tag">Average Rating: {{ average }}</button>
         <button class="tag">{{ review_number }} Reviews</button>
     </div>
+    <div class="pagination-container">
+        {{ pagination.info|safe }}
+    </div>
   <div class="reviews_container">
     {% if game.reviews %}
-      {% for review in game.reviews|reverse %}
+      {% for review in page_reviews %}
       <div class="review_box">
           <div class="user_review_info">
           <h3>{{ review.user.username }}</h3>
@@ -181,6 +184,7 @@
       </div>
     {% endif %}
   </div>
+{{ pagination.links|safe }}
 </section>
 
 <script>

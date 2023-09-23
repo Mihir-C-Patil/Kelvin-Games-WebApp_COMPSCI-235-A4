@@ -39,23 +39,17 @@ def games_description(game_id):
     form = ReviewForm()
     get_average = services.get_average(get_game)
     get_number_of_reviews = len(get_game.reviews)
-
-    '''page, per_page, offset = get_page_args(page_parameter='page', per_page_parameter="per_page")
-
-    total_reviews = len(get_game.reviews)
-    pagination_reviews = services.get_reviews(get_game, offset=offset, per_page=per_page)
+    page, per_page, offset = get_page_args(per_page_parameter="pp", pp=2)
     rendered = get_game.reviews[offset: offset + per_page]
-    #sorted_rendered = sorted(rendered, key=lambda x: x[])
-    #random_game_index = random.randrange(0, len(get_game.reviews) - 5)
-    pagination = Pagination(page=page, per_page=per_page,
+    pagination = Pagination(page=page, per_page=per_page, offset=offset,
                             total=len(get_game.reviews),
-                            record_name='Reviews')'''
+                            record_name='List')
     return render_template('gameDesc.html', game=get_game,
                            similar_games=[game for game in get_similar_games
                                           if game != get_game][0:4],
                            all_genres=genres,
                            genre_urls=get_genres_and_urls(), form=form, average=get_average,
-                           review_number=get_number_of_reviews)  # reviews=pagination_reviews, page=page, per_page=per_page, pagination=pagination)
+                           review_number=get_number_of_reviews, pagination=pagination, page_reviews=rendered)
 
 
 @games_description_blueprint.route('/review/<int:game_id>', methods=['POST'])

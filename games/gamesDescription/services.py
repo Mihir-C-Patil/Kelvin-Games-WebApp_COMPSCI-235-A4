@@ -38,10 +38,10 @@ def add_review(rating: int, review: str, user: User, game: Game):
         user.add_review(new_review)
         game.add_review(new_review)
         return True
-    else:
-        for review in game.reviews:
-            if user == review.user:
-                return False
+    # else:
+    #     for review in game.reviews:
+    #         if user == review.user:
+    #             return False
     user.add_review(new_review)
     game.add_review(new_review)
     return True
