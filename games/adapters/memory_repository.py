@@ -19,6 +19,7 @@ class MemoryRepository(AbstractRepository, ABC):
         self.__users = list()
         self.comments = list()
         self.__user_wishlist_games = list()
+        self.__reviews = list()
 
     def add_game(self, game: Game):
         """
@@ -138,6 +139,7 @@ class MemoryRepository(AbstractRepository, ABC):
         """
         return next((user for user in self.__users if user.username
                      == username), None)
+
 
 
 def populate(data_path: Path, repo: AbstractRepository):

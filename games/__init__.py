@@ -3,8 +3,8 @@
 from flask import Flask, render_template
 from pathlib import Path
 
-from flask.testing import FlaskClient
-from flask_login import LoginManager
+#from flask.testing import FlaskClient
+#from flask_login import LoginManager
 
 import games.adapters.repository as repo
 from games.adapters.memory_repository import populate

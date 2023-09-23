@@ -381,19 +381,19 @@ def test_wishlist_initialization(wishlist):
 
 
 def test_add_game(wishlist, game):
-    wishlist.add_game(game)
+    wishlist.add_wish_game(game)
     assert len(wishlist.list_of_games()) == 1
     assert wishlist.list_of_games()[0] == game
 
 
 def test_remove_game(wishlist, game):
-    wishlist.add_game(game)
+    wishlist.add_wish_game(game)
     wishlist.remove_game(game)
     assert len(wishlist.list_of_games()) == 0
 
 
 def test_select_game(wishlist, game):
-    wishlist.add_game(game)
+    wishlist.add_wish_game(game)
     assert wishlist.select_game(0) == game
 
 
@@ -402,7 +402,7 @@ def test_select_game_out_of_index(wishlist):
 
 
 def test_first_game_in_list(wishlist, game):
-    wishlist.add_game(game)
+    wishlist.add_wish_game(game)
     assert wishlist.first_game_in_list() == game
 
 
@@ -411,7 +411,7 @@ def test_first_game_in_empty_list(wishlist):
 
 
 def test_wishlist_iter(wishlist, game):
-    wishlist.add_game(game)
+    wishlist.add_wish_game(game)
     wishlist_iterator = iter(wishlist)
     assert next(wishlist_iterator) == game
 

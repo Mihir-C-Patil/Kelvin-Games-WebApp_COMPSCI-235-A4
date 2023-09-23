@@ -23,6 +23,17 @@
 <body>
 {% include 'scrollbar.html' %}
 <!--% include 'navbar.html' %-->
+<div class="flash-messages">
+    {%  with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="message_list">
+            {% for message in messages %}
+                <li class="list">{{ message }}</li>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+        </ul>
+</div>
 <section class="games_desc_content">
   <div class="game_title">
     <h1>{{ game.title }}</h1>
@@ -120,15 +131,50 @@
   <div class="reviews_title">
     <h1>Reviews</h1>
   </div>
+    <div class="button_wrapper">
+        <button class="review_button">Add Review</button>
+    </div>
+<section class="reviews_form">
+        <div class="review_form_container">
+            <form action="{{ url_for('games_description_bp.post_review', game_id = game.game_id) }}" method="post">
+                <div class="form_fields">
+                    {{ form.hidden_tag() }}  {# Add this line for CSRF protection #}
+                    {{ form.rating.label }} {{ form.rating }}
+                    {{ form.comment.label }} {{ form.comment }}
+                    {% if form.comment.errors %}
+                        <ul class="errors">
+                            {% for error in form.comment.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <div class="review_details">
+        <button class="tag">Average Rating: {{ average }}</button>
+        <button class="tag">{{ review_number }} Reviews</button>
+    </div>
   <div class="reviews_container">
     {% if game.reviews %}
+      {% for review in game.reviews|reverse %}
       <div class="review_box">
+          <div class="user_review_info">
+          <h3>{{ review.user.username }}</h3>
+          <h4>Posted on: {{ review.timestamp.strftime('%d/%m/%Y %H:%M:%S') }}</h4>
+          </div>
+          <div class="rating">
+             <h4>Rating: {{ review.rating }}</h4>
+          </div>
         <div class="review_post">
-          <p>{{ game.reviews }}</p>
+          <p>{{ review.comment }}</p>
         </div>
       </div>
+      {% endfor %}
     {% else %}
-      <div class="review_box">
+        <div class="review_box">
         <div class="review_post">
           <p>Currently, there are no reviews for this game.</p>
         </div>
@@ -136,6 +182,29 @@
     {% endif %}
   </div>
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const showReviewFormButton = document.querySelector(".review_button");
+        const reviewFormContainer = document.querySelector(".review_form_container");
+        showReviewFormButton.addEventListener("click", function () {
+            if (reviewFormContainer.style.display === "none" || reviewFormContainer.style.display === '') {
+                reviewFormContainer.style.display = 'block';
+            } else {
+                reviewFormContainer.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+<script>
+    setTimeout(function() {
+        var flashmessages = document.querySelectorAll('.flash-messages');
+        flashmessages.forEach(function(message) {
+            message.style.display = 'none';
+        });
+    }, 5000);
+</script>
 
 <section class="recommendation">
   <div class="reco_title">
