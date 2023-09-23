@@ -49,7 +49,7 @@
         <li class="nav__item"><a href="{{ url_for('authentication_bp.login') }}">Login</a></li>
         <li class="nav__item"><a href="{{ url_for('authentication_bp.register') }}">Register</a></li>
       {% else %}
-        <li class="nav__item"><a href="{{ url_for('pp_bp.view_user_profile') }}">Hello, {{ session['username'] }}</a></li>
+        <li class="nav__item"><a href="{{ url_for('pp_bp.view_user_profile') }}">Hello {{ session['username'] }}!</a></li>
         <li class="nav__item"><a href="{{ url_for('authentication_bp.logout') }}">Logout</a></li>
       {% endif %}
   </ul>
