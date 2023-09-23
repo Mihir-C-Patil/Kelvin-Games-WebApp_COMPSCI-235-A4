@@ -97,11 +97,30 @@
             <div class="activity-history">
                 <div class="activity-item">
                     <h3>{{ review.game.title }}</h3>
-                    <ul>
-                        <li>{{ review.timestamp }}</li>
-                        <li>{{ review.rating }}</li>
-                        <li>{{ review.comment }}</li>
-                    </ul>
+                    <div class="description">
+                        <div class="desc_title">
+                          <p><strong>Review Date/Time:</strong></p>
+                        </div>
+                        <div class="desc_ans">
+                          <p>{{ review.timestamp }}</p>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <div class="desc_title">
+                          <p><strong>Rating:</strong></p>
+                        </div>
+                        <div class="desc_ans">
+                          <p>{{ review.rating }}</p>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <div class="desc_title">
+                          <p><strong>Comment:</strong></p>
+                        </div>
+                        <div class="desc_ans">
+                          <p>{{ review.comment }}</p>
+                        </div>
+                    </div>
                     <a href="/games-description/{{ review.game.game_id }}">View Game</a>
                 </div>
             </div>

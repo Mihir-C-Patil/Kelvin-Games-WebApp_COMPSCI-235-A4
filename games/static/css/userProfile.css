@@ -66,6 +66,7 @@ body {
 /* Style the activity history container */
 .activity-history-container {
     margin-left: auto; /* Push it to the right */
+    width: 400px;
 }
 
 /* Style the activity history section using flexbox */
@@ -137,3 +138,21 @@ body {
 /*    flex-direction: column;*/
 /*    align-items: center;*/
 /*}*/
+
+.description {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  padding: 0;
+}
+
+.desc_ans {
+  margin-left: auto;
+  color: #064663;
+}
+
+.desc_title {
+  margin-right: 10px;
+  color: #ECB365;
+}
+
