@@ -2,15 +2,21 @@ import random
 
 from flask import Blueprint, render_template, request, url_for, session
 from flask_paginate import Pagination, get_page_args
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, HiddenField
 
 import games.adapters.repository as repo
-from games.authentication.authentication import WishlistForm
 from games.gameLibrary import services
 from games.userProfile.services import get_user_wishlist
 from games.authentication import services as authservice
 
 # Create a Flask Blueprint for the game library view
 gameLibrary_blueprint = Blueprint('viewGames_bp', __name__)
+
+
+class WishlistForm(FlaskForm):
+    game_id = HiddenField('Game ID')
+    submit = SubmitField('Add to Wishlist')
 
 
 @gameLibrary_blueprint.route('/gamelibrary', methods=['GET', 'POST'])
@@ -37,7 +43,8 @@ def view_games():
     pagination = Pagination(page=page, per_page=per_page, offset=offset,
                             total=len(all_games),
                             record_name='List')
-    if 'username' in session and authservice.get_user(session['username'], repo.repo_instance) is not None:
+    if 'username' in session and authservice.get_user(session['username'],
+                                                      repo.repo_instance) is not None:
         user = authservice.get_user(session['username'], repo.repo_instance)
         wishlist = get_user_wishlist(user)
     else:
@@ -106,7 +113,8 @@ def games_by_genre():
     genres = services.get_genres(repo.repo_instance)
     form = WishlistForm()
     user = authservice.get_user(session['username'], repo.repo_instance)
-    if 'username' in session and authservice.get_user(session['username'], repo.repo_instance) is not None:
+    if 'username' in session and authservice.get_user(session['username'],
+                                                      repo.repo_instance) is not None:
         user = authservice.get_user(session['username'], repo.repo_instance)
         wishlist = get_user_wishlist(user)
     else:
