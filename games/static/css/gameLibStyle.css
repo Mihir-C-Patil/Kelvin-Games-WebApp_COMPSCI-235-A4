@@ -331,6 +331,10 @@ body {
 
 }
 
+.game-info form {
+  align-self: flex-start;
+}
+
 /*.pagination :hover{*/
 /*    transform: translateY(-5px);*/
 /*}*/
