@@ -7,6 +7,9 @@ Welcome to the Kelvin Games WebApp repository! This repository contains the impl
 This repository is dedicated to the development of the Kelvin Games web application. It encompasses a Flask-based application that showcases an interactive gaming platform. The application is designed to display game-related information fetched from our domain model. You can choose to either use the provided domain model or your own implementation from CodeRunner assignment 1.
 
 
+## Prerequisites
+You must have Python 3.11 installed!
+
 ## Installation
 
 **Installation via requirements.txt**
