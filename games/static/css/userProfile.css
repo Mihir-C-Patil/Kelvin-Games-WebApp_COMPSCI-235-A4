@@ -9,7 +9,7 @@
 :root {
   --SITE-BG-COLOR: #04293A;
   --PANEL-COLOR: #064663;
-  --DESCRIPTION-TITLE-COLOR: #c600d0;
+  --DESCRIPTION-TITLE-COLOR: #ECB365;
 }
 
 main {
@@ -75,7 +75,7 @@ body {
     margin-bottom: 20px;
 }
 
-.profile-card h1 {
+.profile-card h1, .activity-history-container h2 {
   color: var(--DESCRIPTION-TITLE-COLOR);
 }
 
