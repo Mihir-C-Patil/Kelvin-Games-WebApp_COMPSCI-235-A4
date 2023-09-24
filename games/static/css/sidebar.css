@@ -88,7 +88,7 @@
 
 /* || OVERLAY */
 .overlay {
-  position: absolute;
+  position: fixed;
   z-index: 21;
   top: 0;
   left: 0;
