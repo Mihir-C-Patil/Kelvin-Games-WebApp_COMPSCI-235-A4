@@ -23,9 +23,9 @@
         <div class="profile-card">
             <img src="../static/img/hacker.png" alt="User Profile Picture">
             <h1>{{ user.username }}</h1>
-            <p>CS220 Pro</p>
-            <p>Location: Always avoids Library</p>
-            <p>Email: patil@mihir.com</p>
+            <p>Class: CS235</p>
+            <p>Location: Auckland</p>
+            <p>Email: {{ user.username.lower().split()[0] }}@aucklanduni.ac.nz</p>
         </div>
      <div class="wishlist-container">
         <div class="wishlist_title">
