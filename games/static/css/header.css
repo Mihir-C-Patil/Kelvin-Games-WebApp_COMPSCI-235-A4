@@ -39,6 +39,7 @@
   /* || TRANSITIONS */
   --SITE-TRANSITION: 250ms ease;
   --SEARCHBOX-TRANSITION: opacity 250ms ease;
+  --NAV-MARGIN: 200px;
 }
 
 /* || RESET */
@@ -66,7 +67,7 @@
 
 /* || NAVIGATION ELEMENTS */
 .navigation {
-  margin-left: 200px;
+  margin-left: var(--NAV-MARGIN);
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -269,10 +270,5 @@ form {
 }
 
 #search-criteria option {
-  /*background-color: darkblue;*/
   background-color: var(--HEADER-BACKGROUND);
-}
-
-nav__user_logo svg {
-  color: var(--HEADING-COLOR)
 }
