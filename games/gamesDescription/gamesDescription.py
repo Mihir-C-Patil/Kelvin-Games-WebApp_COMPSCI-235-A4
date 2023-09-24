@@ -60,13 +60,14 @@ def games_description(game_id):
     if len(get_game.genres) > 0:
         get_similar_games = services.similar_game(repo.repo_instance,
                                                   get_game.genres)
-
+    reviews_copy = get_game.reviews[:]
+    reviews_copy.reverse()
     genres = get_genres(repo.repo_instance)
     form = ReviewForm()
     get_average = services.get_average(get_game)
     get_number_of_reviews = len(get_game.reviews)
     page, per_page, offset = get_page_args(per_page_parameter="pp", pp=2)
-    rendered = get_game.reviews[offset: offset + per_page]
+    rendered = reviews_copy[offset: offset + per_page]
     pagination = Pagination(page=page, per_page=per_page, offset=offset,
                             total=len(get_game.reviews),
                             record_name='List')
@@ -102,9 +103,8 @@ def post_review(game_id):
     if 'username' in session:
         user = authservice.get_user(session['username'], repo.repo_instance)
         if form.validate_on_submit():
-            timestamp = datetime.utcnow().strftime("%d %B %Y %I:%M:%S %p")
-            if services.add_review(form.rating.data, form.comment.data, user,
-                                   game):
+            timestamp = datetime.utcnow().strftime("%d %B %Y %I:%M:%S")
+            if services.add_review(form.rating.data, form.comment.data, user, game):
                 flash('Review successfully added', 'success')
                 return redirect(url_for('games_description_bp'
                                         '.games_description', game_id=game_id))

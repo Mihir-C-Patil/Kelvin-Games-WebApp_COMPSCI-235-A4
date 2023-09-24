@@ -2,7 +2,6 @@ from games.adapters.repository import AbstractRepository
 from games.domainmodel.model import User, Review, Game
 
 
-
 def get_game(repo: AbstractRepository, id):
     """
 
@@ -56,4 +55,3 @@ def get_average(game: Game):
     if len(game.reviews) > 0:
         average = round(rating / len(game.reviews), 1)
     return average
-
