@@ -44,7 +44,6 @@
 }
 
 main {
-
   margin-top: var(--HEADER-HEIGHT);
   padding-bottom: var(--MAIN-PADDING);
   background-color: var(--SITE-BG-COLOR);
