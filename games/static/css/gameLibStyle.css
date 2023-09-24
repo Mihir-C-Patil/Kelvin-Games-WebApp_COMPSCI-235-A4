@@ -46,37 +46,78 @@ a {
 .bgSlides{
     /*display: none;*/
 }
-.slides{
+.slide{
     display: none;
 }
 
-.slides img {
-    horiz-align: left;
-    min-width: 450px;
-    /*max-height: 850px;*/
-    overflow: hidden;
-    /*display: inline;*/
-    border-radius: 20px;
+.slideContent {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(5px);
+  max-width: 850px;
+  margin: auto;
+  border-radius: 20px;
+  padding: 15px;
+  color: white;
+    height: 75%;
 }
-.gameInfo{
-    display: inline-block;
+
+.slide {
+  flex: 1;
+  width: 450px;
+  text-align: center;
+  transition: transform 0.3s ease-in-out;
 }
+
+.slide:hover {
+  transform: scale(1.02);
+}
+
+.game-link {
+  text-decoration: none;
+  color: white;
+}
+
+/*.gameInfo {*/
+/*  padding: 15px;*/
+/*    flex-direction: column;*/
+/*}*/
+.gameInfo {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.game-details {
+  text-align: center;
+}
+
+.game-img {
+  /*width: 100%;*/
+  width: 450px;
+  object-fit: cover;
+  border-radius: 20px 20px 20px 20px;
+}
+
+.game-title {
+  font-size: 2.2rem;
+  margin-top: 10px;
+}
+
+.game-price {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
 
 @keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
 }
 
-.blur {
-    background: rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(5px);
-    height: 75%;
-    max-width: 850px;
-    margin: auto;
-    border-radius: 20px;
-    padding: 15px;
-    /*display: flex;*/
-}
 .main .slideContent{
     z-index: 5;
     color: white;

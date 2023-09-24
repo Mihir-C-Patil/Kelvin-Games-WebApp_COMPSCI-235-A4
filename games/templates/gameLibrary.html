@@ -28,17 +28,16 @@
     <a class="prev" onclick="plusSlides(-1)">❮</a>
     <div class="slideContent blur">
       {% for game in slide_games %}
-        <div class="slides fade">
-          <div class="gameInfo">
-            <a href="/games-description/{{ game.game_id }}">
-              <img src="{{ game.header_image }}" style="width:50%; height:100%"
-                   alt="GameImg">
-            </a>
-          </div>
-          <div class="gameInfo">
-            <div class="text">{{ game.title }}</div>
-            <div class="text">{{ game.price }}</div>
-          </div>
+        <div class="slide">
+          <a href="/games-description/{{ game.game_id }}" class="game-link">
+            <div class="gameInfo">
+              <img src="{{ game.header_image }}" alt="GameImg" class="game-img">
+              <div class="game-details">
+                <div class="game-title">{{ game.title }}</div>
+                <div class="game-price">{{ game.price }}</div>
+              </div>
+            </div>
+          </a>
         </div>
       {% endfor %}
 
@@ -205,7 +204,7 @@
 
   function showSlides(n) {
     let i;
-    let slides = document.getElementsByClassName("slides");
+    let slides = document.getElementsByClassName("slide");
     let bgSlides = document.getElementsByClassName("bgSlides")
     if (n > slides.length) {
       slideIndex = 1
