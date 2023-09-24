@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Title</title>
+  <title>{{ user.username }}'s Profile</title>
   <link href="../static/css/sidebar.css" rel="stylesheet"/>
   <link href="../static/css/header.css" rel="stylesheet"/>
   <link href="../static/css/footer.css" rel="stylesheet"/>
@@ -138,7 +138,7 @@
             <h3>{{ review.game.title }}</h3>
             <div class="description">
               <div class="desc_title">
-                <p><strong>Review Date/Time:</strong></p>
+                <p><strong>Review Date:</strong></p>
               </div>
               <div class="desc_ans">
                 <p>{{ review.timestamp }}</p>
@@ -149,7 +149,11 @@
                 <p><strong>Rating:</strong></p>
               </div>
               <div class="desc_ans">
-                <p>{{ review.rating }}</p>
+                <p>
+                  {% for item in range(review.rating) %}
+                    <img src="../static/icons/star.svg" alt="star icon">
+                  {% endfor %}
+                </p>
               </div>
             </div>
             <div class="description">
