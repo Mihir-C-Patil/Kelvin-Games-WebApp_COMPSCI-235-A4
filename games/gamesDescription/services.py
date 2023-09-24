@@ -1,4 +1,6 @@
 from games.adapters.repository import AbstractRepository
+from games.domainmodel.model import User, Review, Game
+
 
 
 def get_game(repo: AbstractRepository, id):
@@ -29,3 +31,28 @@ def similar_game(repo: AbstractRepository, genre):
 
     """
     return repo.get_similar_games(genre)
+
+def add_review(rating: int, review: str, user: User, game: Game):
+    new_review = Review(user, game, rating, review)
+    if len(game.reviews) == 0:
+        user.add_review(new_review)
+        game.add_review(new_review)
+        return True
+    else:
+        for review in game.reviews:
+            if user == review.user:
+                return False
+    user.add_review(new_review)
+    game.add_review(new_review)
+    return True
+
+
+def get_average(game: Game):
+    rating = 0
+    average = 0
+    for review in game.reviews:
+        rating += review.rating
+    if len(game.reviews) > 0:
+        average = round(rating / len(game.reviews), 1)
+    return average
+

@@ -41,10 +41,10 @@
   padding: 0;
   font-family: var(--FF);
   box-sizing: border-box;
+  color: var(--HEADING-COLOR)
 }
 
 main {
-
   margin-top: var(--HEADER-HEIGHT);
   padding-bottom: var(--MAIN-PADDING);
   background-color: var(--SITE-BG-COLOR);

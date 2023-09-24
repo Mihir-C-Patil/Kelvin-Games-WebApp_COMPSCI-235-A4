@@ -217,7 +217,7 @@ class Game:
         self.__genres = list()
         self.__categories = set()
         self.__tags = set()
-        self.__reviews = False
+        self.__reviews = list()
         self.__price = None
         self.__release_date = None
         self.__description = None
@@ -334,7 +334,7 @@ class Game:
         return self.__tags
 
     @property
-    def reviews(self) -> bool:
+    def reviews(self) -> list:
         """
         Return the list of reviews of a game object
 
@@ -577,14 +577,13 @@ class Game:
 
     """Added the following methods in Games class for games-description page"""
 
+    def add_review(self, review):
+        if isinstance(review, Review) and review not in self.__reviews:
+            self.__reviews.append(review)
+
     def add_language(self, language):
         if len(language.strip()) > 0:
             self.__languages.append(language)
-
-    @reviews.setter
-    def reviews(self, review):
-        if len(review.strip()) > 0:
-            self.__reviews = review
 
     @property
     def system_dict(self):
@@ -711,6 +710,7 @@ class User:
 
         self.__favourite_games: list[Game] = list()
         self.__reviews: list[Review] = list()
+        self.__wishlist = Wishlist(self)
 
     def __repr__(self) -> str:
         """
@@ -876,10 +876,13 @@ class User:
         else:
             return None
 
+    def get_wishlist(self):
+        return self.__wishlist
+
 
 class Review:
     def __init__(self, user: User, game: Game,
-                 rating: int, comment: str) -> None:
+                 rating: int, comment: str, timestamp=None) -> None:
         """
         Initialise a Review Object.
         Raise ValueError if parameters invalid.
@@ -921,6 +924,11 @@ class Review:
             self.__comment = comment.strip()
         else:
             raise ValueError('Comment must be non-empty string.')
+
+        if timestamp is None:
+            self.__timestamp = datetime.utcnow().strftime("%d %B %Y %I:%M:%S %p")
+        else:
+            self.__timestamp = timestamp
 
     def __repr__(self) -> str:
         """
@@ -1007,6 +1015,10 @@ class Review:
         else:
             raise ValueError("Comment must be non-empty string.")
 
+    @property
+    def timestamp(self):
+        return self.__timestamp
+
     @rating.setter
     def rating(self, new_rating: int) -> None:
         """
@@ -1068,7 +1080,7 @@ class Wishlist:
         else:
             raise StopIteration
 
-    def add_game(self, game_to_add: Game) -> None:
+    def add_wish_game(self, game_to_add: Game) -> None:
         """
         Append a Game object to the wishlist.
 
@@ -1142,3 +1154,4 @@ class Wishlist:
         :return: list[Game]
         """
         return self.__list_of_games
+

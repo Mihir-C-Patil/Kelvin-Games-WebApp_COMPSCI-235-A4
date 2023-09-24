@@ -43,8 +43,6 @@ class GameFileCSVReader:
                         self.__dataset_of_genres.add(genre)
                         game.add_genre(genre)
 
-                    game.reviews = row["Reviews"]
-
                     languages = row["Supported languages"].split(",")
                     for language in languages:
                         new_language = language.strip().strip("[]'")

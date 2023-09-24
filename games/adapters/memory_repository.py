@@ -1,4 +1,5 @@
 import os.path
+from abc import ABC
 from bisect import insort_left
 from typing import List
 from pathlib import Path
@@ -7,7 +8,7 @@ from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.repository import AbstractRepository
 
 
-class MemoryRepository(AbstractRepository):
+class MemoryRepository(AbstractRepository, ABC):
     """
     A memory-based repository implementation for games and genres.
     """
@@ -15,6 +16,10 @@ class MemoryRepository(AbstractRepository):
     def __init__(self, message=None):
         self.__games = list()
         self.__genres = list()
+        self.__users = list()
+        self.comments = list()
+        self.__user_wishlist_games = list()
+        self.__reviews = list()
 
     def add_game(self, game: Game):
         """
@@ -53,9 +58,9 @@ class MemoryRepository(AbstractRepository):
         """
         return len(self.__games)
 
-    def get_games_by_id(self, id):
+    def get_games_by_id(self, game_id):
         for game in self.__games:
-            if game.game_id == id:
+            if game.game_id == game_id:
                 return game
         return None
 
@@ -109,6 +114,32 @@ class MemoryRepository(AbstractRepository):
                 pass
 
         return matching_game_genre
+
+    def add_user(self, user: User) -> None:
+        """
+        Add a user to the repository.
+
+        :param user:     The user object to add to the repository.
+        :type user:      User
+        :return:         None
+        """
+        self.__users.append(user)
+
+    def get_user(self, username: str) -> (User, None):
+        """
+        Get a specific user by their username.
+
+        Args:
+            username (str): The username of the user to retrieve.
+
+        Returns:
+            User: The user object with the specified username.
+
+            None: If no user with the specified username exists.
+        """
+        return next((user for user in self.__users if user.username
+                     == username.lower().strip()), None)
+
 
 
 def populate(data_path: Path, repo: AbstractRepository):

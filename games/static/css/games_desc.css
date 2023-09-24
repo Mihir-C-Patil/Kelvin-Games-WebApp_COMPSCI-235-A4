@@ -289,3 +289,203 @@ body {
 .go_back {
   padding-bottom: 20px;
 }
+
+.review_form_container {
+    display: None;
+    margin-top: 20px;
+    background-color: #04293A;
+    padding: 20px;
+    border-radius: 5px;
+    width: 100%;
+
+}
+
+.form_fields {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.button_wrapper{
+    margin-top: 10px;
+}
+
+.review_button{
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #ECB365;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.review_form_container label {
+    color: whitesmoke;
+    font-weight: bold;
+}
+
+.review_form_container input[type="number"],
+.review_form_container textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 25px;
+    border: 2px solid #ECB365;
+    border-radius: 5px;
+    background-color: #04293A;
+    color: whitesmoke;
+}
+
+.review_form_container textarea {
+    resize: vertical;
+}
+
+.review_form_container form button[type="submit"] {
+    background-color: #ECB365;
+    color: #04293A;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 10%;
+    /* Add other styles as needed */
+}
+
+.review_form_container form button[type="submit"]:hover {
+    background-color: #FFD700;
+}
+
+.review_button:hover {
+    background-color: #FFD700;
+}
+
+.reviews_form {
+    padding-bottom: 50px;
+}
+
+select#rating{
+    width: 10%;
+    margin-bottom: 20px;
+}
+
+.user_review_info {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 20px;
+}
+
+.user_review_info img {
+    width: 50px;
+    height: 50px;
+}
+
+.user_box {
+    display: inline;
+
+}
+
+.rating {
+    padding-bottom: 10px;
+}
+
+.review_details {
+    display: flex;
+    justify-content: space-between;
+    width: 20%;
+    padding-bottom: 20px;
+}
+
+.flash-messages {
+    display: flex;
+    flex-direction: column;
+}
+.list {
+    background-color: whitesmoke;
+    padding: 10px 0;
+    width: 20%
+}
+
+
+/* Styling for pagination info */
+.pagination-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pagination-form {
+    display: flex;
+    align-items: center;
+}
+
+.pagination-page-info {
+    font-size: 12px;
+    color: #fff;
+    background-color: #333;
+    padding: 13px 13px;
+    border-radius: 20px;
+    margin: 0 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for pagination links */
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    transition: transform 0.9s ease;
+}
+
+.pagination li {
+    margin: 0 5px;
+    transition: transform 0.2s ease;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 8px 15px;
+    background-color: #eee;
+    color: #333;
+    border-radius: 50px; /* Add rounded corners */
+    transition: background-color 0.3s, color 0.3s;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 16px;
+
+}
+
+/*.pagination :hover{*/
+/*    transform: translateY(-5px);*/
+/*}*/
+
+.pagination li:hover {
+    transform: translateY(-5px);
+}
+
+.pagination a:hover {
+    background-color: #333;
+    color: #fff;
+}
+.pagination .active a{
+    background-color: #333;
+    color: #fff;
+}
+
+.pagination .active a:hover{
+    background-color: #eee;
+    color: #333;
+}
+
+.game_title a {
+  font-size: 1.3rem;
+  color: #51cbf2;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.game_title a:hover {
+  color: #397598;
+}

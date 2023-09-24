@@ -3,12 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <title>Games Description</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="author" content="Kelvin Games"/>
   <link rel="stylesheet" href="../static/css/games_desc.css">
   <link rel="stylesheet" href="../static/css/games_desc_global.css">
   <link href="../static/css/sidebar.css" rel="stylesheet"/>
   <link href="../static/css/header.css" rel="stylesheet"/>
   <link href="../static/css/footer.css" rel="stylesheet"/>
   <script src="../static/js/hamburger.js" defer></script>
+    <link href="../static/css/scrollbar.css" rel="stylesheet"/>
+    <script src="../static/js/scrollbar.js" defer></script>
 </head>
 <div class="head">
   {% include 'header.html' %}
@@ -17,10 +21,32 @@
 
 
 <body>
+{% include 'scrollbar.html' %}
 <!--% include 'navbar.html' %-->
+<div class="flash-messages">
+    {%  with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="message_list">
+            {% for message in messages %}
+                <li class="list">{{ message }}</li>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+        </ul>
+</div>
 <section class="games_desc_content">
   <div class="game_title">
     <h1>{{ game.title }}</h1>
+      {% if 'username' in session %}
+        {% if game in wishlist %}
+            <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove from Wishlist</a>
+        {% else %}
+            <form class="wish-sub" method="POST" action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                {{ form.hidden_tag() }}
+                <a href="#" onclick="submitFunction(this)">Add to Wishlist</a>
+            </form>
+        {% endif %}
+      {% endif %}
   </div>
   <div class="game_container">
     <div class="game_trailer">
@@ -115,22 +141,89 @@
   <div class="reviews_title">
     <h1>Reviews</h1>
   </div>
+    <div class="button_wrapper">
+        <button class="review_button">Add Review</button>
+    </div>
+<section class="reviews_form">
+        <div class="review_form_container">
+            <form action="{{ url_for('games_description_bp.post_review', game_id = game.game_id) }}" method="post">
+                <div class="form_fields">
+                    {{ form.hidden_tag() }}  {# Add this line for CSRF protection #}
+                    {{ form.rating.label }} {{ form.rating }}
+                    {{ form.comment.label }} {{ form.comment }}
+                    {% if form.comment.errors %}
+                        <ul class="errors">
+                            {% for error in form.comment.errors %}
+                                <li>{{ error }}</li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                <button type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </section>
+    <div class="review_details">
+        <button class="tag">Average Rating: {{ average }}</button>
+        <button class="tag">{{ review_number }} Reviews</button>
+    </div>
+    <div class="pagination-container">
+        {{ pagination.info|safe }}
+    </div>
   <div class="reviews_container">
     {% if game.reviews %}
+      {% for review in page_reviews %}
       <div class="review_box">
+          <div class="user_review_info">
+          <h3>{{ review.user.username }}</h3>
+          <h4>Posted on: {{ review.timestamp }}</h4>
+          </div>
+          <div class="rating">
+             <h4>Rating: {{ review.rating }}</h4>
+          </div>
         <div class="review_post">
-          <p>{{ game.reviews }}</p>
+          <p>{{ review.comment }}</p>
         </div>
       </div>
+      {% endfor %}
     {% else %}
-      <div class="review_box">
+        <div class="review_box">
         <div class="review_post">
           <p>Currently, there are no reviews for this game.</p>
         </div>
       </div>
     {% endif %}
   </div>
+{{ pagination.links|safe }}
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const showReviewFormButton = document.querySelector(".review_button");
+        const reviewFormContainer = document.querySelector(".review_form_container");
+        showReviewFormButton.addEventListener("click", function () {
+            if (reviewFormContainer.style.display === "none" || reviewFormContainer.style.display === '') {
+                reviewFormContainer.style.display = 'block';
+            } else {
+                reviewFormContainer.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+<script>
+    setTimeout(function() {
+        var flashmessages = document.querySelectorAll('.flash-messages');
+        flashmessages.forEach(function(message) {
+            message.style.display = 'none';
+        });
+    }, 5000);
+
+    //Submit Function
+  function submitFunction(link) {
+        link.closest(".wish-sub").submit();
+    }
+</script>
 
 <section class="recommendation">
   <div class="reco_title">
@@ -159,7 +252,6 @@
 </section>
 
 {% include 'footer.html' %}
-
 </body>
 
 

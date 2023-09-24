@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en-nz">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="author" content="Kelvin Games"/>
+  <meta name="description" content="This is the homepage for Kelvin Games"/>
+  <link href="../../static/css/sidebar.css" rel="stylesheet"/>
+  <link href="../../static/css/header.css" rel="stylesheet"/>
+  <link href="../../static/css/footer.css" rel="stylesheet"/>
+  <link href="../../static/css/login_register.css" rel="stylesheet"/>
+  <script src="../../static/js/hamburger.js" defer></script>
+  <title>{{ title }}</title>
+</head>
+<body>
+{% include 'header.html' %}
+{% include 'sidebar.html' %}
+<main id="main">
+  <article class="form-wrapper">
+    <h1 class="heading">{{ title }}</h1>
+    <form class="form" method="POST" action="{{ handler_url }}">
+      {{ form.csrf_token }}
+      <section class="form-field">
+        {{ form.username.label }}
+        <input placeholder="Kelvin Games Username" autofocus {{ form.username }}
+        {#Keep this input tag open, flask adds the closing > #}
+        {% if form.username.errors or username_error_message is not none %}
+          <ul class="errors">
+            {% if username_error_message is not none %}
+              <li>
+                {{ username_error_message }}
+              </li>
+            {% endif %}
+            {% for error in form.username.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </section>
+      <section class="form-field">
+        {{ form.password.label }}
+        <input placeholder="Password" {{ form.password }}
+        {#Keep this input tag open, flask adds the closing > #}
+        {% if form.password.errors is not none or password_error_message is not none %}
+          <ul class="errors">
+            {% if password_error_message is not none %}
+              <li>
+                {{ password_error_message }}
+              </li>
+            {% endif %}
+            {% for error in form.password.errors %}
+              <li>{{ error }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </section>
+      <section class="submit">
+        {{ form.submit }}
+      </section>
+
+    </form>
+  </article>
+</main>
+{% include 'footer.html' %}
+</body>
+</html>

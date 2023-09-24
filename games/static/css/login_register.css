@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+/* || VARIABLES */
+:root {
+  /* || FONTS */
+  --FF: 'Roboto', sans-serif;
+
+
+  /* || COLORS */
+  --SITE-BG-COLOR: #04293A;
+  --INPUT-BACKGROUND: #041C32;
+  --FIELD-HOVER-COLOR: #c600d0;
+  --TEXT-COLOR: white;
+
+  /* || PADDING */
+  --MAIN-PADDING: 50px;
+
+  /* || DIMENSIONS */
+  --BORDER-RADIUS: 12px;
+  --HEADER-HEIGHT: 75px;
+  --PAGE-HEIGHT: calc(100vh - var(--HEADER-HEIGHT) - 62px);
+  --HEADING-FONT-SIZE: 30px;
+  --FORM-PADDING: 40px;
+  --FORM-FIELD-MARGIN: 30px;
+  --FORM-LABEL-FONT-SIZE: 20px;
+  --FORM-LABEL-PADDING: 15px;
+  --FIELD-WIDTH: 500px;
+  --FIELD-HEIGHT: 2.5em;
+  --FIELD-BORDER-RADIUS: 5px;
+  --FIELD-BORDER-WIDTH: 1px;
+  --INPUT-PADDING: 9px;
+  --SITE-TRANSITION: 250ms ease;
+  --ERROR-MARGIN: 25px;
+}
+
+/* || RESET */
+* {
+  margin: 0;
+  padding: 0;
+  font-family: var(--FF);
+  box-sizing: border-box;
+  color: var(--TEXT-COLOR);
+}
+
+main {
+  margin-top: var(--HEADER-HEIGHT);
+  padding-bottom: var(--MAIN-PADDING);
+  background-color: var(--SITE-BG-COLOR);
+  min-height: var(--PAGE-HEIGHT);
+}
+
+.heading {
+  color: var(--TEXT-COLOR);
+  font-size: var(--HEADING-FONT-SIZE);
+}
+
+.form-wrapper,
+.form,
+.form-field {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-wrapper {
+  padding: var(--MAIN-PADDING);
+}
+
+.form {
+  padding: var(--FORM-PADDING);
+}
+
+.form-field {
+  margin-bottom: var(--FORM-FIELD-MARGIN);
+}
+
+.form-field label {
+  color: var(--TEXT-COLOR);
+  font-size: var(--FORM-LABEL-FONT-SIZE);
+  padding-bottom: var(--FORM-LABEL-PADDING);
+}
+
+
+.form-field input {
+  width: var(--FIELD-WIDTH);
+  height: var(--FIELD-HEIGHT);
+  background-color: var(--INPUT-BACKGROUND);
+  border-style: solid;
+  border-radius: var(--FIELD-BORDER-RADIUS);
+  border-color: var(--TEXT-COLOR);
+  border-width: var(--FIELD-BORDER-WIDTH);
+  padding: var(--INPUT-PADDING);
+  transition: var(--SITE-TRANSITION);
+  -webkit-transition: box-shadow linear 1s;
+}
+.form-field input:focus {
+  box-shadow: 0 0 20px #ECB365;
+}
+
+.form-field input:hover {
+  filter: brightness(0.9);
+  transition: var(--SITE-TRANSITION);
+}
+
+.form-field input:hover::placeholder {
+  color: var(--FIELD-HOVER-COLOR);
+  transition: var(--SITE-TRANSITION);
+}
+
+.form-field input::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+  transition: var(--SITE-TRANSITION);
+}
+
+.submit {
+  margin: 20px;
+}
+
+.submit input {
+  background-color: var(--HEADER-BACKGROUND);
+  width: 200px;
+  font-size: 15px;
+  padding: var(--INPUT-PADDING);
+  border-style: solid;
+  border-color: var(--TEXT-COLOR);
+  border-radius: 29px;
+  transition: var(--SITE-TRANSITION);
+}
+
+.submit input:hover {
+  background-color: var(--FIELD-HOVER-COLOR);
+  transition: var(--SITE-TRANSITION);
+}
+
+.errors {
+  margin-top: var(--ERROR-MARGIN);
+  list-style-type: none;
+}

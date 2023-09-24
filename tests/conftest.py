@@ -6,7 +6,7 @@ from games.adapters import repository
 from pathlib import Path
 from games.adapters.repository import AbstractRepository
 
-TEST_DATA_PATH = Path('tests')/ 'test_data'
+TEST_DATA_PATH = Path('tests') / 'test_data'
 
 
 @pytest.fixture
@@ -25,3 +25,20 @@ def client():
     })
 
     return my_app.test_client()
+
+
+class AuthenticationManager:
+    def __init__(self, client):
+        self.__client = client
+
+    def login(self, username='bob', password='jnfdkvn389F'):
+        return self.__client.post('authentication/login', data={'username': username,
+                                                                'password': password})
+
+    def logout(self):
+        return self.__client.get('authentication/logout')
+
+
+@pytest.fixture
+def auth(client):
+    return AuthenticationManager(client)

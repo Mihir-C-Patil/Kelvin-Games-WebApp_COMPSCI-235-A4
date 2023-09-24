@@ -1,13 +1,22 @@
 import random
 
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, render_template, request, url_for, session
 from flask_paginate import Pagination, get_page_args
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField, SubmitField, HiddenField
 
 import games.adapters.repository as repo
 from games.gameLibrary import services
+from games.userProfile.services import get_user_wishlist
+from games.authentication import services as authservice
 
 # Create a Flask Blueprint for the game library view
 gameLibrary_blueprint = Blueprint('viewGames_bp', __name__)
+
+
+class WishlistForm(FlaskForm):
+    game_id = HiddenField('Game ID')
+    submit = SubmitField('Add to Wishlist')
 
 
 @gameLibrary_blueprint.route('/gamelibrary', methods=['GET', 'POST'])
@@ -24,6 +33,7 @@ def view_games():
     game_count = services.get_number_of_games(repo.repo_instance)
     all_games = services.get_games(repo.repo_instance)
     genres = services.get_genres(repo.repo_instance)
+    form = WishlistForm()
 
     # Pagination setup
     page, per_page, offset = get_page_args(per_page_parameter="pp", pp=10)
@@ -33,6 +43,12 @@ def view_games():
     pagination = Pagination(page=page, per_page=per_page, offset=offset,
                             total=len(all_games),
                             record_name='List')
+    if 'username' in session and authservice.get_user(session['username'],
+                                                      repo.repo_instance) is not None:
+        user = authservice.get_user(session['username'], repo.repo_instance)
+        wishlist = get_user_wishlist(user)
+    else:
+        wishlist = []
 
     # Render the template
     return render_template('gameLibrary.html', heading='All Games',
@@ -41,7 +57,8 @@ def view_games():
                                        random_game_index:random_game_index + 5],
                            all_genres=genres,
                            pagination=pagination,
-                           genre_urls=get_genres_and_urls())
+                           genre_urls=get_genres_and_urls(),
+                           form=form, wishlist=wishlist)
 
 
 def get_genres_and_urls(sort_criteria='title'):
@@ -94,13 +111,21 @@ def games_by_genre():
     else:
         slide_genre_games = selected_genre_games[10:15]
     genres = services.get_genres(repo.repo_instance)
-
+    form = WishlistForm()
+    if 'username' in session and authservice.get_user(session['username'],
+                                                      repo.repo_instance) is not None:
+        user = authservice.get_user(session['username'], repo.repo_instance)
+        wishlist = get_user_wishlist(user)
+    else:
+        wishlist = []
+    print(wishlist)
     # Render the template
     return render_template('gameLibraryG.html', heading=target_genre,
                            games=sorted_rendered, all_genres=genres,
                            genre_urls=get_genres_and_urls(sort_criteria),
                            pagination=pagination,
-                           slide_genre_games=slide_genre_games)
+                           slide_genre_games=slide_genre_games,
+                           form=form, wishlist=wishlist)
 
 
 def side_bar_genres():

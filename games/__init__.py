@@ -3,7 +3,7 @@
 from flask import Flask, render_template
 from pathlib import Path
 
-from flask.testing import FlaskClient
+
 
 import games.adapters.repository as repo
 from games.adapters.memory_repository import populate
@@ -51,9 +51,13 @@ def create_app(test_config=None):
         from .gameLibrary import gameLibrary
         from .gamesDescription import gamesDescription
         from .homepage import search
+        from .userProfile import userProfile
+        from .authentication import authentication
         app.register_blueprint(gameLibrary.gameLibrary_blueprint)
         app.register_blueprint(gamesDescription.games_description_blueprint)
         app.register_blueprint(search.search_blueprint)
+        app.register_blueprint(userProfile.userProfile_blueprint)
+        app.register_blueprint(authentication.authentication_blueprint)
 
     repo.repo_instance = MemoryRepository()
     populate(data_path, repo.repo_instance)
@@ -71,5 +75,6 @@ def create_app(test_config=None):
                                genre_urls=get_genres_and_urls())
 
     return app
+
 
 
