@@ -112,8 +112,9 @@ def games_by_genre():
         slide_genre_games = selected_genre_games[10:15]
     genres = services.get_genres(repo.repo_instance)
     form = WishlistForm()
-    if 'username' in session and authservice.get_user(session['username'],
-                                                      repo.repo_instance) is not None:
+    if ('username' in session and authservice.get_user(session['username'],
+                                                       repo.repo_instance) is
+            not None):
         user = authservice.get_user(session['username'], repo.repo_instance)
         wishlist = get_user_wishlist(user)
     else:

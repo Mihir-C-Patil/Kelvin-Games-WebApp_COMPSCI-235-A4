@@ -26,7 +26,8 @@ def search_games():
                                 total=len(search_results),
                                 record_name='List')
         return render_template('searchResults.html', heading='Search Results',
-                               games=search_results[offset: offset + per_page], all_genres=genres,
+                               games=search_results[offset: offset + per_page],
+                               all_genres=genres,
                                genre_urls=get_genres_and_urls(),
                                pagination=pagination)
     else:

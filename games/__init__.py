@@ -64,12 +64,33 @@ def create_app(test_config=None):
 
     @app.route('/')
     def home():
+        """
+        Renders the homepage of the web application.
+
+        Returns:
+            str: The rendered HTML template for the homepage.
+
+        Usage:
+            The `home` method is a Flask route decorator for the
+            homepage URL or path ('/'). When a request is made to the
+            homepage, this method is called, retrieves the genres from
+            the repository, and renders the 'index.html' template with
+            the available genres and their corresponding URLs.
+
+        """
         genres = get_genres(repo.repo_instance)
         return render_template('index.html', all_genres=genres,
                                genre_urls=get_genres_and_urls())
 
     @app.route('/about')
     def about():
+        """
+        Renders the 'about' page of the application.
+
+        Returns:
+            str: The rendered HTML template of the 'about' page.
+
+        """
         genres = get_genres(repo.repo_instance)
         return render_template('about.html', all_genres=genres,
                                genre_urls=get_genres_and_urls())

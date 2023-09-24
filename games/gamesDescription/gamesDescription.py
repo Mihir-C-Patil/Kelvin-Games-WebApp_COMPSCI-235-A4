@@ -17,9 +17,19 @@ from games.userProfile.services import get_user_wishlist, get_user_wishlist_objs
 
 
 class ReviewForm(FlaskForm):
+    """
+    A form for users to submit game reviews.
+
+    Attributes:
+        rating (SelectField): The rating of the game, with options from
+        1 to 5 stars.
+        comment (TextAreaField): The user's review comment.
+        submit (SubmitField): A button to submit the review.
+
+    """
     options = [(1, '1 star'), (2, '2 stars'), (3, '3 stars'), (4, '4 stars'), (5, '5 stars')]
     rating = SelectField('Rating', choices=options, coerce=int)
-    comment = TextAreaField('Review', [DataRequired()])  # , Length(max=200, message='Your review is too long')])
+    comment = TextAreaField('Review', [DataRequired()])
     # game_id = HiddenField('game_id')
     submit = SubmitField('Submit Review')
     # game_id = HiddenField("Game id")
@@ -31,6 +41,20 @@ games_description_blueprint = Blueprint('games_description_bp', __name__)
 @games_description_blueprint.route('/games-description/<int:game_id>',
                                    methods=['GET'])
 def games_description(game_id):
+    """
+    This method is used to display the description of a game and additional
+     information such as similar games, reviews, and genres.
+
+    Parameters:
+    - game_id (int): The ID of the game to display the description for.
+
+    Returns:
+    - render_template: The rendered game description page.
+
+    Example Usage:
+    games_description(1)
+
+    """
     get_game = services.get_game(repo.repo_instance, game_id)
     # get_similar_games = None
     if len(get_game.genres) > 0:
@@ -64,20 +88,32 @@ def games_description(game_id):
 @games_description_blueprint.route('/review/<int:game_id>', methods=['POST'])
 @login_required
 def post_review(game_id):
+    """
+    Publishes a review for a game.
+
+    Parameters:
+        game_id (int): The ID of the game to post the review for.
+
+    Returns:
+        None
+    """
     game = services.get_game(repo.repo_instance, game_id)
     form = ReviewForm()
     if 'username' in session:
         user = authservice.get_user(session['username'], repo.repo_instance)
         if form.validate_on_submit():
             timestamp = datetime.utcnow().strftime("%d %B %Y %I:%M:%S %p")
-            if services.add_review(form.rating.data, form.comment.data, user, game):
+            if services.add_review(form.rating.data, form.comment.data, user,
+                                   game):
                 flash('Review successfully added', 'success')
-                return redirect(url_for('games_description_bp.games_description', game_id=game_id))
+                return redirect(url_for('games_description_bp'
+                                        '.games_description', game_id=game_id))
             else:
-                flash('You have already added a review for this game!', 'error')
-                return redirect(url_for('games_description_bp.games_description', game_id=game_id))
+                flash('You have already added a review for this game!',
+                      'error')
+                return redirect(url_for('games_description_bp'
+                                        '.games_description', game_id=game_id))
         else:
             flash('Form validation failed. Please try again!', 'error')
-            return redirect(url_for('games_description_bp.games_description', game_id=game_id))
-    print('hello5')
-    # return render_template('gameDesc.html', game_id=game_id, form=form, game=game)
+            return redirect(url_for('games_description_bp.games_description',
+                                    game_id=game_id))

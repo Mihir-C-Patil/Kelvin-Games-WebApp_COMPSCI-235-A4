@@ -48,6 +48,7 @@ def get_user_wishlist(user):
         wishlist_games_dicts.append(games_wishlist_games_dict)
     return wishlist_games_dicts
 
+
 def get_user_wishlist_objs(user):
     wishlist_games = user.get_wishlist().list_of_games()
     return wishlist_games

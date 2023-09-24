@@ -25,6 +25,28 @@ class InvalidPassException(Exception):
 
 
 def add_user(username: str, password: str, repo: AbstractRepository):
+    """
+    Add User Method
+
+    Adds a new User to the repository.
+
+    Parameters:
+    - username (str): The username of the user.
+    - password (str): The password of the user.
+    - repo (AbstractRepository): The repository where the user will be
+    added.
+
+    Raises:
+    - NameNotUniqueException: If a user with the same username already
+    exists in the repository.
+    - InvalidUsernameException: If the username is not a non-empty
+    string.
+    - InvalidPassException: If the password is not a non-empty string
+    with length greater than 6.
+
+    Returns:
+    None
+    """
     user = repo.get_user(username)
     if user:
         raise NameNotUniqueException
@@ -42,6 +64,21 @@ def add_user(username: str, password: str, repo: AbstractRepository):
 
 
 def get_user(username: str, repo: AbstractRepository):
+    """
+    Retrieve a user from the repository based on the given username.
+
+    Parameters:
+    - username (str): The username of the user to retrieve.
+    - repo (AbstractRepository): The repository to retrieve the user
+    from.
+
+    Returns:
+    - User: The user object retrieved from the repository.
+
+    Note:
+    - Raises an exception if the user with the given username is not
+    found in the repository.
+    """
     user = repo.get_user(username.lower())
     # if user is None:
     #     raise UnknownUserException
@@ -51,6 +88,25 @@ def get_user(username: str, repo: AbstractRepository):
 
 
 def authenticate_user(username: str, password: str, repo: AbstractRepository):
+    """
+
+    Authenticate a user with a given username and password.
+
+    Parameters:
+    ----------
+    username: str
+        The username of the user to authenticate.
+    password: str
+        The password of the user to authenticate.
+    repo: AbstractRepository
+        The repository object used to retrieve the user information.
+
+    Raises:
+    -------
+    AuthenticationException
+        If the user is not authenticated.
+
+    """
     authenticated = False
     user = repo.get_user(username)
     if user:
@@ -60,6 +116,16 @@ def authenticate_user(username: str, password: str, repo: AbstractRepository):
 
 
 def user_to_dict(user: User):
+    """
+
+    Converts a User instance to a dictionary.
+
+    :param user: A User object to be converted.
+    :type user: User
+    :return: A dictionary containing the username and password of the
+    User object.
+    :rtype: dict
+    """
     user_dictionary = {'username': user.username, 'password': user.password}
     return user_dictionary
 
