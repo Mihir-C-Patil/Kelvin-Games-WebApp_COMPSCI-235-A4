@@ -3,8 +3,6 @@
 from flask import Flask, render_template
 from pathlib import Path
 
-
-
 import games.adapters.repository as repo
 from games.adapters.memory_repository import populate
 from games.adapters.memory_repository import MemoryRepository
@@ -96,6 +94,3 @@ def create_app(test_config=None):
                                genre_urls=get_genres_and_urls())
 
     return app
-
-
-
