@@ -2,6 +2,7 @@
 
 :root {
   --HEADER-HEIGHT: 75px;
+  --PANEL-COLOR: #064663;
 }
 
 * {
@@ -321,8 +322,7 @@ body {
 .pagination a {
     text-decoration: none;
     padding: 8px 15px;
-    background-color: #eee;
-    color: #333;
+    background-color: var(--PANEL-COLOR);
     border-radius: 50px; /* Add rounded corners */
     transition: background-color 0.3s, color 0.3s;
     text-transform: uppercase;
