@@ -5,6 +5,18 @@
 /*}*/
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 /* Apply a background color and set font styles */
+
+:root {
+  --SITE-BG-COLOR: #04293A;
+  --PANEL-COLOR: #064663;
+  --DESCRIPTION-TITLE-COLOR: #c600d0;
+}
+
+main {
+  min-height: calc(100vh - 75px - 62px);
+  background-color: var(--SITE-BG-COLOR);
+}
+
 body {
     font-family: 'Roboto', sans-serif;
     background-color: #f0f0f0;
@@ -43,7 +55,7 @@ body {
 
 /* Style the profile card */
 .profile-card {
-    background-color: white;
+    background-color: var(--PANEL-COLOR);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
@@ -63,6 +75,10 @@ body {
     margin-bottom: 20px;
 }
 
+.profile-card h1 {
+  color: var(--DESCRIPTION-TITLE-COLOR);
+}
+
 /* Style the activity history container */
 .activity-history-container {
     margin-left: auto; /* Push it to the right */
@@ -71,7 +87,7 @@ body {
 
 /* Style the activity history section using flexbox */
 .activity-history {
-    background-color: white;
+    background-color: var(--PANEL-COLOR);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
     text-align: center;
@@ -124,8 +140,8 @@ body {
     margin: auto;
     top: 0; left: 0; right: 0; bottom: 0;
 }
-.wishlist_title{
-    color: #ECB365;
+.wishlist_title h1 {
+    color: var(--DESCRIPTION-TITLE-COLOR);
 }
 
 /*.activity-history {*/
@@ -146,14 +162,13 @@ body {
   padding: 0;
 }
 
-.desc_ans {
+.desc_ans p {
   margin-left: auto;
-  color: #064663;
 }
 
-.desc_title {
+.desc_title strong {
   margin-right: 10px;
-  color: #ECB365;
+  color: var(--DESCRIPTION-TITLE-COLOR);
 }
 .activity-item a {
   font-size: 1rem;
