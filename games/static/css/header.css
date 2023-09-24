@@ -5,7 +5,7 @@
   /* || FONTS */
   --FF: 'Roboto', sans-serif;
   --FONT-SIZE: 20px;
-  --SEARCH-CRITERIA-FONT-SIZE: 12px;
+  --SEARCH-CRITERIA-FONT-SIZE: 15px;
 
   /* || COLORS */
   --HEADER-BACKGROUND: #041C32;
@@ -66,6 +66,7 @@
 
 /* || NAVIGATION ELEMENTS */
 .navigation {
+  margin-left: 200px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -82,6 +83,9 @@
 .nav__list {
   list-style: none;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
 }
 
 .nav__item a {
@@ -125,6 +129,7 @@
 .hamburger__top,
 .hamburger__middle,
 .hamburger__bottom {
+  z-index: 99999;
   background-color: var(--HEADING-COLOR);
   height: var(--HAMBURGER-LINE-HEIGHT);
   width: 100%;
@@ -145,6 +150,13 @@
   transform: translateY(-8.5px) rotateZ(-45deg);
 }
 
+.search-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
 /* || SEARCH BAR */
 .search-bar {
   display: flex;
@@ -152,6 +164,7 @@
   align-items: center;
   justify-content: space-between;
   position: relative;
+  margin-right: 40px;
 }
 
 .search-box {
@@ -237,6 +250,7 @@ form {
   right: var(--SEARCH-CRITERA-MARGIN-LR);
   transform: translateY(-50%);
   font-size: var(--SEARCH-CRITERIA-FONT-SIZE);
+  pointer-events: none;
 }
 
 
@@ -257,4 +271,8 @@ form {
 #search-criteria option {
   /*background-color: darkblue;*/
   background-color: var(--HEADER-BACKGROUND);
+}
+
+nav__user_logo svg {
+  color: var(--HEADING-COLOR)
 }
