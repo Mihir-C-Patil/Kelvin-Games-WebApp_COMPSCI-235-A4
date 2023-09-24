@@ -16,17 +16,33 @@ class AuthenticationException(Exception):
     pass
 
 
+class InvalidUsernameException(Exception):
+    pass
+
+
+class InvalidPassException(Exception):
+    pass
+
+
 def add_user(username: str, password: str, repo: AbstractRepository):
     user = repo.get_user(username)
     if user:
         raise NameNotUniqueException
+    if isinstance(username, str) and username.strip():
+        pass
+    else:
+        raise InvalidUsernameException
+    if isinstance(password, str) and len(password.strip()) > 6:
+        pass
+    else:
+        raise InvalidPassException
 
     password_hash = generate_password_hash(password)
     repo.add_user(User(username, password_hash))
 
 
 def get_user(username: str, repo: AbstractRepository):
-    user = repo.get_user(username)
+    user = repo.get_user(username.lower())
     # if user is None:
     #     raise UnknownUserException
 

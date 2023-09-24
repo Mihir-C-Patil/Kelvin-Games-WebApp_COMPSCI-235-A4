@@ -138,7 +138,7 @@ class MemoryRepository(AbstractRepository, ABC):
             None: If no user with the specified username exists.
         """
         return next((user for user in self.__users if user.username
-                     == username), None)
+                     == username.lower().strip()), None)
 
 
 

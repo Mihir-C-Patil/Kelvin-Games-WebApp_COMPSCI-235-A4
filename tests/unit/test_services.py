@@ -232,11 +232,10 @@ def test_get_valid_user(in_memory_repo):
 def test_get_invalid_user(in_memory_repo):
     # Test to check if invalid user was returned from memory repository
     authentication_services.add_user('Bill', 'dhfsjk123D', in_memory_repo)
-    try:
-        get_user = authentication_services.get_user('Sarah', in_memory_repo)
-        assert False
-    except UnknownUserException:
+    if authentication_services.get_user('Sarah', in_memory_repo) is None:
         pass
+    else:
+        assert False
 
 
 def test_verify_valid_user(in_memory_repo):
@@ -247,6 +246,7 @@ def test_verify_valid_user(in_memory_repo):
     except AuthenticationException:
         assert False
 
+
 def test_verify_invalid_username(in_memory_repo):
     # Test to check invalid username authentication
     authentication_services.add_user('Bill', 'dhfsjk123D', in_memory_repo)
@@ -255,6 +255,7 @@ def test_verify_invalid_username(in_memory_repo):
         assert False
     except AuthenticationException:
         pass
+
 
 def test_verify_invalid_password(in_memory_repo):
     # Test to check invalid password authentication
@@ -265,11 +266,12 @@ def test_verify_invalid_password(in_memory_repo):
     except AuthenticationException:
         pass
 
+
 def test_user_to_dict():
     user = User('Bill', 'dhfsjk123D')
     user_dict = authentication_services.user_to_dict(user)
     assert isinstance(user_dict, dict)
     assert 'username' in user_dict
     assert 'password' in user_dict
-    assert user_dict['username'] == 'Bill'
+    assert user_dict['username'] == 'bill'
     assert user_dict['password'] == 'dhfsjk123D'
