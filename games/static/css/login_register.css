@@ -92,6 +92,10 @@ main {
   border-width: var(--FIELD-BORDER-WIDTH);
   padding: var(--INPUT-PADDING);
   transition: var(--SITE-TRANSITION);
+  -webkit-transition: box-shadow linear 1s;
+}
+.form-field input:focus {
+  box-shadow: 0 0 20px #ECB365;
 }
 
 .form-field input:hover {
