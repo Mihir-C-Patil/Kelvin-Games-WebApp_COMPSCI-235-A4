@@ -428,9 +428,9 @@ def create_csv_reader():
 
 def test_csv_reader():
     reader = create_csv_reader()
-    assert len(reader.dataset_of_games) == 878
-    assert len(reader.dataset_of_publishers) == 799
-    assert len(reader.dataset_of_genres) == 24
+    assert len(reader.dataset_of_games) == 981
+    assert len(reader.dataset_of_publishers) == 892
+    assert len(reader.dataset_of_genres) == 26
 
 
 def test_read_csv_file():
@@ -456,7 +456,7 @@ def test_publisher_dataset():
     publishers_set = reader.dataset_of_publishers
     sorted_publishers = sorted(publishers_set)
     sorted_publishers_str = str(sorted_publishers[:3])
-    assert sorted_publishers_str == "[13-lab,azimuth team, 2Awesome Studio, 2Frogs Software]"
+    assert sorted_publishers_str == "[13-lab,azimuth team, 2&30 Software, 2Awesome Studio]"
 
 
 def test_genres_dataset():
