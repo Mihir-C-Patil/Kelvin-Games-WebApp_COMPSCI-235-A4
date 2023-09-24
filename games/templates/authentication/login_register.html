@@ -22,7 +22,7 @@
       {{ form.csrf_token }}
       <section class="form-field">
         {{ form.username.label }}
-        <input placeholder="Kelvin Games Username" {{ form.username }}
+        <input placeholder="Kelvin Games Username" autofocus {{ form.username }}
         {#Keep this input tag open, flask adds the closing > #}
         {% if form.username.errors or username_error_message is not none %}
           <ul class="errors">
