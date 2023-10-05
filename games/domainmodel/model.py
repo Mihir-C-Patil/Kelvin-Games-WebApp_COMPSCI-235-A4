@@ -186,6 +186,104 @@ class Genre:
 
 
 class Game:
+    """
+    Game Class
+
+    Initialises and represents a game object.
+
+    Methods
+    -------
+    __init__(game_id: int, game_title: str) -> None:
+        Initialise a Game object
+
+    __repr__() -> str:
+        Return a string representation of a Game object
+
+    __eq__(other: Game) -> bool:
+        Return a boolean value which is True if two game IDs are equal.
+
+    __lt__(other: Game) -> bool:
+        Return True if the Game object is less than the other game object.
+
+    __hash__() -> int:
+        Returns the hash value of a Game object based on the game ID.
+
+    Properties
+    ----------
+    game_id -> int:
+        Return the id number of the game.
+
+    title -> str:
+        Return the title of the game.
+
+    genres -> List[Genre]:
+        Return the list of genres of a game object.
+
+    categories -> Set:
+        Return the list of categories of a game object.
+
+    tags -> Set:
+        Return the list of tags of a game object.
+
+    reviews -> List:
+        Return the list of reviews of a game object.
+
+    price -> (int, float):
+        Return the price of the game.
+
+    release_date -> datetime:
+        Return the release date of the game.
+
+    description -> str:
+        Return the description of the game.
+
+    publisher -> Publisher:
+        Return the publisher of the game, as a Publisher object
+
+    image_url -> str:
+        Return the image URL of the game.
+
+    website_url -> str:
+        Return the website URL of the game.
+
+    Methods
+    --------
+    add_genre(new_genre: Genre) -> None:
+        Adds a new Genre object to the game's list of genres.
+
+    remove_genre(genre_to_remove: Genre) -> None:
+        Removes a Genre object from the game's list of genres.
+
+    add_review(review) -> None:
+        Adds a new review to the game's list of reviews.
+
+    add_language(language) -> None:
+        Adds a new language to the game's list of languages.
+
+    add_category(new_category: str) -> None:
+        Adds a new category to the game's list of categories.
+
+    remove_category(category_to_remove: str) -> None:
+        Removes a category from the game's list of categories.
+
+    add_tag(new_tag: str) -> None:
+        Adds a new tag to the game's list of tags.
+
+    remove_tag(tag_to_remove: str) -> None:
+        Removes a tag from the game's list of tags.
+
+    Attributes
+    ----------
+    system_dict -> dict:
+        Return the dictionary of game system information.
+
+    languages -> list:
+        Return the list of languages the game supports.
+
+    video_url -> str:
+        Return the video URL of the game.
+
+    """
     def __init__(self, game_id: int, game_title: str) -> None:
         """
         Initialise a Game object

@@ -73,9 +73,9 @@ class MemoryRepository(AbstractRepository, ABC):
                     break
         return similar_game_list
 
-    def search_games_by_title(self, title: str) -> List[Game]:
-        title = title.lower()
-        game_results = [game for game in self.__games if title
+    def search_games_by_title(self, game_title: str) -> List[Game]:
+        game_title = game_title.lower()
+        game_results = [game for game in self.__games if game_title
                         in game.title.lower()]
         return game_results
 

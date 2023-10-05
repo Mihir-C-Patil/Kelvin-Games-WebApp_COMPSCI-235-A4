@@ -3,9 +3,13 @@
 from flask import Flask, render_template
 from pathlib import Path
 
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, clear_mappers
+from sqlalchemy.pool import NullPool
+
 import games.adapters.repository as repo
-from games.adapters.memory_repository import populate
-from games.adapters.memory_repository import MemoryRepository
+from games.adapters import repository  # TODO: import database repo etc
+from games.adapters.memory_repository import populate, MemoryRepository
 from games.gameLibrary.gameLibrary import get_genres_and_urls
 from games.gameLibrary.services import get_genres
 from games.domainmodel.model import *
