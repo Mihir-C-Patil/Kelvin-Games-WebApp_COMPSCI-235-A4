@@ -45,7 +45,7 @@ def create_app(test_config=None):
     app = Flask(__name__)
 
     app.config.from_object('config.Config')
-    data_path = Path('games') / 'adapters' / 'data'
+    data_path = Path('games') / 'adapters' / 'data' / 'games.csv'
 
     if test_config is not None:
         app.config.from_mapping(test_config)
