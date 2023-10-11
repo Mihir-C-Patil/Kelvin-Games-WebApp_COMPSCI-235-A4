@@ -69,3 +69,11 @@ class AbstractRepository(abc.ABC):
     def get_all_reviews(self) -> None:
         raise NotImplementedError
 
+    def add_publisher(self, publisher) -> None:
+        raise NotImplementedError
+
+    def get_publishers(self) -> list[Publisher]:
+        raise NotImplementedError
+
+    def get_tags(self) -> list[str]:
+        raise NotImplementedError

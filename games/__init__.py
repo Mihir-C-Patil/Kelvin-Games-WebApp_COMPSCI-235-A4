@@ -8,8 +8,9 @@ from sqlalchemy.orm import sessionmaker, clear_mappers
 from sqlalchemy.pool import NullPool
 
 import games.adapters.repository as repo
-from games.adapters import repository  # TODO: import database repo etc
-from games.adapters.memory_repository import populate, MemoryRepository
+from games.adapters import database_repository
+from games.adapters.populate_database import GameFileCSVReader
+from games.adapters.memory_repository import MemoryRepository
 from games.gameLibrary.gameLibrary import get_genres_and_urls
 from games.gameLibrary.services import get_genres
 from games.domainmodel.model import *
@@ -49,6 +50,34 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
         data_path = app.config['TEST_DATA_PATH']
 
+    if app.config['REPOSITORY'] == 'memory':
+        repo.repo_instance = MemoryRepository
+        database_mode = False
+        reader = GameFileCSVReader(data_path, repo.repo_instance,
+                                   database_mode)
+
+    if app.config['REPOSITORY'] == 'database':
+        database_uri = app.config['SQLALCHEMY_DATABASE_URI']
+        database_echo = app.config['SQLALCHEMY_ECHO']
+        database_engine = create_engine(database_uri,
+                                        connect_args={"check_same_thread":
+                                                      False},
+                                        poolclass=NullPool, echo=database_echo)
+
+        session_factory = sessionmaker(autocommit=False, autoflush=True,
+                                       bind=database_engine)
+        repo.repo_instance = (database_repository
+                              .SqlAlchemyRepository(session_factory))
+
+        if app.config['TESTING'] == 'True' \
+            or not len(database_engine.table_names()):
+            print('Repopulating database...')
+            print('Please wait...')
+            clear_mappers()
+            metadata.create_all(database_engine)
+
+
+
     with app.app_context():
         from .gameLibrary import gameLibrary
         from .gamesDescription import gamesDescription
@@ -60,9 +89,6 @@ def create_app(test_config=None):
         app.register_blueprint(search.search_blueprint)
         app.register_blueprint(userProfile.userProfile_blueprint)
         app.register_blueprint(authentication.authentication_blueprint)
-
-    repo.repo_instance = MemoryRepository()
-    populate(data_path, repo.repo_instance)
 
     @app.route('/')
     def home():

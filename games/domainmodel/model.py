@@ -315,6 +315,7 @@ class Game:
         self.__genres = list()
         self.__categories = set()
         self.__tags = set()
+        self.__tags_string = ''
         self.__reviews = list()
         self.__price = None
         self.__release_date = None
@@ -430,6 +431,18 @@ class Game:
         """
 
         return self.__tags
+
+    @property
+    def tags_string(self) -> str:
+        """
+        Return the string of tags of a game object
+
+        :return: str
+        """
+        tags = self.__tags
+        self.__tags_string += ','.join(tags)
+
+        return self.__tags_string
 
     @property
     def reviews(self) -> list:

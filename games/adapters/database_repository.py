@@ -9,7 +9,7 @@ from games.adapters.repository import AbstractRepository
 
 from sqlalchemy import desc, asc
 from sqlalchemy.orm import scoped_session
-from sqlalchemy.orm.exc import NoResultFound, MultipleResultsFound
+from sqlalchemy.orm.exc import NoResultFound
 
 
 class SessionContextManager:
@@ -76,6 +76,26 @@ class SqlAlchemyRepository(AbstractRepository):
         except NoResultFound:
             pass
         return genres
+
+    def add_publisher(self, publisher) -> None:
+        with self._session_cm as scm:
+            scm.session.add(publisher)
+
+    def get_publishers(self) -> list[Publisher]:
+        publishers = None
+        try:
+            publishers = self._session_cm.session.query(Publisher).all()
+        except NoResultFound:
+            pass
+        return publishers
+
+    def get_game_tags(self) -> list[str]:
+        tags = None
+        try:
+            tags = list(self._session_cm.session.query(Game._Game__tags_string).all())
+        except NoResultFound:
+            pass
+        return tags
 
     def get_genre_of_games(self, target_genre) -> List[Game]:
         games = None
@@ -164,7 +184,7 @@ class SqlAlchemyRepository(AbstractRepository):
         games = None
         try:
             games = (self._session_cm.session.query(Game)
-                     .filter(query in Game._Game__tags).all())
+                     .filter(query in Game._Game__tags_string).all())
         except NoResultFound:
             pass
         return games
