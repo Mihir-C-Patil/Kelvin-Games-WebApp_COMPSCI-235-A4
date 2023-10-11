@@ -1,3 +1,6 @@
+# from typing import List
+#
+# from games import Publisher
 from games.adapters.datareader.csvdatareader import *
 from games.adapters.repository import AbstractRepository
 
@@ -83,7 +86,7 @@ class GameFileCSVReader:
         return self.__repo.get_games()
 
     @property
-    def dataset_of_publishers(self) -> set[Publisher]:
+    def dataset_of_publishers(self) -> list[Publisher]:
         return self.__repo.get_publishers()
 
     @property

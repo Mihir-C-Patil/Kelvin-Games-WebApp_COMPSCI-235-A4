@@ -114,7 +114,7 @@ class SqlAlchemyRepository(AbstractRepository):
     def get_games(self) -> Game:
         games = None
         try:
-            games = self._session_cm.session.query(Game)
+            games = self._session_cm.session.query(Game).all()
         except NoResultFound:
             pass
         return games
@@ -122,7 +122,7 @@ class SqlAlchemyRepository(AbstractRepository):
     def get_slide_games(self) -> List[Game]:
         games = None
         try:
-            games = self._session_cm.session.query(Game)
+            games = self._session_cm.session.query(Game).all()
         except NoResultFound:
             pass
         return games

@@ -20,11 +20,11 @@ games_table = Table('game', metadata,
                     Column('id', Integer, primary_key=True),
                     Column('game_title', String(255), nullable=False),
                     Column('price', Integer, nullable=False),
-                    Column('release_date', Date, nullable=False),
-                    Column('description', String(1024), nullable=False),
+                    Column('release_date', String(15), nullable=False),  # changed from date var type to string
+                    Column('description', String(1024)),  # some games don't have this hence removed notnull
                     Column('publisher', ForeignKey('publisher.id')),
                     Column('image_url', String(1024), nullable=False),
-                    Column('website_url', String(1024), nullable=False),
+                    Column('website_url', String(1024)),  # some games don't have this hence removed notnull
                     Column('tags', String(1024), nullable=False))
 
 genres_table = Table('genre', metadata,
@@ -59,7 +59,8 @@ def map_model_to_tables():
         '_User__username': users_table.c.username,
         '_User__password': users_table.c.password,
         '_User__reviews': relationship(Review, foreign_keys=[reviews_table.c.user]),
-        '_User__wishlist': relationship(Wishlist, foreign_keys=[wishlists_table.c.user])
+        '_User__wishlist': relationship(Wishlist, foreign_keys=[wishlists_table.c.user],
+                                        back_populates='_Wishlist__user')
     })
     mapper(Game, games_table, properties={
         '_Game__game_title': games_table.c.game_title,
@@ -70,7 +71,8 @@ def map_model_to_tables():
                                          back_populates='_Publisher__games'),
         '_Game__image_url': games_table.c.image_url,
         '_Game__website_url': games_table.c.website_url,
-        '_Game__tags_string': games_table.c.tags
+        '_Game__tags_string': games_table.c.tags,
+        '_Game__publisher_id': games_table.c.publisher
     })
     mapper(Genre, genres_table, properties={
         '_Genre__genre_name': genres_table.c.genre_name
@@ -84,10 +86,10 @@ def map_model_to_tables():
         '_Review__review_text': reviews_table.c.review_text,
         '_Review__rating': reviews_table.c.rating,
         '_Review__timestamp': reviews_table.c.timestamp,
-        '_Review__game': relationship(Game),
+        '_Review__game': relationship(Game, foreign_keys=[reviews_table.c.game]),
         '_Review__user': relationship(User, foreign_keys=[reviews_table.c.user], back_populates='_User__reviews')
     })
     mapper(Wishlist, wishlists_table, properties={
-        '_Wishlist__games': relationship(Game),
+        '_Wishlist__games': relationship(Game, foreign_keys=[wishlists_table.c.games]),
         '_Wishlist__user': relationship(User, foreign_keys=[wishlists_table.c.user], back_populates='_User__wishlist')
     })

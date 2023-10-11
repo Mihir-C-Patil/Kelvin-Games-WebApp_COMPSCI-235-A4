@@ -63,7 +63,7 @@ def create_app(test_config=None):
         database_echo = app.config['SQLALCHEMY_ECHO']
         database_engine = create_engine(database_uri,
                                         connect_args={"check_same_thread":
-                                                      False},
+                                                          False},
                                         poolclass=NullPool, echo=database_echo)
 
         session_factory = sessionmaker(autocommit=False, autoflush=True,
@@ -72,7 +72,7 @@ def create_app(test_config=None):
                               .SqlAlchemyRepository(session_factory))
 
         if app.config['TESTING'] == 'True' \
-            or not len(database_engine.table_names()):
+                or len(database_engine.table_names()) == 0:
             print('Repopulating database...')
             print('Please wait...')
             clear_mappers()
