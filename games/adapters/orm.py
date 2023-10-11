@@ -26,7 +26,8 @@ games_table = Table('game', metadata,
                     Column('image_url', String(1024), nullable=False),
                     Column('website_url', String(1024), nullable=False),
                     Column('genres', ForeignKey('genre.id')),
-                    Column('tags', String(1024), nullable=False))
+                    Column('tags', String(1024), nullable=False),
+                    Column('reviews', ForeignKey('review.id')))
 
 genres_table = Table('genre', metadata,
                      Column('id', Integer, primary_key=True),
@@ -56,36 +57,37 @@ def map_model_to_tables():
     mapper(User, users_table, properties={
         '_User__username': users_table.c.username,
         '_User__password': users_table.c.password,
-        '_User__reviews': relationship(Review),
-        '_User__wishlist': relationship(Wishlist)
+        '_User__reviews': relationship(Review, foreign_keys=[reviews_table.c.user]),
+        '_User__wishlist': relationship(Wishlist, foreign_keys=[wishlists_table.c.user])
     })
     mapper(Game, games_table, properties={
         '_Game__game_title': games_table.c.game_title,
         '_Game__price': games_table.c.price,
         '_Game__release_date': games_table.c.release_date,
         '_Game__description': games_table.c.description,
-        '_Game__publisher': relationship(Publisher),
+        '_Game__publisher': relationship(Publisher, foreign_keys=[games_table.c.publisher]),
         '_Game__image_url': games_table.c.image_url,
         '_Game__website_url': games_table.c.website_url,
-        '_Game__genres': relationship(Genre),
-        '_Game__tags_string': games_table.c.tags
+        '_Game__genres': relationship(Genre, foreign_keys=[games_table.c.genres]),
+        '_Game__tags_string': games_table.c.tags,
+        '_Game__reviews': relationship(Review, foreign_keys=[reviews_table.c.game])
     })
     mapper(Genre, genres_table, properties={
         '_Genre__genre_name': genres_table.c.genre_name,
-        '_Genre__games': relationship(Game)
+        '_Genre__games': relationship(Game, foreign_keys=[games_table.c.genres])
     })
     mapper(Publisher, publishers_table, properties={
         '_Publisher__publisher_name': publishers_table.c.publisher_name,
-        '_Publisher__games': relationship(Game)
+        '_Publisher__games': relationship(Game, foreign_keys=[games_table.c.publisher])
     })
     mapper(Review, reviews_table, properties={
         '_Review__review_text': reviews_table.c.review_text,
         '_Review__rating': reviews_table.c.rating,
         '_Review__timestamp': reviews_table.c.timestamp,
-        '_Review__game': relationship(Game),
-        '_Review__user': relationship(User)
+        '_Review__game': relationship(Game, foreign_keys=[games_table.c.id]),
+        '_Review__user': relationship(User, foreign_keys=[users_table.c.id])
     })
     mapper(Wishlist, wishlists_table, properties={
         '_Wishlist__games': relationship(Game),
-        '_Wishlist__user': relationship(User)
+        '_Wishlist__user': relationship(User, foreign_keys=[users_table.c.id])
     })
