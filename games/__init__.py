@@ -8,7 +8,8 @@ from sqlalchemy.orm import sessionmaker, clear_mappers
 from sqlalchemy.pool import NullPool
 
 import games.adapters.repository as repo
-from games.adapters import database_repository
+from games.adapters import database_repository, populate_database
+from games.adapters.orm import metadata, map_model_to_tables
 from games.adapters.populate_database import GameFileCSVReader
 from games.adapters.memory_repository import MemoryRepository
 from games.gameLibrary.gameLibrary import get_genres_and_urls
@@ -50,13 +51,14 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
         data_path = app.config['TEST_DATA_PATH']
 
-    if app.config['REPOSITORY'] == 'memory':
+    if app.config['REPOSITORY'].upper() == 'MEMORY':
         repo.repo_instance = MemoryRepository
         database_mode = False
         reader = GameFileCSVReader(data_path, repo.repo_instance,
                                    database_mode)
+        reader.read_csv_file()
 
-    if app.config['REPOSITORY'] == 'database':
+    if app.config['REPOSITORY'].upper() == 'DATABASE':
         database_uri = app.config['SQLALCHEMY_DATABASE_URI']
         database_echo = app.config['SQLALCHEMY_ECHO']
         database_engine = create_engine(database_uri,
@@ -75,8 +77,19 @@ def create_app(test_config=None):
             print('Please wait...')
             clear_mappers()
             metadata.create_all(database_engine)
+            for table in reversed(metadata.sorted_tables):
+                database_engine.execute(table.delete())
 
+            map_model_to_tables()
 
+            database_mode = True
+            reader = GameFileCSVReader(data_path, repo.repo_instance,
+                                       database_mode)
+            reader.read_csv_file()
+            print('Repopulating Finished!')
+
+        else:
+            map_model_to_tables()
 
     with app.app_context():
         from .gameLibrary import gameLibrary
