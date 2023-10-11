@@ -5,7 +5,7 @@ from sqlalchemy.orm import mapper, relationship, synonym
 
 from games.domainmodel.model import *
 
-metadata = MetaData
+metadata = MetaData()
 
 users_table = Table('user', metadata,
                     Column('id', Integer, primary_key=True,
@@ -13,8 +13,8 @@ users_table = Table('user', metadata,
                     Column('username', String(255), unique=True,
                            nullable=False),
                     Column('password', String(255), nullable=False),
-                    Column('wishlist', relationship(Wishlist)),
-                    Column('reviews', relationship(Review)))
+                    Column('wishlist', ForeignKey('wishlist.id')),
+                    Column('reviews', ForeignKey('review.id')))
 
 games_table = Table('game', metadata,
                     Column('id', Integer, primary_key=True),
@@ -22,34 +22,34 @@ games_table = Table('game', metadata,
                     Column('price', Integer, nullable=False),
                     Column('release_date', Date, nullable=False),
                     Column('description', String(1024), nullable=False),
-                    Column('publisher', relationship(Publisher)),
+                    Column('publisher', ForeignKey('publisher.id')),
                     Column('image_url', String(1024), nullable=False),
                     Column('website_url', String(1024), nullable=False),
-                    Column('genres', relationship(Genre)),
+                    Column('genres', ForeignKey('genre.id')),
                     Column('tags', String(1024), nullable=False))
 
 genres_table = Table('genre', metadata,
                      Column('id', Integer, primary_key=True),
                      Column('genre_name', String(255), nullable=False),
-                     Column('games', relationship(Game)))
+                     Column('games', ForeignKey('game.id')))
 
 publishers_table = Table('publisher', metadata,
                          Column('id', Integer, primary_key=True),
                          Column('publisher_name', String(255), nullable=False),
-                         Column('games', relationship(Game)))
+                         Column('games', ForeignKey('game.id')))
 
 reviews_table = Table('review', metadata,
                       Column('id', Integer, primary_key=True),
                       Column('review_text', String(1024), nullable=False),
                       Column('rating', Integer, nullable=False),
                       Column('timestamp', DateTime, nullable=False),
-                      Column('game', relationship(Game)),
-                      Column('user', relationship(User)))
+                      Column('game', ForeignKey('game.id')),
+                      Column('user', ForeignKey('user.id')))
 
 wishlists_table = Table('wishlist', metadata,
                         Column('id', Integer, primary_key=True),
-                        Column('games', relationship(Game)),
-                        Column('user', relationship(User)))
+                        Column('games', ForeignKey('game.id')),
+                        Column('user', ForeignKey('user.id')))
 
 
 def map_model_to_tables():

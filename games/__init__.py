@@ -51,14 +51,14 @@ def create_app(test_config=None):
         app.config.from_mapping(test_config)
         data_path = app.config['TEST_DATA_PATH']
 
-    if app.config['REPOSITORY'].upper() == 'MEMORY':
+    if app.config['REPOSITORY'] == 'MEMORY':
         repo.repo_instance = MemoryRepository
         database_mode = False
         reader = GameFileCSVReader(data_path, repo.repo_instance,
                                    database_mode)
         reader.read_csv_file()
 
-    if app.config['REPOSITORY'].upper() == 'DATABASE':
+    if app.config['REPOSITORY'] == 'DATABASE':
         database_uri = app.config['SQLALCHEMY_DATABASE_URI']
         database_echo = app.config['SQLALCHEMY_ECHO']
         database_engine = create_engine(database_uri,
