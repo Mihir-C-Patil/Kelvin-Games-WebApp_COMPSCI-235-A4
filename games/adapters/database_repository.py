@@ -7,7 +7,7 @@ from games.domainmodel.model import *
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.repository import AbstractRepository
 
-from sqlalchemy import desc, asc, or_
+from sqlalchemy import desc, asc, or_, func, orm
 from sqlalchemy.orm import scoped_session, contains_eager
 from sqlalchemy.orm.exc import NoResultFound
 
@@ -210,3 +210,97 @@ class SqlAlchemyRepository(AbstractRepository):
             pass
         return games
 
+    def add_wish_game(self, user, game):
+        with self._session_cm as scm:
+            try:
+                user_ = scm.session.query(User).filter(func.lower(User._User__username) == func.lower(user.username)).first()
+                game_ = scm.session.query(Game).filter(Game._Game__game_id == game.game_id).first()
+                if user_ and game_:
+                    user._User__wishlist._Wishlist__games.append(game)
+                    scm.session.commit()
+                    print(f"Game '{game._Game__game_title}' added to wishlist for user '{user._User__username}'.")
+                else:
+                    print("User or game not found.")
+            except Exception as e:
+                print(f"Error adding game to wishlist: {str(e)}")
+            finally:
+                scm.session.close()
+
+    def remove_wish_game(self, user, game):
+        with self._session_cm as scm:
+            try:
+                user_ = scm.session.query(User).filter(func.lower(User._User__username) == func.lower(user.username)).first()
+                game_ = scm.session.query(Game).filter(Game._Game__game_id == game.game_id).first()
+                if user_ and game_:
+                    user_._User__wishlist._Wishlist__games.remove(game)
+                    scm.session.commit()
+                    print(f"Game '{game._Game__game_title}' removed from wishlist for user '{user_._User__username}'.")
+                else:
+                    print("User or game not found.")
+            except Exception as e:
+                print(f"Error removing game from wishlist: {str(e)}")
+            finally:
+                scm.session.close()
+
+    def get_wishlist(self, user):
+        with self._session_cm as scm:
+            try:
+                user_ = scm.session.query(User).filter(func.lower(User._User__username) == func.lower(user.username)).first()
+
+                if user_:
+                    wishlist_games = user_._User__wishlist._Wishlist__games
+                    # wishlist_titles = [game._Game__game_title for game in wishlist_games]
+                    # print(f"Wishlist for user '{user._User__username}': {wishlist_titles}")
+                    # if wishlist_games is None:
+                    #     return []
+                    return wishlist_games
+                else:
+                    print("User not found.")
+                    return None
+            except Exception as e:
+                print(f"Error getting user wishlist: {str(e)}")
+                return None
+            finally:
+                scm.session.close()
+
+    def add_review(self, user, game, rating, review_text):
+        with self._session_cm as scm:
+            try:
+                # Query the user and game
+                user_ = scm.session.query(User).filter(func.lower(User._User__username) == func.lower(user.username)).first()
+                game_ = scm.session.query(Game).filter(Game._Game__game_id == game.game_id).first()
+
+                if user_ and game_:
+                    # Create a new Review instance
+                    new_review = Review(
+                        user_,
+                        game_,
+                        rating,
+                        review_text,
+                    )
+                    print(new_review)
+                    # Add the new review to the session
+                    scm.session.add(new_review)
+                    scm.session.commit()
+
+                    print(f"Review added for game '{game._Game__game_title}' by user '{user._User__username}'.")
+                else:
+                    print("User or game not found.")
+            except Exception as e:
+                print(f"Error adding review to game: {str(e)}")
+                scm.session.rollback()
+            finally:
+                scm.session.close()
+
+    def get_user_review(self, user):
+        with self._session_cm as scm:
+            # Query the user by username
+            user = scm.session.query(User).filter(func.lower(User._User__username) == func.lower(user.username)).first()
+
+            if user:
+                # Load the reviews relationship
+                user_with_reviews = scm.session.query(User).options(orm.joinedload('reviews')).get(user.id)
+                return user_with_reviews.reviews
+            else:
+                # User not found
+                return None

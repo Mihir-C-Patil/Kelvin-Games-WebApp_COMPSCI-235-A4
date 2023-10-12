@@ -239,6 +239,32 @@ class MemoryRepository(AbstractRepository, ABC):
         """
         return self.__publishers
 
+    def add_wish_game(self, user, game):
+        user.get_wishlist().add_wish_game(game)
+
+    def remove_wish_game(self, user, game):
+        user.get_wishlist().remove_game(game)
+
+    def get_wishlist(self, user):
+        return user.get_wishlist().list_of_games()
+
+    def add_review(self, user, game, rating, review):
+        new_review = Review(user, game, rating, review)
+        if len(game.reviews) == 0:
+            user.add_review(new_review)
+            game.add_review(new_review)
+            return True
+        else:
+            for review in game.reviews:
+                if user == review.user:
+                    return False
+        user.add_review(new_review)
+        game.add_review(new_review)
+        return True
+
+    def get_user_review(self, user):
+        return user.reviews
+
 
 # def populate(data_path: Path, repo: AbstractRepository):
 #     """

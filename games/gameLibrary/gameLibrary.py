@@ -46,7 +46,7 @@ def view_games():
     if 'username' in session and authservice.get_user(session['username'],
                                                       repo.repo_instance) is not None:
         user = authservice.get_user(session['username'], repo.repo_instance)
-        wishlist = get_user_wishlist(user)
+        wishlist = get_user_wishlist(user, repo.repo_instance)
     else:
         wishlist = []
 
@@ -116,7 +116,7 @@ def games_by_genre():
                                                        repo.repo_instance) is
             not None):
         user = authservice.get_user(session['username'], repo.repo_instance)
-        wishlist = get_user_wishlist(user)
+        wishlist = get_user_wishlist(user, repo.repo_instance)
     else:
         wishlist = []
     print(wishlist)

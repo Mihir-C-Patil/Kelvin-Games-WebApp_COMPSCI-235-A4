@@ -104,7 +104,7 @@ def post_review(game_id):
         user = authservice.get_user(session['username'], repo.repo_instance)
         if form.validate_on_submit():
             timestamp = datetime.utcnow().strftime("%d %B %Y %I:%M:%S")
-            if services.add_review(form.rating.data, form.comment.data, user, game):
+            if services.add_review(form.rating.data, form.comment.data, user, game, repo.repo_instance):
                 flash('Review successfully added', 'success')
                 return redirect(url_for('games_description_bp'
                                         '.games_description', game_id=game_id))

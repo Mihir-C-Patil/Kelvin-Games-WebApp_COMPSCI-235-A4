@@ -37,13 +37,13 @@ def view_user_profile():
         genres = get_genres(repo.repo_instance)
         all_games = gameservice.get_games(repo.repo_instance)
         user = authservice.get_user(session['username'], repo.repo_instance)
-        wishlist = get_user_wishlist(user)
+        wishlist = get_user_wishlist(user, repo.repo_instance)
         page, per_page, offset = get_page_args(per_page_parameter="pp", pp=7)
         rendered = wishlist[offset: offset + per_page]
         pagination = Pagination(page=page, per_page=per_page, offset=offset,
                                 total=len(wishlist),
                                 record_name='List')
-        reviews = get_user_reviews(user)
+        reviews = get_user_reviews(user, repo.repo_instance)
         return render_template('userProfile.html', all_genres=genres,
                                genre_urls=get_genres_and_urls(),
                                games=all_games, user=user, wishlist=rendered,
@@ -75,7 +75,7 @@ def add_to_wishlist(game_id):
         game = repo.repo_instance.get_games_by_id(game_id)
 
         if game:
-            add_game_to_wishlist(user, game)
+            add_game_to_wishlist(user, game, repo.repo_instance)
         else:
             flash('Game not found', 'error')
     return redirect(url_for('pp_bp.view_user_profile'))
@@ -100,7 +100,7 @@ def remove_from_wishlist(game_id):
     game = repo.repo_instance.get_games_by_id(game_id)
 
     if game:
-        remove_game_from_wishlist(user, game)
+        remove_game_from_wishlist(user, game, repo.repo_instance)
         return redirect(url_for('pp_bp.view_user_profile'))
     else:
         flash('Game not found', 'error')

@@ -41,11 +41,11 @@ publishers_table = Table('publisher', metadata,
 
 reviews_table = Table('review', metadata,
                       Column('id', Integer, primary_key=True),
-                      Column('review_text', String(1024), nullable=False),
-                      Column('rating', Integer, nullable=False),
-                      Column('timestamp', DateTime, nullable=False),
+                      Column('user', ForeignKey('user.id')),
                       Column('game', ForeignKey('game.id')),
-                      Column('user', ForeignKey('user.id')))
+                      Column('rating', Integer, nullable=False),
+                      Column('comment', String(1024), nullable=False),
+                      Column('timestamp', String(30), nullable=False))
 
 wishlists_table = Table('wishlist', metadata,
                         Column('id', Integer, primary_key=True),
@@ -103,9 +103,11 @@ def map_model_to_tables():
     })
 
     mapper(Review, reviews_table, properties={
-        '_Review__review_text': reviews_table.c.review_text,
+        '_Review__comment': reviews_table.c.comment,
         '_Review__rating': reviews_table.c.rating,
         '_Review__timestamp': reviews_table.c.timestamp,
+        '_Review__game_id': reviews_table.c.game,
+        '_Review__user_id': reviews_table.c.user,
         '_Review__game': relationship(Game, foreign_keys=[reviews_table.c.game], back_populates='_Game__reviews'),
         '_Review__user': relationship(User, foreign_keys=[reviews_table.c.user], back_populates='_User__reviews')
     })

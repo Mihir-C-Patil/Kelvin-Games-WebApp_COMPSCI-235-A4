@@ -32,19 +32,8 @@ def similar_game(repo: AbstractRepository, genre):
     return repo.get_similar_games(genre)
 
 
-def add_review(rating: int, review: str, user: User, game: Game):
-    new_review = Review(user, game, rating, review)
-    if len(game.reviews) == 0:
-        user.add_review(new_review)
-        game.add_review(new_review)
-        return True
-    else:
-        for review in game.reviews:
-            if user == review.user:
-                return False
-    user.add_review(new_review)
-    game.add_review(new_review)
-    return True
+def add_review(rating: int, review: str, user: User, game: Game, repo: AbstractRepository):
+    return repo.add_review(user, game, rating, review)
 
 
 def get_average(game: Game):

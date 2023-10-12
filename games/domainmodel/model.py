@@ -1164,7 +1164,7 @@ class Wishlist:
             raise ValueError("User must be an instance of User class")
         self.__user = user
 
-        self.__list_of_games = []
+        self.__games = []
 
     def __iter__(self):
         """
@@ -1185,8 +1185,8 @@ class Wishlist:
             When there are no more games to return.
         """
 
-        if self.__iterator_index < len(self.__list_of_games):
-            game = self.__list_of_games[self.__iterator_index]
+        if self.__iterator_index < len(self.__games):
+            game = self.__games[self.__iterator_index]
             self.__iterator_index += 1
             return game
         else:
@@ -1205,8 +1205,8 @@ class Wishlist:
         """
 
         if (isinstance(game_to_add, Game) and game_to_add
-                not in self.__list_of_games):
-            self.__list_of_games.append(game_to_add)
+                not in self.__games):
+            self.__games.append(game_to_add)
 
     def remove_game(self, game_to_remove: Game) -> None:
         """
@@ -1221,8 +1221,8 @@ class Wishlist:
         """
 
         if (isinstance(game_to_remove, Game) and game_to_remove
-                in self.__list_of_games):
-            self.__list_of_games.remove(game_to_remove)
+                in self.__games):
+            self.__games.remove(game_to_remove)
 
     def select_game(self, index: int) -> Game:
         """
@@ -1236,8 +1236,8 @@ class Wishlist:
         :return: Game
         """
 
-        if isinstance(index, int) and (0 <= index < len(self.__list_of_games)):
-            return self.__list_of_games[index]
+        if isinstance(index, int) and (0 <= index < len(self.__games)):
+            return self.__games[index]
 
     def size(self) -> int:
         """
@@ -1245,7 +1245,7 @@ class Wishlist:
         :return: int
         """
 
-        wishlist_size = len(self.__list_of_games)
+        wishlist_size = len(self.__games)
         if wishlist_size > 0:
             return wishlist_size
 
@@ -1255,8 +1255,8 @@ class Wishlist:
         :return: Game | None
         """
 
-        if self.__list_of_games:
-            return self.__list_of_games[0]
+        if self.__games:
+            return self.__games[0]
         else:
             return None
 
@@ -1265,4 +1265,4 @@ class Wishlist:
         Return the list of game objects.
         :return: list[Game]
         """
-        return self.__list_of_games
+        return self.__games

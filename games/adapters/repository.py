@@ -77,3 +77,18 @@ class AbstractRepository(abc.ABC):
 
     def get_tags(self) -> list[str]:
         raise NotImplementedError
+
+    def add_wish_game(self, user, game):
+        raise NotImplementedError
+
+    def remove_wish_game(self, user, game):
+        raise NotImplementedError
+
+    def get_wishlist(self, user):
+        raise NotImplementedError
+
+    def add_review(self, user, game, rating, review):
+        raise NotImplementedError
+
+    def get_user_review(self, user):
+        raise NotImplementedError
