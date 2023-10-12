@@ -284,6 +284,7 @@ class Game:
         Return the video URL of the game.
 
     """
+
     def __init__(self, game_id: int, game_title: str) -> None:
         """
         Initialise a Game object
@@ -1265,4 +1266,3 @@ class Wishlist:
         :return: list[Game]
         """
         return self.__list_of_games
-

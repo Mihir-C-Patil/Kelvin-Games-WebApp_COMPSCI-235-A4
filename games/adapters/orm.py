@@ -5,7 +5,6 @@ from sqlalchemy.orm import mapper, relationship
 
 from games.domainmodel.model import *
 
-
 metadata = MetaData()
 
 users_table = Table('user', metadata,
@@ -14,7 +13,7 @@ users_table = Table('user', metadata,
                     Column('username', String(255), unique=True,
                            nullable=False),
                     Column('password', String(255), nullable=False),
-                    Column('wishlist', ForeignKey('wishlist.id')),
+                    Column('wishlist_id', ForeignKey('wishlist.id')),
                     Column('reviews', ForeignKey('review.id')))
 
 games_table = Table('game', metadata,
@@ -27,7 +26,7 @@ games_table = Table('game', metadata,
                     Column('image_url', String(1024), nullable=False),
                     Column('website_url', String(1024)),
                     Column('tags', String(1024), nullable=False),
-                    Column('system_dict', JSON),)
+                    Column('system_dict', JSON), )
 
 genres_table = Table('genre', metadata,
                      Column('genre_name', String(255), nullable=False, primary_key=True))
@@ -50,8 +49,12 @@ reviews_table = Table('review', metadata,
 
 wishlists_table = Table('wishlist', metadata,
                         Column('id', Integer, primary_key=True),
-                        Column('games', ForeignKey('game.id')),
                         Column('user', ForeignKey('user.id')))
+
+wishlist_games_table = Table('wishlist_games', metadata,
+                             Column('id', Integer, primary_key=True, autoincrement=True),
+                             Column('wishlist_id', ForeignKey('wishlist.id')),
+                             Column('game_id', ForeignKey('game.id')))
 
 
 # class GameGenre:
@@ -66,7 +69,8 @@ def map_model_to_tables():
         '_User__password': users_table.c.password,
         '_User__reviews': relationship(Review, foreign_keys=[reviews_table.c.user]),
         '_User__wishlist': relationship(Wishlist, foreign_keys=[wishlists_table.c.user],
-                                        back_populates='_Wishlist__user')
+                                        back_populates='_Wishlist__user', uselist=False),
+        '_User__wishlist_id': users_table.c.wishlist_id
     })
 
     mapper(Game, games_table, properties={
@@ -83,6 +87,7 @@ def map_model_to_tables():
         '_Game__publisher_id': games_table.c.publisher,
         '_Game__system_dict': games_table.c.system_dict,
         '_Game__genres': relationship(Genre, secondary=game_genres_table, back_populates='_Genre__games'),
+        '_Game__wishlist': relationship(Wishlist, secondary=wishlist_games_table, back_populates='_Wishlist__games'),
         '_Game__reviews': relationship(Review, back_populates='_Review__game')
     })
 
@@ -106,7 +111,7 @@ def map_model_to_tables():
     })
 
     mapper(Wishlist, wishlists_table, properties={
-        '_Wishlist__games': relationship(Game, foreign_keys=[wishlists_table.c.games]),
+        '_Wishlist__games': relationship(Game, secondary=wishlist_games_table, back_populates='_Game__wishlist'),
         '_Wishlist__user': relationship(User, foreign_keys=[wishlists_table.c.user], back_populates='_User__wishlist')
     })
 

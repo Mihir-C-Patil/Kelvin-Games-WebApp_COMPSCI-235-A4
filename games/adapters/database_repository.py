@@ -55,6 +55,7 @@ class SqlAlchemyRepository(AbstractRepository):
     def add_user(self, user: User) -> None:
         with self._session_cm as scm:
             scm.session.add(user)
+            scm.commit()
 
     def get_user(self, username: str) -> User:
         user = None
