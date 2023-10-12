@@ -1,5 +1,5 @@
 from sqlalchemy import (Table, MetaData, Column, Integer, String, Date,
-                        DateTime, ForeignKey)
+                        DateTime, ForeignKey, JSON)
 
 from sqlalchemy.orm import mapper, relationship
 
@@ -26,7 +26,8 @@ games_table = Table('game', metadata,
                     Column('publisher', ForeignKey('publisher.publisher_name')),
                     Column('image_url', String(1024), nullable=False),
                     Column('website_url', String(1024)),
-                    Column('tags', String(1024), nullable=False))
+                    Column('tags', String(1024), nullable=False),
+                    Column('system_dict', JSON),)
 
 genres_table = Table('genre', metadata,
                      Column('genre_name', String(255), nullable=False, primary_key=True))
@@ -69,6 +70,7 @@ def map_model_to_tables():
     })
 
     mapper(Game, games_table, properties={
+        '_Game__game_id': games_table.c.id,
         '_Game__game_title': games_table.c.game_title,
         '_Game__price': games_table.c.price,
         '_Game__release_date': games_table.c.release_date,
@@ -79,7 +81,9 @@ def map_model_to_tables():
         '_Game__website_url': games_table.c.website_url,
         '_Game__tags_string': games_table.c.tags,
         '_Game__publisher_id': games_table.c.publisher,
-        '_Game__genres': relationship(Genre, secondary=game_genres_table, back_populates='_Genre__games')
+        '_Game__system_dict': games_table.c.system_dict,
+        '_Game__genres': relationship(Genre, secondary=game_genres_table, back_populates='_Genre__games'),
+        '_Game__reviews': relationship(Review, back_populates='_Review__game')
     })
 
     mapper(Genre, genres_table, properties={
@@ -97,7 +101,7 @@ def map_model_to_tables():
         '_Review__review_text': reviews_table.c.review_text,
         '_Review__rating': reviews_table.c.rating,
         '_Review__timestamp': reviews_table.c.timestamp,
-        '_Review__game': relationship(Game, foreign_keys=[reviews_table.c.game]),
+        '_Review__game': relationship(Game, foreign_keys=[reviews_table.c.game], back_populates='_Game__reviews'),
         '_Review__user': relationship(User, foreign_keys=[reviews_table.c.user], back_populates='_User__reviews')
     })
 

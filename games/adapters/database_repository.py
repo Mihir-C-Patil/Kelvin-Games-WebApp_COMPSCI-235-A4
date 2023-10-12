@@ -7,8 +7,8 @@ from games.domainmodel.model import *
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.repository import AbstractRepository
 
-from sqlalchemy import desc, asc
-from sqlalchemy.orm import scoped_session
+from sqlalchemy import desc, asc, or_
+from sqlalchemy.orm import scoped_session, contains_eager
 from sqlalchemy.orm.exc import NoResultFound
 
 
@@ -108,8 +108,13 @@ class SqlAlchemyRepository(AbstractRepository):
     def get_genre_of_games(self, target_genre) -> List[Game]:
         games = None
         try:
-            games = (self._session_cm.session.query(Game)
-                     .filter(target_genre in Game._Game__genres).all())
+            games = (
+                self._session_cm.session.query(Game)
+                .join(Game._Game__genres)
+                .filter(Genre._Genre__genre_name == target_genre)
+                .options(contains_eager(Game._Game__genres))
+                .all()
+            )
         except NoResultFound:
             pass
         return games
@@ -151,8 +156,15 @@ class SqlAlchemyRepository(AbstractRepository):
     def get_similar_games(self, genre):
         games = None
         try:
-            games = (self._session_cm.session.query(Game)
-                     .filter(Game._Game__genres == genre).all())
+            # games = (self._session_cm.session.query(Game)
+            #          .filter(Game._Game__genres.contains(genre)).all())
+            games = (
+                self._session_cm.session.query(Game)
+                .filter(
+                    or_(*(Game._Game__genres.contains(g) for g in genre))
+                )
+                .all()
+            )
         except NoResultFound:
             pass
         return games
