@@ -67,7 +67,11 @@ class SqlAlchemyRepository(AbstractRepository):
 
     def add_genre(self, genre: Genre) -> None:
         with self._session_cm as scm:
-            scm.session.add(genre)
+            existing_genre = scm.session.query(Genre).filter_by(genre_name=genre.genre_name).first()
+            if existing_genre is None:
+                scm.session.merge(genre)
+                scm.commit()
+            pass
 
     def get_genres(self) -> List[Genre]:
         genres = None
@@ -79,12 +83,16 @@ class SqlAlchemyRepository(AbstractRepository):
 
     def add_publisher(self, publisher) -> None:
         with self._session_cm as scm:
-            scm.session.add(publisher)
+            existing_publisher = scm.session.query(Publisher).filter_by(publisher_name=publisher.publisher_name).first()
+            if existing_publisher is None:
+                scm.session.merge(publisher)
+                scm.commit()
+            pass
 
     def get_publishers(self) -> list[Publisher]:
         publishers = None
         try:
-            publishers = self._session_cm.session.query(Publisher).all()
+            publishers = self._session_cm.session.query(Publisher)
         except NoResultFound:
             pass
         return publishers
@@ -108,10 +116,10 @@ class SqlAlchemyRepository(AbstractRepository):
 
     def add_game(self, game: Game):
         with self._session_cm as scm:
-            scm.session.add(game)
+            scm.session.merge(game)
             scm.commit()
 
-    def get_games(self) -> Game:
+    def get_games(self) -> List[Game]:
         games = None
         try:
             games = self._session_cm.session.query(Game).all()

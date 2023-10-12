@@ -87,7 +87,7 @@ class GameFileCSVReader:
 
     @property
     def dataset_of_publishers(self) -> list[Publisher]:
-        return self.__repo.get_publishers()
+        return list(set(self.__repo.get_publishers()))
 
     @property
     def dataset_of_genres(self) -> list[Genre]:
