@@ -25,7 +25,8 @@ def test_get_similar_games(in_memory_repo):
 
 
 def test_get_all_games_for_slides(in_memory_repo):
-    # This tests whether the library service layer is getting the games in a dictionary and the right games are being fetched
+    # This tests whether the library service layer is getting the games in a dictionary and the right games are being
+    # fetched
     games = library_services.get_slide_games(in_memory_repo)
     assert len(games) == 4
     assert type(games[1]) == dict
@@ -55,7 +56,7 @@ def test_get_games(in_memory_repo):
 
 
 def get_number_of_games(in_memory_repo):
-    number = library_services.get_number_of_games()
+    number = library_services.get_number_of_games(in_memory_repo)
     assert number == 14
 
 
@@ -122,7 +123,7 @@ def test_can_add_reviews(in_memory_repo):
     rating = 5
     review = "This is a great game!"
     user = User("Bob", "Hello123fr")
-    add_review = game_services.add_review(rating, review, user, get_game)
+    add_review = game_services.add_review(rating, review, user, get_game, in_memory_repo)
     assert add_review == True
 
 
@@ -132,10 +133,10 @@ def test_can_user_add_two_reviews(in_memory_repo):
     rating = 3
     review = "This game is mid!"
     user = User("Bob", "Hello123fr")
-    add_review1 = game_services.add_review(rating, review, user, get_game)
+    add_review1 = game_services.add_review(rating, review, user, get_game, in_memory_repo)
     rating2 = 5
     review2 = "This is a great game!"
-    add_review = game_services.add_review(rating2, review2, user, get_game)
+    add_review = game_services.add_review(rating2, review2, user, get_game, in_memory_repo)
     assert add_review == False
 
 
@@ -148,60 +149,60 @@ def test_average_rating_when_no_reviews_exist(in_memory_repo):
 
 def test_average_rating_with_reviews(in_memory_repo):
     get_game = game_services.get_game(in_memory_repo, 7940)
-    game_services.add_review(5, "This is excellent", User('Bill', 'Dfjhrfh34859832'), get_game)
-    game_services.add_review(4, "This is excellent", User('Jack', 'Dfjhrfh34859832'), get_game)
-    game_services.add_review(2, "This is excellent", User('Eden', 'Dfjhrfh34859832'), get_game)
-    game_services.add_review(3, "This is excellent", User('Bob', 'Dfjhrfh34859832'), get_game)
+    game_services.add_review(5, "This is excellent", User('Bill', 'Dfjhrfh34859832'), get_game, in_memory_repo)
+    game_services.add_review(4, "This is excellent", User('Jack', 'Dfjhrfh34859832'), get_game, in_memory_repo)
+    game_services.add_review(2, "This is excellent", User('Eden', 'Dfjhrfh34859832'), get_game, in_memory_repo)
+    game_services.add_review(3, "This is excellent", User('Bob', 'Dfjhrfh34859832'), get_game, in_memory_repo)
     average = game_services.get_average(get_game)
     assert average == 3.5
 
 
-def test_add_game_to_wishlist_valid():
+def test_add_game_to_wishlist_valid(in_memory_repo):
     # Checks to see if a valid game is added to users wishlist
     user = User('Bill', 'Dfjhrfh34859832')
     game = Game(7940, 'Call of Duty® 4: Modern Warfare®')
-    user_services.add_game_to_wishlist(user, game)
+    user_services.add_game_to_wishlist(user, game, in_memory_repo)
     assert len(user.get_wishlist().list_of_games()) == 1
     assert user.get_wishlist().list_of_games()[0] == game
 
 
-def test_add_duplicate_game_to_wishlist():
+def test_add_duplicate_game_to_wishlist(in_memory_repo):
     # test to see if a duplicate game can be added to the same wishlist
     user = User('Bill', 'Dfjhrfh34859832')
     game = Game(7940, 'Call of Duty® 4: Modern Warfare®')
-    user_services.add_game_to_wishlist(user, game)
-    user_services.add_game_to_wishlist(user, game)
+    user_services.add_game_to_wishlist(user, game, in_memory_repo)
+    user_services.add_game_to_wishlist(user, game, in_memory_repo)
     assert len(user.get_wishlist().list_of_games()) == 1
     assert user.get_wishlist().list_of_games()[0] == game
 
 
-def test_remove_game_from_wishlist():
+def test_remove_game_from_wishlist(in_memory_repo):
     user = User('Bill', 'Dfjhrfh34859832')
     game = Game(7940, 'Call of Duty® 4: Modern Warfare®')
-    user_services.add_game_to_wishlist(user, game)
+    user_services.add_game_to_wishlist(user, game, in_memory_repo)
     game2 = Game(6748, 'Fifa 23')
-    user_services.add_game_to_wishlist(user, game2)
-    user_services.remove_game_from_wishlist(user, game2)
+    user_services.add_game_to_wishlist(user, game2, in_memory_repo)
+    user_services.remove_game_from_wishlist(user, game2, in_memory_repo)
     assert user.get_wishlist().list_of_games()[0] == game
     assert len(user.get_wishlist().list_of_games()) == 1
 
 
-def get_user_empty_wishlist():
+def get_user_empty_wishlist(in_memory_repo):
     # Test to see if empty wishlist is returned
     user = User('Bill', 'Dfjhrfh34859832')
-    user_wishlist = user_services.get_user_wishlist(user)
+    user_wishlist = user_services.get_user_wishlist(user, in_memory_repo)
     assert len(user_wishlist) == 0
     assert isinstance(user_wishlist, list)
 
 
-def test_user_with_games_in_wishlist():
+def test_user_with_games_in_wishlist(in_memory_repo):
     # Test to see if games were added in the wishlist and wishlist was returned correctly
     user = User('Bill', 'Dfjhrfh34859832')
     game = Game(7940, 'Call of Duty® 4: Modern Warfare®')
     game2 = Game(6748, 'Fifa 23')
-    user_services.add_game_to_wishlist(user, game)
-    user_services.add_game_to_wishlist(user, game2)
-    wishlist = user_services.get_user_wishlist(user)
+    user_services.add_game_to_wishlist(user, game, in_memory_repo)
+    user_services.add_game_to_wishlist(user, game2, in_memory_repo)
+    wishlist = user_services.get_user_wishlist(user, in_memory_repo)
     assert len(wishlist) == 2
     assert isinstance(wishlist, list)
 

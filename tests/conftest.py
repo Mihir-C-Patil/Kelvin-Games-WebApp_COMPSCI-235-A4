@@ -1,18 +1,21 @@
 import pytest
-from games import create_app
+from games import create_app, GameFileCSVReader
 from games.adapters import memory_repository
-from games.adapters.memory_repository import MemoryRepository, populate
+from games.adapters.memory_repository import MemoryRepository #, populate
 from games.adapters import repository
 from pathlib import Path
 from games.adapters.repository import AbstractRepository
 
-TEST_DATA_PATH = Path('tests') / 'test_data'
+TEST_DATA_PATH = Path('tests') / 'test_data' / 'games.csv'
 
 
 @pytest.fixture
 def in_memory_repo():
     repo = MemoryRepository()
-    populate(TEST_DATA_PATH, repo)
+    # populate(TEST_DATA_PATH, repo)
+    reader = GameFileCSVReader(TEST_DATA_PATH, repo,
+                               False)
+    reader.read_csv_file()
     return repo
 
 

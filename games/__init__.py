@@ -17,7 +17,7 @@ from games.gameLibrary.services import get_genres
 from games.domainmodel.model import *
 
 
-def create_app(test_config=None):
+def create_app(test_config=True):
     """
     Creates and configures the Flask application.
 
@@ -50,6 +50,7 @@ def create_app(test_config=None):
     if test_config is not None:
         app.config.from_mapping(test_config)
         data_path = app.config['TEST_DATA_PATH']
+        repo.repo_instance = MemoryRepository()
 
     if app.config['REPOSITORY'] == 'MEMORY':
         repo.repo_instance = memory_repository.MemoryRepository()
