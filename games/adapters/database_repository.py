@@ -1,8 +1,12 @@
 import os.path
+import time
 from abc import ABC
 from bisect import insort_left
 from typing import List
 from pathlib import Path
+
+from _sqlite3 import OperationalError
+
 from games.domainmodel.model import *
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.repository import AbstractRepository
@@ -13,6 +17,8 @@ from sqlalchemy.orm.exc import NoResultFound
 
 
 class SessionContextManager:
+    MAX_RETRIES = 5
+    RETRY_DELAY = 0.1  # Adjust as needed
     def __init__(self, session_factory):
         self.__session_factory = session_factory
         self.__session = scoped_session(self.__session_factory)
@@ -28,7 +34,17 @@ class SessionContextManager:
         return self.__session
 
     def commit(self):
-        self.__session.commit()
+        retries = self.MAX_RETRIES
+        while retries > 0:
+            try:
+                self.__session.commit()
+                break  # Break the loop if commit is successful
+            except OperationalError as e:
+                if "database is locked" in str(e):
+                    retries -= 1
+                    time.sleep(self.RETRY_DELAY)
+                else:
+                    raise  # If it's a different exception, re-raise it
 
     def rollback(self):
         self.__session.rollback()
@@ -72,7 +88,6 @@ class SqlAlchemyRepository(AbstractRepository):
             if existing_genre is None:
                 scm.session.merge(genre)
                 scm.commit()
-            pass
 
     def get_genres(self) -> List[Genre]:
         genres = None
@@ -170,42 +185,45 @@ class SqlAlchemyRepository(AbstractRepository):
             pass
         return games
 
-    def search_games_by_title(self, game_title: str) -> (List[Game], None):
+    def search_games_by_title(self, game_title: str) -> List[Game]:
         game_title = game_title.lower()
         games = None
         try:
-            (self._session_cm.session.query(Game)
-             .filter(game_title in Game._Game__game_title).all())
+            games = (self._session_cm.session.query(Game)
+                     .filter(func.lower(Game._Game__game_title).contains(game_title)).all())
         except NoResultFound:
             pass
         return games
 
-    def search_games_by_publisher(self, query) -> (List[Game], None):
+    def search_games_by_publisher(self, query: str) -> List[Game]:
         query = query.lower()
         games = None
         try:
             games = (self._session_cm.session.query(Game)
-                     .filter(query in Game._Game__publisher).all())
+                     .join(Publisher)
+                     .filter(func.lower(Publisher._Publisher__publisher_name).contains(query)).all())
         except NoResultFound:
             pass
         return games
 
-    def search_games_by_category(self, query) -> (List[Game], None):
+    def search_games_by_category(self, query: str) -> List[Game]:
         query = query.lower()
         games = None
         try:
             games = (self._session_cm.session.query(Game)
-                     .filter(query in Game._Game__categories).all())
+                     .join(Game._Game__genres)
+                     .join(Genre)
+                     .filter(func.lower(Genre._Genre__genre_name).contains(query)).all())
         except NoResultFound:
             pass
         return games
 
-    def search_games_by_tags(self, query) -> (List[Game], None):
+    def search_games_by_tags(self, query: str) -> List[Game]:
         query = query.lower()
         games = None
         try:
             games = (self._session_cm.session.query(Game)
-                     .filter(query in Game._Game__tags_string).all())
+                     .filter(func.lower(Game._Game__tags_string).contains(query)).all())
         except NoResultFound:
             pass
         return games
