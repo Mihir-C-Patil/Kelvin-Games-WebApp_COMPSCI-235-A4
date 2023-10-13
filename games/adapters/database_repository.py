@@ -267,27 +267,41 @@ class SqlAlchemyRepository(AbstractRepository):
         with self._session_cm as scm:
             try:
                 # Query the user and game
-                user_ = scm.session.query(User).filter(func.lower(User._User__username) == func.lower(user.username)).first()
+                user_ = scm.session.query(User).filter(
+                    func.lower(User._User__username) == func.lower(user.username)).first()
                 game_ = scm.session.query(Game).filter(Game._Game__game_id == game.game_id).first()
 
                 if user_ and game_:
-                    # Create a new Review instance
-                    new_review = Review(
-                        user_,
-                        game_,
-                        rating,
-                        review_text,
-                    )
-                    print(new_review)
-                    # Add the new review to the session
-                    scm.session.add(new_review)
-                    scm.session.commit()
+                    # Check if the user has already reviewed the game
+                    existing_review = scm.session.query(Review).filter(
+                        Review._Review__user == user_,
+                        Review._Review__game == game_
+                    ).first()
 
-                    print(f"Review added for game '{game._Game__game_title}' by user '{user._User__username}'.")
+                    if existing_review:
+                        # Update existing review
+                        # existing_review.rating = rating
+                        # existing_review.comment = review_text
+                        # scm.session.commit()
+                        # print(f"Review updated for game '{game_._Game__game_title}' by user '{user_._User__username}'.")
+                        return False
+                    else:
+                        # Create a new Review instance
+                        new_review = Review(
+                            user_,
+                            game_,
+                            rating,
+                            review_text,
+                        )
+                        # Add the new review to the session
+                        scm.session.add(new_review)
+                        scm.session.commit()
+                        print(f"Review added for game '{game_._Game__game_title}' by user '{user_._User__username}'.")
+                    return True
                 else:
                     print("User or game not found.")
             except Exception as e:
-                print(f"Error adding review to game: {str(e)}")
+                print(f"Error adding or updating review: {str(e)}")
                 scm.session.rollback()
             finally:
                 scm.session.close()
