@@ -32,10 +32,14 @@ def search_games_by_criteria(query: str, criteria: str,
         search_results = repo.search_games_by_tags(query)
     games_list = []
     for game in search_results:
-        games_dictionary = {'game_id': game.game_id,
+        games_dictionary = {
+                            'game_id': game.game_id,
                             'title': game.title,
                             'game_url': game.website_url,
-                            'header_image': game.image_url
+                            'header_image': game.image_url,
+                            'price': game.price,
+                            'description': game.description,
+                            'release_date': game.release_date
                             }
         games_list.append(games_dictionary)
     return games_list

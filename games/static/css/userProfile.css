@@ -82,7 +82,7 @@ body {
 /* Style the activity history container */
 .activity-history-container {
   margin-left: auto; /* Push it to the right */
-  width: 400px;
+  width: 373px;
 }
 
 /* Style the activity history section using flexbox */

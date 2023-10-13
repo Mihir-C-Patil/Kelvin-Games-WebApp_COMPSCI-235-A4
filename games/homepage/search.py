@@ -1,9 +1,12 @@
-from flask import Blueprint, render_template, request, url_for
+from flask import Blueprint, render_template, request, url_for, session
 import games.adapters.repository as repo
-from games.gameLibrary.gameLibrary import get_genres_and_urls
+from games.gameLibrary.gameLibrary import get_genres_and_urls, WishlistForm
 from games.gameLibrary.services import get_genres
 from games.homepage import services
 from flask_paginate import Pagination, get_page_args
+from games.authentication import services as authservice
+from games.userProfile.services import get_user_wishlist
+
 
 search_blueprint = Blueprint('search_bp', __name__)
 
@@ -25,11 +28,20 @@ def search_games():
         pagination = Pagination(page=page, per_page=per_page, offset=offset,
                                 total=len(search_results),
                                 record_name='List')
+        form = WishlistForm()
+        if 'username' in session and authservice.get_user(session['username'],
+                                                          repo.repo_instance) is not None:
+            user = authservice.get_user(session['username'], repo.repo_instance)
+            wishlist = get_user_wishlist(user, repo.repo_instance)
+        else:
+            wishlist = []
         return render_template('searchResults.html', heading='Search Results',
                                games=search_results[offset: offset + per_page],
                                all_genres=genres,
                                genre_urls=get_genres_and_urls(),
-                               pagination=pagination)
+                               pagination=pagination,
+                               wishlist=wishlist,
+                               form=form)
     else:
         return render_template('index.html', all_genres=genres,
                                genre_urls=get_genres_and_urls())

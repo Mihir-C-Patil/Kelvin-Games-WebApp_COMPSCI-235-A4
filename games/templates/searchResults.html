@@ -31,42 +31,95 @@
           {{ pagination.info|safe }}
           <div class="gameContainer">
             {% for game in games[0:2] %}
-              <div class="game-box-2">
-                <img src="{{ game.header_image }}" alt="Game 1">
-                <h3>{{ game.title }}</h3>
-                <p>{{ game.game_id }}</p>
-                <a href="/games-description/{{ game.game_id }}">View Game</a>
-              </div>
+              <a href="/games-description/{{ game.game_id }}">
+                <div class="game-box-2">
+                  <div class="game-image">
+                    <img src="{{ game.header_image }}" alt="Game 1">
+                  </div>
+                  <div class="game-info">
+                    <div class="info-row">
+                      <h3 class="title_2row">{{ game.title }}</h3>
+                      <p class="game-id">{{ game.game_id }}</p>
+                    </div>
+                    <p class="game-price">${{ game.price }}</p>
+                    {% if 'username' in session %}
+                      {% if game in wishlist %}
+                        <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove
+                          from Wishlist</a>
+                      {% else %}
+                        <form class="wish-sub" method="POST"
+                              action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                          {{ form.hidden_tag() }}
+                          <a href="#" onclick="submitFunction(this)">Add to
+                            Wishlist</a>
+                        </form>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+              </a>
             {% endfor %}
           </div>
           <div class="gameContainer">
             {% for game in games[2:5] %}
-              <div class="game-box-3">
-                <img src="{{ game.header_image }}" alt="Game 1">
-                <h3>{{ game.title }}</h3>
-                <p>{{ game.game_id }}</p>
-                <a href="/games-description/{{ game.game_id }}">View Game</a>
-              </div>
+              <a href="/games-description/{{ game.game_id }}">
+                <div class="game-box-3">
+                  <div class="game-image">
+                    <img src="{{ game.header_image }}" alt="Game 1">
+                  </div>
+                  <div class="game-info">
+                    <div class="info-row">
+                      <h3 class="title_3row">{{ game.title }}</h3>
+                      <p class="game-id">{{ game.game_id }}</p>
+                    </div>
+                    <p class="game-price">${{ game.price }}</p>
+                    {% if 'username' in session %}
+                      {% if game in wishlist %}
+                        <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove
+                          from Wishlist</a>
+                      {% else %}
+                        <form class="wish-sub" method="POST"
+                              action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                          {{ form.hidden_tag() }}
+                          <a href="#" onclick="submitFunction(this)">Add to
+                            Wishlist</a>
+                        </form>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+              </a>
             {% endfor %}
           </div>
           <div class="gameContainer">
             {% for game in games[5:7] %}
-              <div class="game-box-2">
-                <img src="{{ game.header_image }}" alt="Game 1">
-                <h3>{{ game.title }}</h3>
-                <p>{{ game.game_id }}</p>
-                <a href="/games-description/{{ game.game_id }}">View Game</a>
-              </div>
-            {% endfor %}
-          </div>
-          <div class="gameContainer">
-            {% for game in games[7:10] %}
-              <div class="game-box-3">
-                <img src="{{ game.header_image }}" alt="Game 1">
-                <h3>{{ game.title }}</h3>
-                <p>{{ game.game_id }}</p>
-                <a href="/games-description/{{ game.game_id }}">View Game</a>
-              </div>
+              <a href="/games-description/{{ game.game_id }}">
+                <div class="game-box-2">
+                  <div class="game-image">
+                    <img src="{{ game.header_image }}" alt="Game 1">
+                  </div>
+                  <div class="game-info">
+                    <div class="info-row">
+                      <h3 class="title_2row">{{ game.title }}</h3>
+                      <p class="game-id">{{ game.game_id }}</p>
+                    </div>
+                    <p class="game-price">${{ game.price }}</p>
+                    {% if 'username' in session %}
+                      {% if game in wishlist %}
+                        <a href="{{ url_for('pp_bp.remove_from_wishlist', game_id=game.game_id) }}">Remove
+                          from Wishlist</a>
+                      {% else %}
+                        <form class="wish-sub" method="POST"
+                              action="{{ url_for('pp_bp.add_to_wishlist', game_id=game.game_id) }}">
+                          {{ form.hidden_tag() }}
+                          <a href="#" onclick="submitFunction(this)">Add to
+                            Wishlist</a>
+                        </form>
+                      {% endif %}
+                    {% endif %}
+                  </div>
+                </div>
+              </a>
             {% endfor %}
           </div>
           {{ pagination.links|safe }}
@@ -94,6 +147,13 @@
     </div>
   </div>
 </main>
+<script>
+
+  //Submit Function
+  function submitFunction(link) {
+    link.closest(".wish-sub").submit();
+  }
+</script>
 {% include 'footer.html' %}
 </body>
 </html>
