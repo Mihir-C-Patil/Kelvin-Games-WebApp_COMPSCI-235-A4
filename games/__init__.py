@@ -8,7 +8,7 @@ from sqlalchemy.orm import sessionmaker, clear_mappers
 from sqlalchemy.pool import NullPool
 
 import games.adapters.repository as repo
-from games.adapters import database_repository, populate_database
+from games.adapters import database_repository, populate_database, memory_repository
 from games.adapters.orm import metadata, map_model_to_tables
 from games.adapters.populate_database import GameFileCSVReader
 from games.adapters.memory_repository import MemoryRepository
@@ -52,7 +52,7 @@ def create_app(test_config=None):
         data_path = app.config['TEST_DATA_PATH']
 
     if app.config['REPOSITORY'] == 'MEMORY':
-        repo.repo_instance = MemoryRepository
+        repo.repo_instance = memory_repository.MemoryRepository()
         database_mode = False
         reader = GameFileCSVReader(data_path, repo.repo_instance,
                                    database_mode)
