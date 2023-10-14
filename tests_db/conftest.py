@@ -8,11 +8,11 @@ from games.adapters import database_repository
 from games.adapters.populate_database import GameFileCSVReader
 from games.adapters.orm import metadata, map_model_to_tables
 
-TEST_DATA_PATH_FULL = Path('games') / 'adapters' / 'data'
-TEST_DATA_PATH_DATABASE_LIMITED = Path('games') / 'tests' / 'test_data'
+TEST_DATA_PATH_FULL = Path('games') / 'adapters' / 'data' / 'games.csv'
+TEST_DATA_PATH_DATABASE_LIMITED = Path('tests') / 'test_data' / 'games.csv'
 
 TEST_DATABASE_URI_IN_MEMORY = 'sqlite://'
-TEST_DATABASE_URI_FILE = 'sqlite:///games.db'
+TEST_DATABASE_URI_FILE = 'sqlite:///games-test.db'
 
 @pytest.fixture
 def database_engine():
@@ -43,7 +43,7 @@ def session_factory():
     database_mode = True
     reader = GameFileCSVReader(TEST_DATA_PATH_FULL, repo_instance, database_mode)
     reader.read_csv_file()
-    yield engine
+    yield session_factory
     metadata.drop_all(engine)
 
 @pytest.fixture
@@ -55,5 +55,6 @@ def empty_session():
         engine.execute(table.delete())
     map_model_to_tables()
     session_factory = sessionmaker(bind=engine)
-    yield session_factory
+    yield session_factory()
     metadata.drop_all(engine)
+

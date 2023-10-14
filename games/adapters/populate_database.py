@@ -18,7 +18,7 @@ class GameFileCSVReader:
         self.__dataset_of_languages = set()
         self.__dataset_of_categories = set()
 
-    def read_csv_file(self):
+    def read_csv_file(self, file=None):
         if not os.path.exists(self.__filename):
             print(f"path {self.__filename} does not exist!")
             return
