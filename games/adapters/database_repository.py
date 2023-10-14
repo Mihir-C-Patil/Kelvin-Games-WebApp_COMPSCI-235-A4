@@ -2,7 +2,7 @@ import os.path
 import time
 from abc import ABC
 from bisect import insort_left
-from typing import List
+from typing import List, Any
 from pathlib import Path
 
 from _sqlite3 import OperationalError
@@ -73,14 +73,12 @@ class SqlAlchemyRepository(AbstractRepository):
             scm.session.add(user)
             scm.commit()
 
-    def get_user(self, username: str) -> User:
-        user = None
+    def get_user(self, username: str) -> Any | None:
         try:
-            user = self._session_cm.session.query(User).filter(
-                User._User__username == username).one()
+            user = self._session_cm.session.query(User).filter(func.lower(User._User__username) == func.lower(username)).first()
+            return user
         except NoResultFound:
-            pass
-        return user
+            return None
 
     def add_genre(self, genre: Genre) -> None:
         with self._session_cm as scm:

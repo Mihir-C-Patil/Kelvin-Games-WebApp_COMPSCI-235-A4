@@ -48,7 +48,8 @@ def add_user(username: str, password: str, repo: AbstractRepository):
     None
     """
     user = repo.get_user(username)
-    if user:
+    print(user)
+    if user is not None:
         raise NameNotUniqueException
     if isinstance(username, str) and username.strip():
         pass
