@@ -106,6 +106,7 @@ def make_review(user, game):
     return review
 
 def test_loading_users(empty_session):
+    # This test function inserts a user into the database and checks if the user was successfully inserted.
     users = list()
     users.append(("andrew", "ABCDE1223"))
     users.append(("cindy", "ABCDE1223"))
@@ -118,12 +119,14 @@ def test_loading_users(empty_session):
     assert empty_session.query(User).all() == expected
 
 def test_loading_game(empty_session):
+    # This test function inserts a game into the database and checks if the game was successfully inserted.
     game_key = insert_game(empty_session)
     expected_game = make_game()
     fetched_game = empty_session.query(Game).one()
     assert fetched_game == expected_game
 
 def test_review_games(empty_session):
+    # This test function inserts a game review into the database and checks if the review is associated with the game.
     insert_game_review(empty_session)
     rows = empty_session.query(Game).all()
     game = rows[0]
@@ -132,6 +135,7 @@ def test_review_games(empty_session):
         assert review.comment == 'Great Game'
 
 def test_loading_of_genres(empty_session):
+    # This test function inserts a genre into the database and checks if the genre was successfully inserted.
     genre = insert_genre(empty_session)
     expected_genre = make_genre()
     rows = empty_session.query(Genre).all()
@@ -139,6 +143,7 @@ def test_loading_of_genres(empty_session):
     assert genre == expected_genre
 
 def test_loading_publishers(empty_session):
+    # This test function inserts a publisher into the database and checks if the publisher was successfully inserted.
     publisher = insert_publisher(empty_session)
     expected_pub = make_publisher()
     rows = empty_session.query(Publisher).all()
@@ -147,6 +152,7 @@ def test_loading_publishers(empty_session):
     assert type(publisher) == Publisher
 
 def test_loading_of_genre_association(empty_session):
+    # This test function inserts a game-genre association into the database and checks if the association is correct.
     game_key = insert_game(empty_session)
     genre_key = insert_genre(empty_session)
     insert_game_genre_association(empty_session, game_key, genre_key)
@@ -155,6 +161,7 @@ def test_loading_of_genre_association(empty_session):
     assert genre in game.genres
 
 def test_user_persistence(empty_session):
+    # This test function checks the persistence of a user in the database.
     user = make_user()
     empty_session.add(user)
     empty_session.commit()
@@ -163,6 +170,7 @@ def test_user_persistence(empty_session):
     assert get_user == [('kelvin',)]
 
 def test_user_persistence_password(empty_session):
+    # This test function checks the persistence of a user's password in the database.
     user = make_user()
     empty_session.add(user)
     empty_session.commit()
@@ -171,6 +179,7 @@ def test_user_persistence_password(empty_session):
     assert get_user == [('kelvin', 'Hello1234')]
 
 def test_publisher_persistence(empty_session):
+    # This test function checks the persistence of a publisher in the database.
     publisher = make_publisher()
     empty_session.add(publisher)
     empty_session.commit()
@@ -179,6 +188,7 @@ def test_publisher_persistence(empty_session):
     assert get_publisher[0] == ('Kelvin Developers',)
 
 def test_genre_persistence(empty_session):
+    # This test function checks the persistence of a genre in the database.
     genre = make_genre()
     empty_session.add(genre)
     empty_session.commit()
@@ -187,6 +197,7 @@ def test_genre_persistence(empty_session):
     assert get_genre[0] == ('Adventure',)
 
 def test_game_persistence(empty_session):
+    # This test function checks the persistence of a game in the database.
     game_object = make_game()
     empty_session.add(game_object)
     empty_session.commit()
@@ -195,6 +206,7 @@ def test_game_persistence(empty_session):
     assert retrieved_game.price == game_object.price
 
 def test_user_review_persistence(empty_session):
+    # This test function checks the persistence of a user review in the database.
     user_object = make_user()
     game_object = make_game()
     empty_session.add(user_object)
