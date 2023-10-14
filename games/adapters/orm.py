@@ -12,9 +12,9 @@ users_table = Table('user', metadata,
                            autoincrement=True),
                     Column('username', String(255), unique=True,
                            nullable=False),
-                    Column('password', String(255), nullable=False),
-                    Column('wishlist_id', ForeignKey('wishlist.id')),
-                    Column('reviews', ForeignKey('review.id')))
+                    Column('password', String(255), nullable=False))
+                    # Column('wishlist_id', ForeignKey('wishlist.id')),
+                    # Column('reviews', ForeignKey('review.id')))
 
 games_table = Table('game', metadata,
                     Column('id', Integer, primary_key=True),
@@ -71,7 +71,7 @@ def map_model_to_tables():
         '_User__reviews': relationship(Review, foreign_keys=[reviews_table.c.user]),
         '_User__wishlist': relationship(Wishlist, foreign_keys=[wishlists_table.c.user],
                                         back_populates='_Wishlist__user', uselist=False),
-        '_User__wishlist_id': users_table.c.wishlist_id
+        # '_User__wishlist_id': users_table.c.wishlist_id
     })
 
     mapper(Game, games_table, properties={
