@@ -3,6 +3,7 @@ from sqlalchemy.exc import IntegrityError
 from games.domainmodel.model import Game, User, Review, Genre, Wishlist, Publisher
 import datetime
 
+
 def insert_user(empty_session, values = None):
     new_name = 'Kelvin'
     password = 'Abcdef1234'
@@ -63,9 +64,24 @@ def insert_publisher(empty_session):
     row = empty_session.execute('SELECT publisher_name from publisher WHERE publisher_name = "Kelvin Developers"').fetchone()
     return row[0]
 
+def insert_game_genre_association(empty_session, game_key, genre_key):
+    sql = 'INSERT INTO game_genres(game_id, genre_name) VALUES (:game_id, :genre_name)'
+    empty_session.execute(sql, {'game_id': game_key, 'genre_name': genre_key})
 
 def make_game():
-    game = Game(454680, 'MetaTron')
+    game = Game(
+        game_id=454680,
+        game_title='MetaTron',
+    )
+    game.price = 0
+    game.release_date = 'Dec 19, 2016'
+    game.description = 'You are TRON!'
+
+    # Create a Publisher object and set it for the game
+    publisher = Publisher('TubbyKiD UG (haftungsbeschränkt)')
+    game.publisher = publisher
+    game.image_url = 'https://cdn.akamai.steamstatic.com/steam/apps/454680/ss_898bf6187d7a60a1cd59b728a9acca41cafeeebb.1920x1080.jpg?t=1545358112'
+
     return game
 
 def make_genre():
@@ -81,6 +97,13 @@ def insert_genre(empty_session):
     row = empty_session.execute('SELECT genre_name FROM genre where genre_name = "Adventure"').fetchone()
     return row[0]
 
+def make_user():
+    user = User('Kelvin', 'Hello1234')
+    return user
+
+def make_review(user, game):
+    review = Review(user, game, 5, 'This is a cool game')
+    return review
 
 def test_loading_users(empty_session):
     users = list()
@@ -123,7 +146,63 @@ def test_loading_publishers(empty_session):
     assert publisher == expected_pub
     assert type(publisher) == Publisher
 
-def test_persistence_review(empty_session):
+def test_loading_of_genre_association(empty_session):
     game_key = insert_game(empty_session)
-    user_key = insert_user(empty_session)
-    rows = empty_session.query(Game).all()
+    genre_key = insert_genre(empty_session)
+    insert_game_genre_association(empty_session, game_key, genre_key)
+    game = empty_session.query(Game).get(game_key)
+    genre = empty_session.query(Genre).get(genre_key)
+    assert genre in game.genres
+
+def test_user_persistence(empty_session):
+    user = make_user()
+    empty_session.add(user)
+    empty_session.commit()
+    sql = 'SELECT username FROM user'
+    get_user = empty_session.execute(sql).all()
+    assert get_user == [('kelvin',)]
+
+def test_user_persistence_password(empty_session):
+    user = make_user()
+    empty_session.add(user)
+    empty_session.commit()
+    sql = 'SELECT username, password FROM user'
+    get_user = empty_session.execute(sql).all()
+    assert get_user == [('kelvin', 'Hello1234')]
+
+def test_publisher_persistence(empty_session):
+    publisher = make_publisher()
+    empty_session.add(publisher)
+    empty_session.commit()
+    sql = 'SELECT publisher_name FROM publisher'
+    get_publisher = empty_session.execute(sql).all()
+    assert get_publisher[0] == ('Kelvin Developers',)
+
+def test_genre_persistence(empty_session):
+    genre = make_genre()
+    empty_session.add(genre)
+    empty_session.commit()
+    sql = 'SELECT genre_name FROM genre'
+    get_genre = empty_session.execute(sql).all()
+    assert get_genre[0] == ('Adventure',)
+
+def test_game_persistence(empty_session):
+    game_object = make_game()
+    empty_session.add(game_object)
+    empty_session.commit()
+    retrieved_game = empty_session.query(Game).filter(Game._Game__game_title == 'MetaTron').first()
+    assert retrieved_game == game_object
+    assert retrieved_game.price == game_object.price
+
+def test_user_review_persistence(empty_session):
+    user_object = make_user()
+    game_object = make_game()
+    empty_session.add(user_object)
+    empty_session.add(game_object)
+    create_review = make_review(user_object, game_object)
+    empty_session.add(create_review)
+    empty_session.commit()
+    game_id = game_object.game_id
+    retrieved_review = empty_session.query(Review).filter(Review._Review__game_id == game_id).first()
+    assert retrieved_review == create_review
+    assert retrieved_review.comment == create_review.comment
