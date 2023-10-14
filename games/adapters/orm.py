@@ -25,6 +25,7 @@ games_table = Table('game', metadata,
                     Column('publisher', ForeignKey('publisher.publisher_name')),
                     Column('image_url', String(1024), nullable=False),
                     Column('website_url', String(1024)),
+                    Column('video_url', String(1024)),
                     Column('tags', String(1024), nullable=False),
                     Column('system_dict', JSON), )
 
@@ -83,6 +84,7 @@ def map_model_to_tables():
                                          back_populates='_Publisher__games'),
         '_Game__image_url': games_table.c.image_url,
         '_Game__website_url': games_table.c.website_url,
+        '_Game__video_url': games_table.c.video_url,
         '_Game__tags_string': games_table.c.tags,
         '_Game__publisher_id': games_table.c.publisher,
         '_Game__system_dict': games_table.c.system_dict,
