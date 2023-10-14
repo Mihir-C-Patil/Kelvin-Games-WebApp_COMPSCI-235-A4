@@ -23,6 +23,7 @@ def in_memory_repo():
 def client():
     my_app = create_app({
         'TESTING': True,
+        'REPOSITORY': 'memory',
         'TEST_DATA_PATH': TEST_DATA_PATH,
         'WTF_CSRF_ENABLED': False
     })
