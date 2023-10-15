@@ -96,7 +96,7 @@ class SqlAlchemyRepository(AbstractRepository):
     def get_publishers(self) -> list[Publisher]:
         publishers = None
         try:
-            publishers = self._session_cm.session.query(Publisher).one()
+            publishers = self._session_cm.session.query(Publisher).all()
         except NoResultFound:
             pass
         return publishers

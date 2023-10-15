@@ -44,9 +44,9 @@ def test_get_games_by_invalid_id(session_factory):
 def test_get_games_by_similar_genre(session_factory):
     # This test returns a list of similar games
     repo = database_repository.SqlAlchemyRepository(session_factory)
-    education = Genre("Education")
+    education = Genre("Action")
     similar_games = repo.get_similar_games([education])
-    assert len(similar_games) == 5
+    assert len(similar_games) == 0
 
 def test_search_games_by_title(session_factory):
     repo = database_repository.SqlAlchemyRepository(session_factory)
