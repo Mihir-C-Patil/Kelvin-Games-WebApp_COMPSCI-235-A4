@@ -105,6 +105,10 @@ def make_review(user, game):
     review = Review(user, game, 5, 'This is a cool game')
     return review
 
+def make_wishlist(user):
+    wishlist = Wishlist(user)
+    return wishlist
+
 def test_loading_users(empty_session):
     # This test function inserts a user into the database and checks if the user was successfully inserted.
     users = list()
@@ -218,3 +222,57 @@ def test_user_review_persistence(empty_session):
     retrieved_review = empty_session.query(Review).filter(Review._Review__game_id == game_id).first()
     assert retrieved_review == create_review
     assert retrieved_review.comment == create_review.comment
+
+def insert_wishlist(empty_session):
+    user = make_user()
+    game = make_game()
+    game_id = game.game_id
+    wishlist_item = Wishlist(user)
+    empty_session.add(wishlist_item)
+    empty_session.commit()
+    return wishlist_item.id
+
+def test_insert_wishlist(empty_session):
+    wishlist_id = insert_wishlist(empty_session)
+    result = empty_session.execute('SELECT * FROM wishlist WHERE id = :wishlist_id',
+                                   {'wishlist_id': wishlist_id}).fetchone()
+    assert result is not None
+
+def insert_game_and_publisher(empty_session):
+    publisher = Publisher('Kelvin Developers')
+    empty_session.add(publisher)
+    empty_session.commit()
+    game = Game(1, 'MetaTron')
+    game.price=0
+    game.release_date='Dec 19, 2016'
+    game.description = 'You are TRON!'
+    game.publisher = publisher
+    game.image_url = 'test'
+    empty_session.add(game)
+    empty_session.commit()
+
+def test_game_and_publisher_relationship(empty_session):
+    # Test to check relationship between game and publisher is established
+    insert_game_and_publisher(empty_session)
+    game = empty_session.query(Game).filter(Game._Game__game_title == 'MetaTron').first()
+    assert game.publisher.publisher_name == 'Kelvin Developers'
+
+def test_user_wishlist_relationship(empty_session):
+    # Tests for a one to one relationship
+    user = make_user()
+    wishlist = Wishlist(user)
+    empty_session.add(user)
+    empty_session.add(wishlist)
+    empty_session.commit()
+    get_user = empty_session.query(User).filter(User._User__username == 'kelvin').first()
+    assert wishlist == get_user.get_wishlist()
+
+def create_game():
+    publisher = Publisher('Kelvin Developers')
+    game = Game(1, 'MetaTron')
+    game.price = 0
+    game.release_date = 'Dec 19, 2016'
+    game.description = 'You are TRON!'
+    game.publisher = publisher
+    game.image_url = 'test'
+    return game
