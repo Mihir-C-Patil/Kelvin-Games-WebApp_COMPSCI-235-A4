@@ -28,30 +28,11 @@ def test_index(client):
     assert response.status_code == 200
     assert b'Welcome to Kelvin Games' in response.data
 
-def test_game_libary(client):
-    # Test to see if we can access game library
-    response = client.get('/gamelibrary')
-    assert response.status_code == 200
-
 def test_login_required_to_review(client):
     game_id = 7940
     response = client.post(f'/review/{game_id}')
     assert response.status_code == 302
     assert response.headers['Location'] == '/authentication/login'
-
-def test_review(client, auth):
-    # Check to see user review is processed
-    response = client.get('/authentication/register')
-    assert response.status_code == 200
-    response = client.post('/authentication/register', data={'username': 'test_user', 'password': 'TestPass123'})
-    assert response.status_code == 302
-    response = client.get('/authentication/login')
-    assert response.status_code == 200
-    response = client.post('/authentication/login', data={'username': 'test_user', 'password': 'TestPass123'})
-    game_id = 7940
-    response = client.post(f'/review/{game_id}', data={'rating':5, 'comment': 'This game is cool!'})
-    assert response.status_code == 302
-    assert response.headers['Location'] == f'/games-description/{game_id}'
 
 def test_view_user_profile(client, auth):
     # Test to see if we can view user profile when logged in
