@@ -1,11 +1,9 @@
-import os.path
 from abc import ABC
 from bisect import insort_left
 from typing import List
-from pathlib import Path
-from games.domainmodel.model import *
-from games.adapters.datareader.csvdatareader import GameFileCSVReader
+
 from games.adapters.repository import AbstractRepository
+from games.domainmodel.model import *
 
 
 class MemoryRepository(AbstractRepository, ABC):
@@ -240,15 +238,49 @@ class MemoryRepository(AbstractRepository, ABC):
         return self.__publishers
 
     def add_wish_game(self, user, game):
+        """
+        Args:
+            user: User object representing the user who wants to add a
+            game to their wishlist.
+            game: Game object representing the game that the user wants
+            to add to their wishlist.
+
+        """
         user.get_wishlist().add_wish_game(game)
 
     def remove_wish_game(self, user, game):
+        """
+        Removes a game from the wishlist of a user.
+
+        Args:
+            user: The user for whom the game should be removed from
+            their wishlist.
+            game: The game to be removed from the user's wishlist.
+        """
         user.get_wishlist().remove_game(game)
 
     def get_wishlist(self, user):
+        """
+        Args:
+            user: User object representing the user whose wishlist is to
+            be retrieved.
+
+        Returns:
+            List of Game objects representing the games in the user's
+            wishlist.
+        """
         return user.get_wishlist().list_of_games()
 
     def add_review(self, user, game, rating, review):
+        """
+        Args:
+            user: User object representing the author of the review.
+            game: Game object representing the game being reviewed.
+            rating: Numeric value representing the rating given in the
+            review.
+            review: String representing the content of the review.
+
+        """
         new_review = Review(user, game, rating, review)
         if len(game.reviews) == 0:
             user.add_review(new_review)
@@ -263,24 +295,13 @@ class MemoryRepository(AbstractRepository, ABC):
         return True
 
     def get_user_review(self, user):
+        """
+        Retrieves the reviews submitted by a specific user.
+
+        Args:
+            user: The user whose reviews should be retrieved.
+
+        Returns:
+            A list of reviews submitted by the specified user.
+        """
         return user.reviews
-
-
-# def populate(data_path: Path, repo: AbstractRepository):
-#     """
-#     Populate the repository with data from a CSV file.
-#
-#     Args:
-#         data_path (Path): The path to the data directory.
-#         repo (AbstractRepository): The repository to populate.
-#     """
-#     directory_name = os.path.dirname(os.path.abspath(__file__))
-#     games_csv_path = data_path / "games.csv"
-#     reader = GameFileCSVReader(games_csv_path)
-#
-#     reader.read_csv_file()
-#     games = reader.dataset_of_games
-#     for game in games:
-#         repo.add_game(game)
-#         for genre in game.genres:
-#             repo.add_genre(genre)

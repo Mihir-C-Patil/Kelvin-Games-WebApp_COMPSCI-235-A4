@@ -8,7 +8,8 @@ from sqlalchemy.orm import sessionmaker, clear_mappers
 from sqlalchemy.pool import NullPool
 
 import games.adapters.repository as repo
-from games.adapters import database_repository, populate_database, memory_repository
+from games.adapters import database_repository, populate_database, \
+    memory_repository
 from games.adapters.orm import metadata, map_model_to_tables
 from games.adapters.populate_database import GameFileCSVReader
 from games.adapters.memory_repository import MemoryRepository
@@ -17,7 +18,7 @@ from games.gameLibrary.services import get_genres
 from games.domainmodel.model import *
 
 
-def create_app(test_config=None):
+def create_app(test_config=True):
     """
     Creates and configures the Flask application.
 
@@ -69,7 +70,8 @@ def create_app(test_config=None):
 
         session_factory = sessionmaker(autocommit=False, autoflush=True,
                                        bind=database_engine)
-        repo.repo_instance = database_repository.SqlAlchemyRepository(session_factory)
+        repo.repo_instance = database_repository.SqlAlchemyRepository(
+            session_factory)
 
         if app.config['TESTING'] == 'True' \
                 or len(database_engine.table_names()) == 0:
@@ -105,12 +107,14 @@ def create_app(test_config=None):
 
         @app.before_request
         def before_flask_http_request_function():
-            if isinstance(repo.repo_instance, database_repository.SqlAlchemyRepository):
+            if isinstance(repo.repo_instance,
+                          database_repository.SqlAlchemyRepository):
                 repo.repo_instance.reset_session()
 
         @app.teardown_appcontext
         def shutdown_session(exception=None):
-            if isinstance(repo.repo_instance, database_repository.SqlAlchemyRepository):
+            if isinstance(repo.repo_instance,
+                          database_repository.SqlAlchemyRepository):
                 repo.repo_instance.close_session()
 
     @app.route('/')
