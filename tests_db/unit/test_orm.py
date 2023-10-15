@@ -155,7 +155,7 @@ def test_loading_publishers(empty_session):
     assert publisher == expected_pub
     assert type(publisher) == Publisher
 
-def test_loading_of_genre_association(empty_session):
+def test_loading_of_genre_association_relationship(empty_session):
     # This test function inserts a game-genre association into the database and checks if the association is correct.
     game_key = insert_game(empty_session)
     genre_key = insert_genre(empty_session)
@@ -276,3 +276,14 @@ def create_game():
     game.publisher = publisher
     game.image_url = 'test'
     return game
+
+def test_user_review_relationship(empty_session):
+    user1 = make_user()
+    game = make_game()
+    review1 = make_review(user1, game)
+    empty_session.add(user1)
+    empty_session.add(game)
+    empty_session.commit()
+    get_user_reviews = user1.reviews
+    assert len(get_user_reviews) == 1
+    assert review1.user == user1
