@@ -7,18 +7,17 @@ from pathlib import Path
 
 from _sqlite3 import OperationalError
 
+from games.adapters.orm import game_genres_table, genres_table, games_table
 from games.domainmodel.model import *
 from games.adapters.datareader.csvdatareader import GameFileCSVReader
 from games.adapters.repository import AbstractRepository
 
-from sqlalchemy import desc, asc, or_, func, orm
+from sqlalchemy import desc, asc, or_, func, orm, literal_column
 from sqlalchemy.orm import scoped_session, contains_eager
 from sqlalchemy.orm.exc import NoResultFound
 
 
 class SessionContextManager:
-    MAX_RETRIES = 5
-    RETRY_DELAY = 0.1  # Adjust as needed
     def __init__(self, session_factory):
         self.__session_factory = session_factory
         self.__session = scoped_session(self.__session_factory)
@@ -34,17 +33,7 @@ class SessionContextManager:
         return self.__session
 
     def commit(self):
-        retries = self.MAX_RETRIES
-        while retries > 0:
-            try:
-                self.__session.commit()
-                break  # Break the loop if commit is successful
-            except OperationalError as e:
-                if "database is locked" in str(e):
-                    retries -= 1
-                    time.sleep(self.RETRY_DELAY)
-                else:
-                    raise  # If it's a different exception, re-raise it
+        self.__session.commit()
 
     def rollback(self):
         self.__session.rollback()
@@ -68,14 +57,15 @@ class SqlAlchemyRepository(AbstractRepository):
     def reset_session(self):
         self._session_cm.reset_session()
 
-    def add_user(self, user: User) -> None:
+    def add_user(self, user: User):
         with self._session_cm as scm:
             scm.session.add(user)
             scm.commit()
 
     def get_user(self, username: str) -> Any | None:
         try:
-            user = self._session_cm.session.query(User).filter(func.lower(User._User__username) == func.lower(username)).first()
+            user = self._session_cm.session.query(User).filter(
+                func.lower(User._User__username) == func.lower(username)).one()
             return user
         except NoResultFound:
             return None
@@ -95,7 +85,7 @@ class SqlAlchemyRepository(AbstractRepository):
             pass
         return genres
 
-    def add_publisher(self, publisher) -> None:
+    def add_publisher(self, publisher):
         with self._session_cm as scm:
             existing_publisher = scm.session.query(Publisher).filter_by(publisher_name=publisher.publisher_name).first()
             if existing_publisher is None:
@@ -106,18 +96,18 @@ class SqlAlchemyRepository(AbstractRepository):
     def get_publishers(self) -> list[Publisher]:
         publishers = None
         try:
-            publishers = self._session_cm.session.query(Publisher)
+            publishers = self._session_cm.session.query(Publisher).one()
         except NoResultFound:
             pass
         return publishers
 
-    def get_game_tags(self) -> list[str]:
-        tags = None
-        try:
-            tags = list(self._session_cm.session.query(Game._Game__tags_string).all())
-        except NoResultFound:
-            pass
-        return tags
+    # def get_game_tags(self) -> list[str]:
+    #     tags = None
+    #     try:
+    #         tags = list(self._session_cm.session.query(Game._Game__tags_string).all())
+    #     except NoResultFound:
+    #         pass
+    #     return tags
 
     def get_genre_of_games(self, target_genre) -> List[Game]:
         games = None
@@ -167,16 +157,14 @@ class SqlAlchemyRepository(AbstractRepository):
             pass
         return game
 
-    def get_similar_games(self, genre):
+    def get_similar_games(self, genres_list):
         games = None
         try:
-            # games = (self._session_cm.session.query(Game)
-            #          .filter(Game._Game__genres.contains(genre)).all())
             games = (
                 self._session_cm.session.query(Game)
-                .filter(
-                    or_(*(Game._Game__genres.contains(g) for g in genre))
-                )
+                .join(Game._Game__genres)
+                .filter(Genre == genres_list[0])
+                .options(contains_eager(Game._Game__genres))
                 .all()
             )
         except NoResultFound:
@@ -229,7 +217,8 @@ class SqlAlchemyRepository(AbstractRepository):
     def add_wish_game(self, user, game):
         with self._session_cm as scm:
             try:
-                user_ = scm.session.query(User).filter(func.lower(User._User__username) == func.lower(user.username)).first()
+                user_ = scm.session.query(User).filter(
+                    func.lower(User._User__username) == func.lower(user.username)).first()
                 game_ = scm.session.query(Game).filter(Game._Game__game_id == game.game_id).first()
                 if user_ and game_:
                     user._User__wishlist._Wishlist__games.append(game)
@@ -245,7 +234,8 @@ class SqlAlchemyRepository(AbstractRepository):
     def remove_wish_game(self, user, game):
         with self._session_cm as scm:
             try:
-                user_ = scm.session.query(User).filter(func.lower(User._User__username) == func.lower(user.username)).first()
+                user_ = scm.session.query(User).filter(
+                    func.lower(User._User__username) == func.lower(user.username)).first()
                 game_ = scm.session.query(Game).filter(Game._Game__game_id == game.game_id).first()
                 if user_ and game_:
                     user_._User__wishlist._Wishlist__games.remove(game)
@@ -261,7 +251,8 @@ class SqlAlchemyRepository(AbstractRepository):
     def get_wishlist(self, user):
         with self._session_cm as scm:
             try:
-                user_ = scm.session.query(User).filter(func.lower(User._User__username) == func.lower(user.username)).first()
+                user_ = scm.session.query(User).filter(
+                    func.lower(User._User__username) == func.lower(user.username)).first()
 
                 if user_:
                     wishlist_games = user_._User__wishlist._Wishlist__games
