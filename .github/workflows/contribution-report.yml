@@ -22,9 +22,6 @@ jobs:
       - name: Install Python dependencies
         run: pip install gitpython
 
-      - name: Install Graphviz
-        run: sudo apt-get update && sudo apt-get install -y graphviz
-
       - name: Run commit stats script
         run: python generate_commit_stats.py
 
