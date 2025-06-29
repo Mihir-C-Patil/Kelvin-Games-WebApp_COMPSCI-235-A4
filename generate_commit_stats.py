@@ -1,5 +1,6 @@
 import csv
 import os
+import subprocess
 from collections import defaultdict
 from git import Repo
 
@@ -132,3 +133,33 @@ with open('stats/author_files_modified_tree.csv', 'w', newline='') as f:
                 first = False
             else:
                 writer.writerow([''] + row)
+
+# 6. Generate a PNG tree image per author using Graphviz
+def write_dot(tree, parent, lines, prefix=""):
+    for name, subtree in sorted(tree.items()):
+        node = f"{prefix}{name}".replace('.', '_').replace('-', '_').replace('/', '_')
+        lines.append(f'"{parent}" -> "{node}";')
+        if subtree:
+            write_dot(subtree, node, lines, prefix + name + "/")
+
+def generate_tree_image(author, files, outdir):
+    tree = build_tree(files)
+    safe_author = author.replace(' ', '_').replace('.', '_')
+    dot_filename = os.path.join(outdir, f"{safe_author}_tree.dot")
+    png_filename = os.path.join(outdir, f"{safe_author}_tree.png")
+    with open(dot_filename, "w") as f:
+        f.write('digraph G {\n')
+        f.write(f'"{author}" [shape=box, style=filled, color=lightblue];\n')
+        lines = []
+        write_dot(tree, author, lines)
+        f.write('\n'.join(lines))
+        f.write('\n}\n')
+    try:
+        subprocess.run(['dot', '-Tpng', dot_filename, '-o', png_filename], check=True)
+    except Exception as e:
+        print(f"Graphviz image generation failed for {author}: {e}")
+
+for author in author_files:
+    files = sorted(author_files[author])
+    if files:
+        generate_tree_image(author, files, 'stats')
