@@ -7,6 +7,7 @@ on:
 jobs:
   stats:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -18,14 +19,14 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: pip install gitpython
-
-      - name: Run commit stats script
-        run: python generate_commit_stats.py
 
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Run commit stats script
+        run: python generate_commit_stats.py
 
       - name: Archive stats output
         uses: actions/upload-artifact@v4
