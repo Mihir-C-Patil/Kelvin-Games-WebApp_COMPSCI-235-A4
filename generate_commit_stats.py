@@ -84,10 +84,43 @@ with open('stats/author_filetypes.csv', 'w', newline='') as f:
         row = [author] + [author_filetypes[author].get(ft, 0) for ft in filetypes]
         writer.writerow(row)
 
-# 4. author_files_modified.csv
+# 4. author_files_modified.csv (flat, semicolon separated)
 with open('stats/author_files_modified.csv', 'w', newline='') as f:
     writer = csv.writer(f)
     writer.writerow(['Author', 'Files Modified'])
     for author in author_files:
         files = sorted(author_files[author])
         writer.writerow([author, '; '.join(files)])
+
+# 5. author_files_modified_tree.csv (tree format)
+def build_tree(paths):
+    tree = {}
+    for path in paths:
+        parts = path.split(os.sep)
+        d = tree
+        for part in parts:
+            d = d.setdefault(part, {})
+    return tree
+
+def tree_to_lines(tree, prefix=""):
+    lines = []
+    for name, subtree in sorted(tree.items()):
+        lines.append(f"{prefix}{name}")
+        if subtree:
+            lines += tree_to_lines(subtree, prefix + "  ")
+    return lines
+
+with open('stats/author_files_modified_tree.csv', 'w', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(['Author', 'Files Modified Tree'])
+    for author in author_files:
+        files = sorted(author_files[author])
+        tree = build_tree(files)
+        lines = tree_to_lines(tree)
+        first = True
+        for line in lines:
+            if first:
+                writer.writerow([author, line])
+                first = False
+            else:
+                writer.writerow(["", line])
