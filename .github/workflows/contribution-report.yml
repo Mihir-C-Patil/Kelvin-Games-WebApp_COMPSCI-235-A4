@@ -24,6 +24,9 @@ jobs:
       - name: Run commit stats script
         run: python generate_commit_stats.py
 
+      - name: Install Graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
+
       - name: Archive stats output
         uses: actions/upload-artifact@v4
         with:
