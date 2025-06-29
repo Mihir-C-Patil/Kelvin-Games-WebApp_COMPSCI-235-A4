@@ -4,7 +4,7 @@ from collections import defaultdict
 from git import Repo
 
 repo = Repo(os.getcwd())
-main_branch = repo.heads.main
+main_branch = "main"  # Adjust if your main branch name is different
 
 author_commits = defaultdict(int)
 author_lines = defaultdict(int)
@@ -18,18 +18,27 @@ for commit in repo.iter_commits(main_branch, no_merges=True):
     author = commit.author.name
     author_commits[author] += 1
 
-    # Handle stats for first commit
+    msg = commit.message.lower()
+    for prefix in ['frontend/', 'backend/', 'testing/']:
+        if msg.startswith(prefix):
+            author_prefixes[author][prefix] += 1
+
+    # Handle stats
     if commit.parents:
-        diff = commit.diff(commit.parents[0], create_patch=True)
         stats = commit.stats
+        author_lines[author] += stats.total['insertions'] + stats.total['deletions']
+        for filepath in stats.files:
+            ext = os.path.splitext(filepath)[1] or 'NO_EXT'
+            author_filetypes[author][ext] += 1
+            author_files[author].add(filepath)
     else:
-        # Diff against the empty tree
-        diff = commit.diff(EMPTY_TREE, create_patch=True)
-        stats = repo.git.diff('--numstat', EMPTY_TREE, commit.hexsha)
-        # Parse numstat output manually for lines changed
+        # Initial commit: diff against empty tree
+        stats_raw = repo.git.diff('--numstat', EMPTY_TREE, commit.hexsha)
+        lines = stats_raw.strip().split('\n')
         insertions = deletions = 0
-        files_touched = []
-        for line in stats.splitlines():
+        for line in lines:
+            if not line.strip():
+                continue
             parts = line.split('\t')
             if len(parts) >= 3:
                 ins, dels, path = parts
@@ -41,28 +50,10 @@ for commit in repo.iter_commits(main_branch, no_merges=True):
                     deletions += int(dels)
                 except ValueError:
                     pass
-                files_touched.append(path)
+                ext = os.path.splitext(path)[1] or 'NO_EXT'
+                author_filetypes[author][ext] += 1
+                author_files[author].add(path)
         author_lines[author] += insertions + deletions
-        for path in files_touched:
-            ext = os.path.splitext(path)[1] or 'NO_EXT'
-            author_filetypes[author][ext] += 1
-            author_files[author].add(path)
-        # Continue with prefixes
-        msg = commit.message.lower()
-        for prefix in ['frontend/', 'backend/', 'testing/']:
-            if msg.startswith(prefix):
-                author_prefixes[author][prefix] += 1
-        continue
-
-    author_lines[author] += stats.total['insertions'] + stats.total['deletions']
-    msg = commit.message.lower()
-    for prefix in ['frontend/', 'backend/', 'testing/']:
-        if msg.startswith(prefix):
-            author_prefixes[author][prefix] += 1
-    for filepath, fstats in stats.files.items():
-        ext = os.path.splitext(filepath)[1] or 'NO_EXT'
-        author_filetypes[author][ext] += 1
-        author_files[author].add(filepath)
 
 os.makedirs('stats', exist_ok=True)
 
