@@ -4,19 +4,56 @@ from collections import defaultdict
 from git import Repo
 
 repo = Repo(os.getcwd())
-main_branch = repo.heads.main  # You can change this if your main branch is named differently
+main_branch = repo.heads.main
 
-# Helper structures
 author_commits = defaultdict(int)
 author_lines = defaultdict(int)
 author_prefixes = defaultdict(lambda: {'frontend/': 0, 'backend/': 0, 'testing/': 0})
 author_filetypes = defaultdict(lambda: defaultdict(int))
 author_files = defaultdict(set)
 
+EMPTY_TREE = '4b825dc642cb6eb9a060e54bf8d69288fbee4904'
+
 for commit in repo.iter_commits(main_branch, no_merges=True):
     author = commit.author.name
     author_commits[author] += 1
-    stats = commit.stats
+
+    # Handle stats for first commit
+    if commit.parents:
+        diff = commit.diff(commit.parents[0], create_patch=True)
+        stats = commit.stats
+    else:
+        # Diff against the empty tree
+        diff = commit.diff(EMPTY_TREE, create_patch=True)
+        stats = repo.git.diff('--numstat', EMPTY_TREE, commit.hexsha)
+        # Parse numstat output manually for lines changed
+        insertions = deletions = 0
+        files_touched = []
+        for line in stats.splitlines():
+            parts = line.split('\t')
+            if len(parts) >= 3:
+                ins, dels, path = parts
+                try:
+                    insertions += int(ins)
+                except ValueError:
+                    pass
+                try:
+                    deletions += int(dels)
+                except ValueError:
+                    pass
+                files_touched.append(path)
+        author_lines[author] += insertions + deletions
+        for path in files_touched:
+            ext = os.path.splitext(path)[1] or 'NO_EXT'
+            author_filetypes[author][ext] += 1
+            author_files[author].add(path)
+        # Continue with prefixes
+        msg = commit.message.lower()
+        for prefix in ['frontend/', 'backend/', 'testing/']:
+            if msg.startswith(prefix):
+                author_prefixes[author][prefix] += 1
+        continue
+
     author_lines[author] += stats.total['insertions'] + stats.total['deletions']
     msg = commit.message.lower()
     for prefix in ['frontend/', 'backend/', 'testing/']:
