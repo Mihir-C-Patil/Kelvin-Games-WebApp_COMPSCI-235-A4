@@ -92,7 +92,7 @@ with open('stats/author_files_modified.csv', 'w', newline='') as f:
         files = sorted(author_files[author])
         writer.writerow([author, '; '.join(files)])
 
-# 5. author_files_modified_tree.csv (tree format)
+# 5. author_files_modified_tree.csv (tree format, indented via columns)
 def build_tree(paths):
     tree = {}
     for path in paths:
@@ -102,25 +102,33 @@ def build_tree(paths):
             d = d.setdefault(part, {})
     return tree
 
-def tree_to_lines(tree, prefix=""):
-    lines = []
+def tree_to_csv_rows(tree, prefix=None):
+    if prefix is None:
+        prefix = []
+    rows = []
     for name, subtree in sorted(tree.items()):
-        lines.append(f"{prefix}{name}")
+        row = [''] * len(prefix) + [name]
+        rows.append(row)
         if subtree:
-            lines += tree_to_lines(subtree, prefix + "  ")
-    return lines
+            rows.extend(tree_to_csv_rows(subtree, prefix + [name]))
+    return rows
+
+MAX_DEPTH = 10  # increase if you have deeper folders
 
 with open('stats/author_files_modified_tree.csv', 'w', newline='') as f:
     writer = csv.writer(f)
-    writer.writerow(['Author', 'Files Modified Tree'])
+    header = ['Author'] + [f'Level {i}' for i in range(1, MAX_DEPTH+1)]
+    writer.writerow(header)
     for author in author_files:
         files = sorted(author_files[author])
         tree = build_tree(files)
-        lines = tree_to_lines(tree)
+        rows = tree_to_csv_rows(tree)
         first = True
-        for line in lines:
+        for row in rows:
+            # Pad row to max depth
+            row += [''] * (MAX_DEPTH - len(row))
             if first:
-                writer.writerow([author, line])
+                writer.writerow([author] + row)
                 first = False
             else:
-                writer.writerow(["", line])
+                writer.writerow([''] + row)
