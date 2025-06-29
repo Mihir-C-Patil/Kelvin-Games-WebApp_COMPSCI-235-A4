@@ -1,8 +1,13 @@
 import os
 import subprocess
 import csv
+import requests
 from collections import defaultdict
+from datetime import datetime
 import matplotlib.pyplot as plt
+
+GITHUB_REPO = os.getenv('GITHUB_REPOSITORY', '')
+GITHUB_TOKEN = os.getenv('GITHUB_TOKEN', '')
 
 # Ensure reports directory exists
 os.makedirs('reports/charts', exist_ok=True)
@@ -12,6 +17,7 @@ def run_git_command(args):
     return result.stdout.strip()
 
 def get_commit_authors():
+    """Get all commit authors using git shortlog."""
     result = run_git_command(['shortlog', '-sne'])
     authors = []
     for line in result.split('\n'):
@@ -23,10 +29,12 @@ def get_commit_authors():
     return authors
 
 def get_commit_hashes_by_author(author_name):
+    """Return list of commit hashes for a given author."""
     log = run_git_command(['log', '--author=' + author_name, '--pretty=format:%H'])
     return log.splitlines()
 
 def get_commit_details(commit_hash):
+    """Return stats for a specific commit."""
     show = run_git_command(['show', '--stat', '--oneline', commit_hash])
     diff = run_git_command(['show', '--shortstat', commit_hash])
     lines_added = 0
@@ -41,6 +49,18 @@ def get_commit_details(commit_hash):
     files = run_git_command(['show', '--pretty=""', '--name-only', commit_hash]).splitlines()
     return lines_added, lines_deleted, files
 
+def get_github_username(commit_hash):
+    """Query GitHub API to get the username for a commit."""
+    if not GITHUB_TOKEN or not GITHUB_REPO:
+        return None
+    url = f'https://api.github.com/repos/{GITHUB_REPO}/commits/{commit_hash}'
+    headers = {'Authorization': f'token {GITHUB_TOKEN}'}
+    resp = requests.get(url, headers=headers)
+    if resp.status_code == 200:
+        data = resp.json()
+        return data['author']['login'] if data['author'] else None
+    return None
+
 # Main data structures
 author_stats = defaultdict(lambda: {'commits': 0, 'files': set(), 'lines_added': 0, 'lines_deleted': 0})
 file_changes = defaultdict(int)
@@ -53,21 +73,23 @@ for _, author in authors:
     author_email = author.split('<')[-1].strip('>')
     commit_hashes = get_commit_hashes_by_author(author_email)
     for commit in commit_hashes:
+        username = get_github_username(commit) or author
         lines_added, lines_deleted, files = get_commit_details(commit)
 
-        author_stats[author]['commits'] += 1
-        author_stats[author]['lines_added'] += lines_added
-        author_stats[author]['lines_deleted'] += lines_deleted
+        author_stats[username]['commits'] += 1
+        author_stats[username]['lines_added'] += lines_added
+        author_stats[username]['lines_deleted'] += lines_deleted
         for f in files:
-            author_stats[author]['files'].add(f)
-            file_changes[(author, f)] += 1
+            author_stats[username]['files'].add(f)
+            file_changes[(username, f)] += 1
             ext = os.path.splitext(f)[-1]
-            file_types[author][ext] += 1
+            file_types[username][ext] += 1
 
+        # prefix stats
         show_msg = run_git_command(['log', '-1', '--pretty=%B', commit])
-        for prefix in ['frontend/', 'backend/', 'testing/']:
+        for prefix in ['frontend/', 'backend/', 'testing/', 'infra/']:
             if show_msg.strip().startswith(prefix):
-                prefix_counts[author][prefix] += 1
+                prefix_counts[username][prefix] += 1
 
 # Write CSVs
 with open('reports/contribution_report.csv', 'w', newline='') as f:
