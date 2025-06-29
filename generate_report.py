@@ -1,136 +1,65 @@
-import os
-import subprocess
 import csv
-import requests
+import os
 from collections import defaultdict
-from datetime import datetime
-import matplotlib.pyplot as plt
+from git import Repo
 
-GITHUB_REPO = os.getenv('GITHUB_REPOSITORY', '')
-GITHUB_TOKEN = os.getenv('GITHUB_TOKEN', '')
+repo = Repo(os.getcwd())
+main_branch = repo.heads.main  # You can change this if your main branch is named differently
 
-# Ensure reports directory exists
-os.makedirs('reports/charts', exist_ok=True)
+# Helper structures
+author_commits = defaultdict(int)
+author_lines = defaultdict(int)
+author_prefixes = defaultdict(lambda: {'frontend/': 0, 'backend/': 0, 'testing/': 0})
+author_filetypes = defaultdict(lambda: defaultdict(int))
+author_files = defaultdict(set)
 
-def run_git_command(args):
-    result = subprocess.run(['git'] + args, stdout=subprocess.PIPE, text=True)
-    return result.stdout.strip()
+for commit in repo.iter_commits(main_branch, no_merges=True):
+    author = commit.author.name
+    author_commits[author] += 1
+    stats = commit.stats
+    author_lines[author] += stats.total['insertions'] + stats.total['deletions']
+    msg = commit.message.lower()
+    for prefix in ['frontend/', 'backend/', 'testing/']:
+        if msg.startswith(prefix):
+            author_prefixes[author][prefix] += 1
+    for filepath, fstats in stats.files.items():
+        ext = os.path.splitext(filepath)[1] or 'NO_EXT'
+        author_filetypes[author][ext] += 1
+        author_files[author].add(filepath)
 
-def get_commit_authors():
-    """Get all commit authors using git shortlog."""
-    result = run_git_command(['shortlog', '-sne'])
-    authors = []
-    for line in result.split('\n'):
-        if line.strip():
-            parts = line.strip().split('\t')
-            if len(parts) == 2:
-                commit_count, author = parts
-                authors.append((int(commit_count.strip()), author.strip()))
-    return authors
+os.makedirs('stats', exist_ok=True)
 
-def get_commit_hashes_by_author(author_name):
-    """Return list of commit hashes for a given author."""
-    log = run_git_command(['log', '--author=' + author_name, '--pretty=format:%H'])
-    return log.splitlines()
-
-def get_commit_details(commit_hash):
-    """Return stats for a specific commit."""
-    show = run_git_command(['show', '--stat', '--oneline', commit_hash])
-    diff = run_git_command(['show', '--shortstat', commit_hash])
-    lines_added = 0
-    lines_deleted = 0
-    if "insertion" in diff or "deletion" in diff:
-        parts = diff.split(',')
-        for part in parts:
-            if 'insertion' in part:
-                lines_added += int(''.join(filter(str.isdigit, part)))
-            elif 'deletion' in part:
-                lines_deleted += int(''.join(filter(str.isdigit, part)))
-    files = run_git_command(['show', '--pretty=""', '--name-only', commit_hash]).splitlines()
-    return lines_added, lines_deleted, files
-
-def get_github_username(commit_hash):
-    """Query GitHub API to get the username for a commit."""
-    if not GITHUB_TOKEN or not GITHUB_REPO:
-        return None
-    url = f'https://api.github.com/repos/{GITHUB_REPO}/commits/{commit_hash}'
-    headers = {'Authorization': f'token {GITHUB_TOKEN}'}
-    resp = requests.get(url, headers=headers)
-    if resp.status_code == 200:
-        data = resp.json()
-        return data['author']['login'] if data['author'] else None
-    return None
-
-# Main data structures
-author_stats = defaultdict(lambda: {'commits': 0, 'files': set(), 'lines_added': 0, 'lines_deleted': 0})
-file_changes = defaultdict(int)
-file_types = defaultdict(lambda: defaultdict(int))
-prefix_counts = defaultdict(lambda: defaultdict(int))
-
-authors = get_commit_authors()
-
-for _, author in authors:
-    author_email = author.split('<')[-1].strip('>')
-    commit_hashes = get_commit_hashes_by_author(author_email)
-    for commit in commit_hashes:
-        username = get_github_username(commit) or author
-        lines_added, lines_deleted, files = get_commit_details(commit)
-
-        author_stats[username]['commits'] += 1
-        author_stats[username]['lines_added'] += lines_added
-        author_stats[username]['lines_deleted'] += lines_deleted
-        for f in files:
-            author_stats[username]['files'].add(f)
-            file_changes[(username, f)] += 1
-            ext = os.path.splitext(f)[-1]
-            file_types[username][ext] += 1
-
-        # prefix stats
-        show_msg = run_git_command(['log', '-1', '--pretty=%B', commit])
-        for prefix in ['frontend/', 'backend/', 'testing/', 'infra/']:
-            if show_msg.strip().startswith(prefix):
-                prefix_counts[username][prefix] += 1
-
-# Write CSVs
-with open('reports/contribution_report.csv', 'w', newline='') as f:
+# 1. author_commit_stats.csv
+with open('stats/author_commit_stats.csv', 'w', newline='') as f:
     writer = csv.writer(f)
-    writer.writerow(['Author', 'Commits', 'Files Changed', 'Lines Added', 'Lines Deleted'])
-    for author, stats in author_stats.items():
-        writer.writerow([author, stats['commits'], len(stats['files']), stats['lines_added'], stats['lines_deleted']])
+    writer.writerow(['Author', 'Commits', 'Lines Changed'])
+    for author in author_commits:
+        writer.writerow([author, author_commits[author], author_lines[author]])
 
-with open('reports/file_list.csv', 'w', newline='') as f:
+# 2. author_commit_prefixes.csv
+with open('stats/author_commit_prefixes.csv', 'w', newline='') as f:
     writer = csv.writer(f)
-    writer.writerow(['Author', 'Filename', 'Change Count'])
-    for (author, fname), count in file_changes.items():
-        writer.writerow([author, fname, count])
+    writer.writerow(['Author', 'frontend/', 'backend/', 'testing/'])
+    for author in author_prefixes:
+        p = author_prefixes[author]
+        writer.writerow([author, p['frontend/'], p['backend/'], p['testing/']])
 
-with open('reports/file_type_breakdown.csv', 'w', newline='') as f:
+# 3. author_filetypes.csv
+filetypes = set()
+for d in author_filetypes.values():
+    filetypes.update(d.keys())
+filetypes = sorted(filetypes)
+with open('stats/author_filetypes.csv', 'w', newline='') as f:
     writer = csv.writer(f)
-    writer.writerow(['Author', 'File Type', 'Count'])
-    for author, ftypes in file_types.items():
-        for ext, count in ftypes.items():
-            writer.writerow([author, ext, count])
+    writer.writerow(['Author'] + filetypes)
+    for author in author_filetypes:
+        row = [author] + [author_filetypes[author].get(ft, 0) for ft in filetypes]
+        writer.writerow(row)
 
-with open('reports/commit_prefix_breakdown.csv', 'w', newline='') as f:
+# 4. author_files_modified.csv
+with open('stats/author_files_modified.csv', 'w', newline='') as f:
     writer = csv.writer(f)
-    writer.writerow(['Author', 'Prefix', 'Commit Count'])
-    for author, prefix_data in prefix_counts.items():
-        for prefix, count in prefix_data.items():
-            writer.writerow([author, prefix, count])
-
-# Charts
-def save_bar_chart(data, title, ylabel, filename):
-    plt.figure(figsize=(10, 5))
-    names = list(data.keys())
-    values = list(data.values())
-    plt.barh(names, values, color='skyblue')
-    plt.xlabel(ylabel)
-    plt.title(title)
-    plt.tight_layout()
-    plt.savefig(f'reports/charts/{filename}')
-    plt.close()
-
-save_bar_chart({k: v['commits'] for k, v in author_stats.items()}, 'Commits per Author', 'Commits', 'commits_per_author.png')
-save_bar_chart({k: v['lines_added'] for k, v in author_stats.items()}, 'Lines Added per Author', 'Lines Added', 'lines_added_per_author.png')
-save_bar_chart({k: v['lines_deleted'] for k, v in author_stats.items()}, 'Lines Deleted per Author', 'Lines Deleted', 'lines_deleted_per_author.png')
-
+    writer.writerow(['Author', 'Files Modified'])
+    for author in author_files:
+        files = sorted(author_files[author])
+        writer.writerow([author, '; '.join(files)])
