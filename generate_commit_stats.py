@@ -134,11 +134,12 @@ with open('stats/author_files_modified_tree.csv', 'w', newline='') as f:
             else:
                 writer.writerow([''] + row)
 
-# 6. Generate a PNG tree image per author using Graphviz
+# 6. Generate a portrait, compact PNG tree image per author using Graphviz
 def write_dot(tree, parent, lines, prefix=""):
     for name, subtree in sorted(tree.items()):
         node = f"{prefix}{name}".replace('.', '_').replace('-', '_').replace('/', '_')
-        lines.append(f'"{parent}" -> "{node}";')
+        # Use undirected edge for compact tree, could also use -> for directed
+        lines.append(f'"{parent}" -- "{node}";')
         if subtree:
             write_dot(subtree, node, lines, prefix + name + "/")
 
@@ -149,6 +150,10 @@ def generate_tree_image(author, files, outdir):
     png_filename = os.path.join(outdir, f"{safe_author}_tree.png")
     with open(dot_filename, "w") as f:
         f.write('digraph G {\n')
+        f.write('    rankdir=TB;\n')  # Portrait (top-down) orientation
+        f.write('    edge [dir=none];\n')
+        f.write('    node [shape=box, fontsize=10, height=0.2, width=1, style=filled, fillcolor="#f9f9f9"];\n')
+        f.write('    graph [dpi=150];\n')
         f.write(f'"{author}" [shape=box, style=filled, color=lightblue];\n')
         lines = []
         write_dot(tree, author, lines)
@@ -156,6 +161,8 @@ def generate_tree_image(author, files, outdir):
         f.write('\n}\n')
     try:
         subprocess.run(['dot', '-Tpng', dot_filename, '-o', png_filename], check=True)
+        # Remove the .dot file to keep only the image if you like
+        # os.remove(dot_filename)
     except Exception as e:
         print(f"Graphviz image generation failed for {author}: {e}")
 
