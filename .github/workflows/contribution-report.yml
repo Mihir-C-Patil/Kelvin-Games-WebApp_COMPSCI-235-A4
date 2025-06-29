@@ -12,7 +12,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Fetch all history for all branches and tags
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -28,5 +28,5 @@ jobs:
       - name: Archive stats output
         uses: actions/upload-artifact@v4
         with:
-          name: commit-stats
+          name: commit-stats-${{ github.event.repository.name }}
           path: stats/
